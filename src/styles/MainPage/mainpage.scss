@@ -1,0 +1,170 @@
+.mainpage {
+  width: 393px;
+  height: 200vh;
+  background-color: #f9fafb;
+  padding: 0 16px;
+  .mainpage-section {
+    .map {
+      width: 100%;
+      height: 100%;
+    }
+    .map-svg {
+      max-width: 400px;
+      height: auto;
+      g {
+        cursor: pointer;
+        transition: all 0.3s ease;
+        transform: translateY(10px);
+        &.hovered {
+          filter: drop-shadow(0 0px 10px rgba(0, 0, 0, 0.2));
+          path {
+            fill: url(#Gradient);
+            stroke: #2c94a0;
+          }
+          text {
+            fill: white;
+          }
+        }
+
+        path {
+          fill: white;
+          stroke: #d1d5db;
+          transition: all 0.3s ease;
+        }
+        text {
+          fill: #999999;
+          transition: all 0.3s ease;
+          .large-text {
+            font-size: 16px;
+            font-weight: 800;
+          }
+          .small-text {
+            font-size: 9px;
+          }
+        }
+      }
+    }
+
+    .btn-wrap {
+      width: 100%;
+      display: flex;
+      gap: 16px;
+
+      button {
+        position: relative;
+        flex: 1;
+        border-radius: 10px;
+        border: 0;
+        outline: none;
+        background-color: #ffffff;
+        box-shadow: 0 0 15px rgba($color: #37b7c4, $alpha: 0.2);
+        text-align: right;
+        padding: 15px 12px;
+        cursor: pointer;
+        &:nth-of-type(2) {
+          .top {
+            color: #a7d28b;
+          }
+        }
+
+        .top {
+          font-size: 14px;
+          color: #37b7c4;
+        }
+        .bottom {
+          p,
+          h3 {
+            margin: 0;
+          }
+          p {
+            font-size: 9px;
+            color: #999999;
+          }
+          h3 {
+            margin-top: 5px;
+            font-size: 18px;
+          }
+        }
+        .icon {
+          position: absolute;
+          left: 10px;
+          top: -20px;
+        }
+      }
+    }
+    .comming {
+      .title {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap: 10px;
+      }
+      .comming-item {
+        background-color: #fff;
+        width: 100%;
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        .left {
+          flex: 0.4;
+          display: block;
+          width: 100%;
+          height: 100%;
+          background-color: #666666;
+          border-radius: 8px;
+        }
+        .right {
+          flex: 1;
+          width: 100%;
+          .top {
+            display: flex;
+            justify-content: space-between;
+
+            .wrap {
+              p {
+                font-size: 16px;
+              }
+              span {
+                font-size: 12px;
+                color: #666666;
+              }
+            }
+          }
+          .countdown-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .countdown-item {
+            text-align: center;
+            gap: 20px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 8px;
+            .countdown-label {
+              font-size: 8px;
+              color: #999999;
+              text-transform: uppercase;
+              margin-top: 5px;
+            }
+            .countdown-value {
+              font-size: 28px; /* 큰 숫자 */
+              font-weight: 700;
+              color: #333333;
+            }
+          }
+
+          .countdown-separator {
+            font-size: 4em;
+            color: #cccccc;
+            font-weight: 100;
+          }
+        }
+      }
+    }
+  }
+}
