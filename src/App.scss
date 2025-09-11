@@ -1,4 +1,5 @@
 @import "./styles/global.scss";
+@import "./styles/Popup.scss";
 
 
 
@@ -8,11 +9,11 @@
 //FestivalList
 
 //FestivalMap
-
+@import "./styles/FestivalMap/MainMap.scss"
 //FestivalCalendar
 
 //SearchPage
-@import "./styles/SearchPage/Search.scss";
+
 //SignUp
 
 //LoginPage

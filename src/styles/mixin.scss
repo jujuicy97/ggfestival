@@ -27,13 +27,13 @@
 //본문 큰 글씨
 @mixin body-l-style{
     font-size: clamp(16px,1.5vw,18px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.5;
 }
 //본문 기본
 @mixin body-m-style{
     font-size: clamp(14px,1.3vw,16px);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.5;
 }
 //보조 텍스트, 설명
@@ -80,24 +80,24 @@
 }
 //기본 버튼
 @mixin btn-basic{
-    @include body-l-style();
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
     background-color: var(--primary-500);
     color: var(--font-white);
-    padding: 14px 0;
-    width: 100%;
-    border-radius: 16px;
+    @include body-l-style();
     &:hover{
         background-color: var(--primary-600);
     }
 }
 //작은 버튼(비활성화)
 @mixin btn-small-gray{
-    @include body-l-style();
-    padding: 14px 0;
     width: 100%;
+    height: 50px;
     background-color: var(--gray-100);
     color: var(--gray-300);
-    border-radius: 16px;
+    border-radius: 15px;
+    @include body-l-style();
     &:hover{
         background-color: var(--gray-300);
         color: var(--gray-white);
@@ -105,13 +105,30 @@
 }
 //작은 버튼(활성화)
 @mixin btn-small-color{
-    @include body-l-style();
-    padding: 14px 0;
     width: 100%;
+    height: 50px;
     background-color: var(--primary-500);
     color: var(--font-white);
-    border-radius: 16px;
+    border-radius: 15px;
+    @include body-l-style();
     &:hover{
         background-color: var(--primary-600);
+    }
+}
+
+// input 스타일
+@mixin input-style {
+    width: 100%;
+    height: 50px;
+    background-color: var(--gray-50);
+    padding: 0px 15px;
+    border-radius: 15px;
+    border: none;
+    @include body-m-style();
+    &::placeholder {
+        color: var(--gray-300);
+    }
+    &:focus {
+        outline: none;
     }
 }
