@@ -1,11 +1,10 @@
 @import "./styles/global.scss";
 
-
-
 /* 각각 맞는 Page아래에 리스트업해주세요! */
 //MainPage
 
 //FestivalList
+@import "./styles/FestivalList/FestivalList.scss";
 
 //FestivalMap
 
@@ -16,6 +15,7 @@
 //SignUp
 
 //LoginPage
+@import "./styles/LoginPage/Login.scss";
 
 //ID&PW
 
