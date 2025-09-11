@@ -1,9 +1,16 @@
+import "./App.scss";
+import { BrowserRouter, Router, Route, Routes } from 'react-router-dom';
+import MainMap from './components/FestivalMap/MainMap'
+import MainPageTest from './components/MainPageTest';
 
 const App = () => {
   return (
-    <div>
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPageTest/>}/>
+        <Route path="/mainMap" element={<MainMap />}/>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

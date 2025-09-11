@@ -1,0 +1,27 @@
+.main-map-wrap {
+    position: relative;
+  .map-notice {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray-white);
+    width: 200px;
+    height: 30px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+    span{
+        color: var(--primary-500);
+        padding: 0 3px;
+    }
+    .question{
+        font-size: 13px;
+        color: var(--gray-300);
+        margin-left: 3px;
+    }
+  }
+}
