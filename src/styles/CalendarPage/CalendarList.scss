@@ -1,0 +1,73 @@
+.calendar-list {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--gray-white);
+  @include flex-layout(column, center, center);
+  gap: 15px;
+  .list-title {
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid var(--gray-100);
+    @include flex-layout(row, flex-start, center);
+    gap: 5px;
+    h3 {
+      @include h3-style();
+      color: var(--primary-500);
+    }
+    h4 {
+      @include h4-style();
+      color: var(--gray-700);
+    }
+    p {
+      font-size: 12px;
+      line-height: 22px;
+      color: var(--gray-500);
+      span {
+        color: var(--gray-900);
+      }
+    }
+  }
+  .card-wrap {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    .festival-card {
+      @include flex-layout(column, flex-start, flex-start);
+      gap: 5px;
+      position: relative;
+      .img {
+        width: 100%;
+        height: 138px;
+        border-radius: 5px;
+        background-color: lightgray;
+      }
+      .card-badge {
+        padding: 10px;
+        position: absolute;
+        top: 0; left: 0;
+        // z-index: 100;
+        @include flex-layout(row, space-between, flex-start);
+        p {
+          width: 50px;
+          padding: 5px 10px;
+          background-color: var(--secondary-500);
+          color: var(--gray-white);
+          @include caption-style();
+          border-radius: 50px;
+        }
+      }
+      .card-content {
+        @include flex-layout(column, flex-start, flex-start);
+        h2 {
+          @include body-l-style();
+          color: var(--gray-900);
+        }
+        p {
+          @include caption-style();
+          color: var(--gray-400);
+        }
+      }
+    }
+  }
+}

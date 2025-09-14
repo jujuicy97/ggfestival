@@ -1,0 +1,124 @@
+// 리액트 캘린더 기존 상단 네비게이션 (좌우 화살표, 연도&월 표시)
+.react-calendar__navigation {
+  display: none;
+}
+
+// 캘린더 전체 감싸는 wrap
+#calendar {
+  width: 100%;
+  @include flex-layout(column);
+  background-position: center top;
+  background-size: 130% auto;
+  background-repeat: no-repeat;
+  * {
+    font-family: 'Pretendard Variable', sans-serif !important;
+  }
+}
+.react-calendar {
+  padding: 32px;
+  width: 100%;
+  max-width: 768px !important;
+  background: transparent !important; 
+}
+
+// 리액트 캘린더 상단 네비게이션 임의로 생성
+.calendar-navigation {
+  width: 100%;
+  // height: 100%;
+  @include flex-layout(row, space-between, center);
+  button {
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+    @include flex-layout();
+    color: var(--gray-300);
+    background: none;
+    border-radius: 50px;
+    @include h4-style();
+    transition: 0.5s;
+    &:hover {
+      background-color: var(--primary-200);
+      color: var(--gray-white);
+    }
+  }
+  .year-month-wrap {
+    @include flex-layout(column);
+    .year {
+      @include body-m-style();
+      color: var(--gray-500);
+    }
+    .month {
+      @include h3-style();
+      color: var(--gray-900);
+    }
+  }
+}
+
+.react-calendar__month-view__weekdays {
+  margin-bottom: 15px;
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  place-content: center;
+  gap: 10px;
+}
+
+// 요일 표시 (일 월 화 수 목 금)
+.react-calendar__month-view__weekdays__weekday {
+  text-align: center;
+  text-decoration: none;
+  @include body-s-style();
+  color: var(--gray-500);
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.react-calendar__viewContainer {
+  width: 100%;
+}
+
+// 날짜 버튼
+.react-calendar__month-view__days {
+  width: 100%;
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  place-content: center;  /* align-content + justify-content */
+  align-items: center;    /* 세로 중앙 */
+  justify-items: center;  /* 가로 중앙 */
+  @include flex-layout();
+  gap: 10px;
+  button {
+    width: 100%;
+    min-width: 40px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: 0.3s;
+    // @include body-l-style();
+    font-weight: 400 !important;
+    font-size: 18px !important;
+    line-height: 21px !important;
+    color: var(--gray-900);
+    @include flex-layout(column, center, center);
+    .langth-text {
+      @include body-s-style();
+    }
+    &.other-month {
+      color: var(--gray-300);
+    }
+    &.react-calendar__tile--now {
+      background-color: var(--primary-100);
+      color: var(--primary-600);
+    }
+    &.react-calendar__tile--active {
+      background-color: var(--primary-500);
+      color: var(--gray-white);
+    }
+  }
+}
+
+// 선택한 날짜
+.react-calendar__tile--active {
+  background-color: var(--primary-500);
+  color: var(--gray-white);
+}
