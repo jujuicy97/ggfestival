@@ -20,3 +20,16 @@
 //ID&PW
 
 //MyPage
+@import "./styles/MyPage/mypage.scss";
+@import "./styles/MyPage/passwordcheck.scss";
+@import "./styles/MyPage/editinfo.scss";
+@import "./styles/MyPage/deleteacount.scss";
+@import "./styles/MyPage/deletecomplete.scss";
+@import "./styles/MyPage/commentlist.scss";
+@import "./styles/MyPage/mymarks.scss";
+
+//Menubar
+@import "./styles/Menubar/bottommenubar.scss";
+@import "./styles/Menubar/topmenubar.scss";
+
+@import "./styles/Popup.scss";
