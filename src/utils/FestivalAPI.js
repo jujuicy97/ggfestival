@@ -37,6 +37,7 @@ export const findUserId = async (userName, email) => {
 //3. 비밀번호 변경에 사용하는 api
 //필요한 정보: input에 입력된 name, userID, email에 맞는 비밀번호를 찾아서 새로운 비밀번호로 변경하기
 // 비밀번호 업데이트로 수정하기
+
 export const findInfo = async (userName, userID, email) => {
   const { data, error } = await supabase
     .from('users')
@@ -404,3 +405,4 @@ export const festivalDB = async (festivals) => {
     ])
   return { data, error };
 }  
+

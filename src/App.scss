@@ -19,6 +19,8 @@
 @import "./styles/FestivalDetail/CommentCreat.scss";
 
 //FestivalCalendar
+@import "./styles/CalendarPage/FestivalCalendar.scss";
+@import "./styles/CalendarPage/CalendarList.scss";
 
 //SearchPage
 
@@ -28,6 +30,7 @@
 @import "./styles/LoginPage/Login.scss";
 
 //ID&PW
+@import "./styles/FindPage/FindInformation.scss";
 
 //MyPage
 @import "./styles/MyPage/mypage.scss";
@@ -41,5 +44,3 @@
 //Menubar
 @import "./styles/Menubar/bottommenubar.scss";
 @import "./styles/Menubar/topmenubar.scss";
-
-@import "./styles/Popup.scss";
