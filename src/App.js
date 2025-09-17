@@ -18,9 +18,11 @@ import FindPage from "./components/FindPage/FindPage";
 import FestivalList from "./components/FestivalList/FestivalList";
 import Login from "./components/LoginPage/Login";
 import { useEffect, useState } from "react";
+import Search from './components/SearchPage/Search';
 
 const App = () => {
-
+const [searchWord,setSearchWord] = useState('');
+const [contentID,setContentID] = useState('');
 //현재 위치 설정
 const [baseLocate, setBaseLocate] = useState({
   lat: 37.54699,
@@ -51,6 +53,7 @@ const [errorMsg, setErrorMsg] = useState("");
       <div className="app-container">
         <Routes>
           <Route path="/" element={<Mainpage />} />
+          <Route path="/search" element={<Search setSearchWord={setSearchWord} setContentID={setContentID}/>}/>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/pwcheck" element={<PasswordCheck />} />
           <Route path="/editinfo" element={<EditInfo />} />

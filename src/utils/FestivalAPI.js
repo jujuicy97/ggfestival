@@ -38,7 +38,7 @@ export const findUserId = async (userName, email) => {
 //필요한 정보: input에 입력된 name, userID, email에 맞는 비밀번호를 찾아서 새로운 비밀번호로 변경하기
 // 비밀번호 업데이트로 수정하기
 
-export const findInfo = async (userName, userID, email) => {
+export const findInfoPw = async (userName, userID, email) => {
   const { data, error } = await supabase
     .from('users')
     .select('id')
@@ -406,3 +406,19 @@ export const festivalDB = async (festivals) => {
   return { data, error };
 }  
 
+//5개 랜덤으로 불러오기
+export const fetchFiveRandom = async ()=>{
+    const { data, error } = await supabase
+        .from('festivals')
+        .select('title, firstimage2, startdate, enddate, sigungucode, contentid')
+    return { data, error };
+}
+
+//상세페이지 축제
+export const fetchContentID = async (contentID) =>{
+    const { data, error } = await supabase
+        .from('festivals')
+        .select('*')
+        .eq('contentid',contentID)
+    return { data, error };
+}
