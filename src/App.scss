@@ -9,7 +9,17 @@
 //FestivalList
 
 //FestivalMap
-@import "./styles/FestivalMap/MainMap.scss"
+@import "./styles/FestivalMap/MainMap.scss";
+@import "./styles/FestivalMap/Swipe.scss";
+@import "./styles/FestivalMap/ControlBar.scss";
+
+//FestivalDetail
+@import "./styles/FestivalDetail/FestivalDetail.scss";
+@import "./styles/FestivalDetail/Dday.scss";
+@import "./styles/FestivalDetail/Menu.scss";
+@import "./styles/FestivalDetail/LoadFind.scss";
+@import "./styles/FestivalDetail/CommentCreat.scss";
+
 //FestivalCalendar
 
 //SearchPage

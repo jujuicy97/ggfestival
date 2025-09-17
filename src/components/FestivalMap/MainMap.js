@@ -5,6 +5,8 @@ import { Circle, CustomOverlayMap, Map, MapMarker, useKakaoLoader } from "react-
 import Swipe from "./Swipe";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import Popup from "../Popup";
+import { getDistance } from "../../utils/Distance";
+import { Allfestival } from "../../utils/FestivalAPI";
 
 //useKakaoLoader훅 사용하지 않을 때 스크립트로 동적 로딩하는 방법
 // //카카오 지도 api 스크립트 로드 함수
@@ -21,20 +23,6 @@ import Popup from "../Popup";
 //   document.head.appendChild(script);
 // };
 
-//1. 반경 계산 함수
-// getDistance 두 지점 간 거리를 미터단위로 계산해주는 함수
-
-const getDistance = (lat1, lng1, lat2, lng2) => {
-  const toRad = (deg) => (deg * Math.PI) / 180;
-  const R = 6371000; // 지구 반경 (미터)
-  const dLat = toRad(lat2 - lat1);
-  const dLng = toRad(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // 거리(미터)
-};
 
 const MainMap = () => {
   //지도 중심 좌표(내 위치) 및 에러 상태 관리
@@ -51,6 +39,25 @@ const MainMap = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
+//festival data 전체 가져오기
+    const [festivalData, setFestivalData] = useState([]);
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const { data, error } = await Allfestival();
+          if (error) {
+            console.error("축제 데이터 로드 실패");
+          } else {
+            setFestivalData(data);
+          }
+        } catch (err) {
+          console.log("예상치 못한 오류 발생", err);
+        }
+      };
+      fetchData();
+    }, []);
+    // console.log(festivalData);
 
   //현재 위치를 가져오는 geolocation 외부 API
   //avigator.geolocation 객체로 접근하여 getCurrentPosition 메서드를 호출하면 현재 위치를 비동기식으로 가져올 수 있음
@@ -70,33 +77,32 @@ const MainMap = () => {
     }
   }, []);
 
-  if (loading) return <div>지도 로딩 중...</div>;
-  if (error) return <div>지도 로딩 실패: {error.message}</div>;
+
 
   //거리 및 임시 데이터
-  const km = 20;
-  const latOffset = km / 111; // 위도 20km 이동
-  const lngOffset = km / (111 * Math.cos((baseLocate.lat * Math.PI) / 180)); // 경도 20km 이동
+  // const km = 20;
+  // const latOffset = km / 111; // 위도 20km 이동
+  // const lngOffset = km / (111 * Math.cos((baseLocate.lat * Math.PI) / 180)); // 경도 20km 이동
 
-  const festivalData = [
-    {
-      name: "화성행궁야간개장",
-      lat: baseLocate.lat + 0.09,
-      lng: baseLocate.lng,
-    },
-    {
-      name: "재즈페스티벌",
-      lat: baseLocate.lat,
-      lng: baseLocate.lng + lngOffset,
-    },
-  ];
+  // const festivalData = [
+  //   {
+  //     name: "화성행궁야간개장",
+  //     lat: baseLocate.lat + 0.09,
+  //     lng: baseLocate.lng,
+  //   },
+  //   {
+  //     name: "재즈페스티벌",
+  //     lat: baseLocate.lat,
+  //     lng: baseLocate.lng + lngOffset,
+  //   },
+  // ];
 
+
+  //
 //팝업 노출 함수
 const noteClick = ()=>{
     setShowPopup(true);
 }
-
-
   //카카오가 제공하는 객체 Map, MapMarker, CustomOverlayMap, Circle
   return (
     <div className="main-map-wrap">
@@ -154,7 +160,7 @@ const noteClick = ()=>{
             {/* 20km 반경 원  */}
             <Circle
               center={baseLocate} //원의 중심좌표
-              radius={20000} //미터 단위의 원의 반지름
+              radius={10000} //미터 단위의 원의 반지름
               strokeWeight={3} //선의 두께
               strokeColor="#FF0000" //선의 색깔
               strokeOpacity={0.5} //선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
@@ -162,17 +168,21 @@ const noteClick = ()=>{
               fillColor="#FFCCC" //채우기 색깔
               fillOpacity={0.2}
             />
+            {/* 축제 데이터와 거리 계산한 함수를 map으로 돌려서 20km반경 이내의 축제만 출력 */}
             {festivalData.map((festival) => {
               const distance = getDistance(
                 baseLocate.lat,
                 baseLocate.lng,
-                festival.lat,
-                festival.lng
+                Number(festival.mapy),
+                Number(festival.mapx)
               );
-              if (distance > 21000) return null;
+              // console.log(festival.title, distance);
+              // console.log(festivalData);
+              if (distance > 5000) return null;
+              
 
               return (
-                <div key={festival.name}>
+                <div key={festival.title}>
                   {/* 마커
                 <MapMarker
                   position={{lat: festival.lat, lng: festival.lng}}
@@ -185,17 +195,17 @@ const noteClick = ()=>{
                 /> */}
                   {/* 마커 위의 설명 div overlay */}
                   <CustomOverlayMap
-                    position={{ lat: festival.lat, lng: festival.lng }}
+                    position={{ lat: festival.mapy, lng: festival.mapx }}
                     yAnchor={1}
                   >
                     <div className="surround-customoverlay">
-                      <a href="#" target="_blank" rel="noreferrer">
-                        <img
+                      <a href="#" target="_blank" rel="noreferrer" className="overlay-box">
+                        {/* <img
                           src={process.env.PUBLIC_URL + "/surroundFestival.png"}
-                          alt={festival.name}
+                          alt={festival.title}
                           style={{ width: 100, height: 50 }}
-                        />
-                        <span className="title">{festival.name}</span>
+                        /> */}
+                        <span className="title">{festival.title}</span>
                       </a>
                     </div>
                   </CustomOverlayMap>
@@ -221,8 +231,7 @@ const noteClick = ()=>{
           </>
         )}
       </Map>
-      {/* <PullRelease /> */}
-      <Swipe />
+      <Swipe baseLocate={baseLocate}/>
     </div>
   );
 };
