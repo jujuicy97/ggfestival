@@ -74,6 +74,7 @@ const FestivalUpdate = () => {
                 await festivalDB(festivals);
                 await new Promise((resolve) => setTimeout(resolve, 500));
             }
+            console.log('완료');
         } catch(e){
             console.log(e);
         }

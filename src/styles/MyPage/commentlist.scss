@@ -1,0 +1,20 @@
+.comment-list {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  padding: 55px 16px 70px 16px;
+  .no-comment {
+    @include flex-layout(column);
+    width: 100%;
+    height: calc(100vh - 55px - 70px);
+    gap: 16px;
+    svg {
+      font-size: 5rem;
+      color: var(--gray-400);
+    }
+    p {
+      @include body-l-style();
+      color: var(--gray-400);
+    }
+  }
+}

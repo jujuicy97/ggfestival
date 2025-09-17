@@ -1,0 +1,56 @@
+.delete-account {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  padding: 55px 16px 70px 16px;
+  @include flex-layout(column, space-between);
+  .terms-wrap{
+    width: 100%;
+  }
+  h2 {
+    @include h2-style();
+    margin: 2rem 0;
+  }
+  .terms-box {
+    @include flex-layout(column, flex-start);
+    width: 100%;
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-300);
+    gap: 24px;
+    border-radius: 8px;
+    padding: 16px;
+
+    li{
+      @include body-m-style();
+      width: 100%;
+      color: var(--gray-500);
+      word-break: keep-all;
+    }
+  }
+  .agree-check {
+    @include flex-layout(row, flex-start);
+    @include body-m-style();
+    width: 100%;
+    margin-bottom: 16px;
+    color: var(--gray-500);
+    input {
+      margin-right: 8px;
+    }
+  }
+  .btn-wrap {
+  @include flex-layout(column);
+  width: 100%;
+  margin-bottom: 1rem;
+  button {
+    @include btn-basic();
+    width: 100%;
+    &:disabled{
+      @include btn-small-gray();
+      cursor: not-allowed;
+    }
+  }
+}
+}
+
+
+
