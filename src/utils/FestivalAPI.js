@@ -346,4 +346,29 @@ export const festivalDB = async(festivals)=>{
         }
 ])
     return {data,error};
-}  
+}
+
+//축제정보 전체 불러오기
+export const Allfestival = async ()=>{
+    const { data, error } = await supabase
+        .from('festivals')
+        .select('*')
+    return { data, error }
+}
+
+//5개 랜덤으로 불러오기
+export const fetchFiveRandom = async ()=>{
+    const { data, error } = await supabase
+        .from('festivals')
+        .select('title, firstimage2, startdate, enddate, sigungucode, contentid')
+    return { data, error };
+}
+
+//상세페이지 축제
+export const fetchContentID = async (contentID) =>{
+    const { data, error } = await supabase
+        .from('festivals')
+        .select('*')
+        .eq('contentid',contentID)
+    return { data, error };
+}
