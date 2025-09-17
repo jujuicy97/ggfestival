@@ -347,3 +347,12 @@ export const festivalDB = async(festivals)=>{
 ])
     return {data,error};
 }  
+
+
+//5. 축제 정보 전체 다 가져오기
+export const Allfestival = async()=>{
+    const {data, error} = await supabase
+    .from('festivals')
+    .select('*')
+    return {data,error};
+}

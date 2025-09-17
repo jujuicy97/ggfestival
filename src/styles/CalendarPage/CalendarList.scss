@@ -1,29 +1,38 @@
 .calendar-list {
   width: 100%;
+  height: 100%;
   padding: 15px;
+  margin-top: 500px;
   background-color: var(--gray-white);
   @include flex-layout(column, center, center);
   gap: 15px;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 0 20px 0 rgba(217, 217, 217, 0.50);
+  z-index: 1000;
   .list-title {
     width: 100%;
     padding: 10px;
+    margin-bottom: 3px;
     border-bottom: 1px solid var(--gray-100);
-    @include flex-layout(row, flex-start, center);
-    gap: 5px;
-    h3 {
-      @include h3-style();
-      color: var(--primary-500);
-    }
-    h4 {
-      @include h4-style();
-      color: var(--gray-700);
+    @include flex-layout(row, space-between, center);
+    .list-left {
+      @include flex-layout();
+      gap: 7px;
+      h3 {
+        @include h3-style();
+        color: var(--gray-700);
+        span {
+          color: var(--primary-500);
+        }
+      }
     }
     p {
-      font-size: 12px;
       line-height: 22px;
       color: var(--gray-500);
+      @include body-m-style();
       span {
-        color: var(--gray-900);
+        color: var(--gray-700);
+        @include h4-style();
       }
     }
   }
@@ -31,42 +40,85 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
+    row-gap: 1.5rem;
+    column-gap: 1.2rem;
     .festival-card {
       @include flex-layout(column, flex-start, flex-start);
-      gap: 5px;
+      gap: 8px;
       position: relative;
-      .img {
+      cursor: pointer;
+      > img {
         width: 100%;
-        height: 138px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
         border-radius: 5px;
-        background-color: lightgray;
       }
       .card-badge {
-        padding: 10px;
+        width: 100%;
+        padding: 1rem;
         position: absolute;
         top: 0; left: 0;
-        // z-index: 100;
-        @include flex-layout(row, space-between, flex-start);
+        @include flex-layout(row, space-between, center);
         p {
-          width: 50px;
-          padding: 5px 10px;
-          background-color: var(--secondary-500);
-          color: var(--gray-white);
-          @include caption-style();
+          padding: 0.7rem 1.5rem;
+          @include flex-layout();
+          @include body-s-style();
+          text-align: center;
           border-radius: 50px;
+          color: var(--gray-white);
+          box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+          &.status-on {
+            background-color: var(--primary-500);
+          }
+          &.status-off {
+            background-color: var(--secondary-600);
+          }
+          &.status-end {
+            background-color: var(--gray-500);
+            color: var(--gray-100);
+          }
+        }
+        img {
+          width: 20px;
+          height: 100%;
+          box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
         }
       }
       .card-content {
         @include flex-layout(column, flex-start, flex-start);
+        padding: 0 5px;
         h2 {
           @include body-l-style();
           color: var(--gray-900);
+          line-height: 20px;
+          padding-bottom: 3px;
         }
         p {
           @include caption-style();
           color: var(--gray-400);
         }
+      }
+    }
+
+    .empty-festival {
+      width: calc(100vw - 45px);
+      max-width: 750px;
+      height: calc(100vh - 600px);
+      @include flex-layout(column, center, center);
+      // gap: 5px;
+      svg {
+        font-size: 3rem;
+        color: var(--gray-500);
+        margin-bottom: 15px;
+      }
+      h4 {
+        @include h4-style();
+        color: var(--gray-700);
+        margin-bottom: 3px;
+      }
+      p {
+        @include body-m-style();
+        color: var(--gray-400);
       }
     }
   }

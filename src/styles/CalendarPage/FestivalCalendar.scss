@@ -6,16 +6,26 @@
 // 캘린더 전체 감싸는 wrap
 #calendar {
   width: 100%;
+  max-width: 768px;
   @include flex-layout(column);
-  background-position: center top;
-  background-size: 130% auto;
-  background-repeat: no-repeat;
+  word-break: keep-all;
   * {
     font-family: 'Pretendard Variable', sans-serif !important;
   }
 }
+.calendar-wrap {
+  width: 100%;
+  max-width: 768px;
+  height: 100%;
+  padding: 25px 0;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  position: fixed !important;
+  top: 0; left: 0;
+}
 .react-calendar {
-  padding: 32px;
+  padding: 25px 20px;
   width: 100%;
   max-width: 768px !important;
   background: transparent !important; 
@@ -26,6 +36,7 @@
   width: 100%;
   // height: 100%;
   @include flex-layout(row, space-between, center);
+  padding: 0 30px;
   button {
     width: 35px;
     height: 35px;
@@ -59,7 +70,7 @@
   display: grid !important;
   grid-template-columns: repeat(7, 1fr);
   place-content: center;
-  gap: 10px;
+  gap: 3px;
 }
 
 // 요일 표시 (일 월 화 수 목 금)
@@ -73,38 +84,39 @@
   }
 }
 
-.react-calendar__viewContainer {
-  width: 100%;
-}
-
 // 날짜 버튼
 .react-calendar__month-view__days {
   width: 100%;
+  height: 350px;
   display: grid !important;
   grid-template-columns: repeat(7, 1fr);
-  place-content: center;  /* align-content + justify-content */
-  align-items: center;    /* 세로 중앙 */
-  justify-items: center;  /* 가로 중앙 */
+  place-content: start;
+  align-items: start;
+  justify-items: start;
   @include flex-layout();
-  gap: 10px;
+  gap: 3px;
   button {
     width: 100%;
     min-width: 40px;
-    height: 60px;
+    height: 100%;
+    padding: 10px 0;
     border-radius: 10px;
     background-color: transparent;
     transition: 0.3s;
-    // @include body-l-style();
     font-weight: 400 !important;
     font-size: 18px !important;
     line-height: 21px !important;
-    color: var(--gray-900);
     @include flex-layout(column, center, center);
-    .langth-text {
+    .length-text {
       @include body-s-style();
+      color: var(--gray-500);
+      margin-top: 3px;
     }
     &.other-month {
       color: var(--gray-300);
+      .length-text {
+        color: var(--gray-300);
+      }
     }
     &.react-calendar__tile--now {
       background-color: var(--primary-100);
@@ -113,6 +125,9 @@
     &.react-calendar__tile--active {
       background-color: var(--primary-500);
       color: var(--gray-white);
+      .length-text {
+        color: var(--gray-white);
+      }
     }
   }
 }
