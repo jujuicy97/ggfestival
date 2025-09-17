@@ -1,0 +1,71 @@
+#Login {
+    max-width: 768px;
+    height: 100%;
+    padding: 0 16px;
+    gap: 12px;
+    @include flex-layout(column, space-between, center);
+
+    .header {
+        padding: 1rem;
+    }
+
+    .LoginLogo {
+        padding-top: 8rem;
+				padding-bottom: 3rem;
+    }
+
+    form {
+        @include flex-layout(column, center, center);
+        width: 100%;
+        gap: 1rem;
+
+        input {
+          width: 100%;
+          height: 5rem;
+          padding: 10px 1rem;
+          border-radius: 1rem;
+          border: none;
+          background-color: var(--gray-50);
+          @include body-m-style();
+					color: var(--gray-900);
+        }
+
+        .custom-input::placeholder {
+          color: var(--gray-300);
+        }
+				button{
+					@include btn-basic; 
+				}
+    }
+	.Login-btn1{
+		width: 100%;
+		padding: 0 10px;
+		@include body-m-style();
+		@include flex-layout(row, space-between, center);
+		button{
+			background-color: transparent;
+		}
+		ul{
+			@include flex-layout();
+			gap: 1rem;
+			color: var(--gray-400);
+		}
+	}
+	P{
+		padding-top: 7rem;
+		padding-bottom: 2rem;
+		@include body-l-style();
+		color: var(--gray-500);
+	}
+	.snsLogin{
+		width: 100%;
+		@include flex-layout(row,center,center);
+		button{
+			width: 10rem;
+			background-color: transparent;
+			&:hover{
+				filter: brightness(80%);
+			}
+		}
+	}
+}
