@@ -1,0 +1,16 @@
+.delete-complete{
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  padding: 55px 16px 70px 16px;
+  .top{
+    @include flex-layout(column);
+    svg{
+      color: var(--primary-500);
+      font-size: 8rem;
+    }
+    p{
+      @include body-m-style()
+    }
+  }
+}
