@@ -13,7 +13,9 @@
 
 import { IoAlertCircle } from "react-icons/io5";
 
+
 const Popup = ( {mainText, subText, btnText = "확인", onClose}) => {
+
   return (
     <div className="popup">
       <div className="popup-box">

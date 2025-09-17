@@ -1,20 +1,31 @@
 @import "./styles/global.scss";
+@import "./styles/Popup.scss";
 
 
 
 /* 각각 맞는 Page아래에 리스트업해주세요! */
 //MainPage
-
+@import "./styles/MainPage/mainpage.scss";
 //FestivalList
 
 //FestivalMap
+@import "./styles/FestivalMap/MainMap.scss";
+@import "./styles/FestivalMap/Swipe.scss";
+@import "./styles/FestivalMap/ControlBar.scss";
+
+//FestivalDetail
+@import "./styles/FestivalDetail/FestivalDetail.scss";
+@import "./styles/FestivalDetail/Dday.scss";
+@import "./styles/FestivalDetail/Menu.scss";
+@import "./styles/FestivalDetail/LoadFind.scss";
+@import "./styles/FestivalDetail/CommentCreat.scss";
 
 //FestivalCalendar
 @import "./styles/CalendarPage/FestivalCalendar.scss";
 @import "./styles/CalendarPage/CalendarList.scss";
 
 //SearchPage
-@import "./styles/SearchPage/Search.scss";
+
 //SignUp
 
 //LoginPage
@@ -23,6 +34,14 @@
 @import "./styles/FindPage/FindInformation.scss";
 
 //MyPage
+@import "./styles/MyPage/mypage.scss";
+@import "./styles/MyPage/passwordcheck.scss";
+@import "./styles/MyPage/editinfo.scss";
+@import "./styles/MyPage/deleteacount.scss";
+@import "./styles/MyPage/deletecomplete.scss";
+@import "./styles/MyPage/commentlist.scss";
+@import "./styles/MyPage/mymarks.scss";
 
-//Popup
-@import "./styles/Popup.scss";
+//Menubar
+@import "./styles/Menubar/bottommenubar.scss";
+@import "./styles/Menubar/topmenubar.scss";

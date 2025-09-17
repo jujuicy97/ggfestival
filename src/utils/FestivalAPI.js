@@ -1,3 +1,4 @@
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -268,6 +269,20 @@ export const deleteComment = async(id,userID)=>{
     return{data,error};
 };
 
+// 4. 모든 댓글 불러오기 api
+export const AllComments =  async(contentid)=>{
+    const {data,error} = await supabase
+    .from('comments')
+    .select(`*,
+        users:userid(
+        userName,
+        profile_image_url)`
+    )
+    .eq('contentid',contentid)
+    .order('created_at',{ascending:false}); //최신순으로 정렬
+    return {data,error};
+};
+
 //4. 찜하기 토글 기능 (찜 했으면 취소/안했으면 추가)에 사용하는 api
 export const addFavorites = async (userID, contentid) => {
     try{
@@ -319,6 +334,14 @@ export const addFavorites = async (userID, contentid) => {
         }
 };
 
+//5. 축제 정보 전체 다 가져오기
+export const Allfestival = async()=>{
+    const {data, error} = await supabase
+    .from('festivals')
+    .select('*')
+    return {data,error};
+}
+
 // ** festivals 데이터 저장하기 ** //
 // title, startdate, enddate, sigungucode ,contentid , addr1, telname, tel, usetimefestival, overview, 
 // mapx, mapy, agelimit, playtime
@@ -348,11 +371,3 @@ export const festivalDB = async(festivals)=>{
     return {data,error};
 }  
 
-
-//5. 축제 정보 전체 다 가져오기
-export const Allfestival = async()=>{
-    const {data, error} = await supabase
-    .from('festivals')
-    .select('*')
-    return {data,error};
-}
