@@ -15,6 +15,8 @@ import MainPageTest from './components/MainPageTest';
 import FestivalDetail from "./components/FestivalDetail/FestivalDetail";
 import FestivalCalendar from "./components/CalendarPage/FestivalCalendar";
 import FindPage from "./components/FindPage/FindPage";
+import FestivalList from "./components/FestivalList/FestivalList";
+import Login from "./components/LoginPage/Login";
 import { useEffect, useState } from "react";
 
 const App = () => {
@@ -44,11 +46,11 @@ const [errorMsg, setErrorMsg] = useState("");
 
   return (
     <BrowserRouter>
+
       <TopMenubar />
       <div className="app-container">
         <Routes>
           <Route path="/" element={<Mainpage />} />
-          <Route path="/mainMap" element={<MainMap />}/>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/pwcheck" element={<PasswordCheck />} />
           <Route path="/editinfo" element={<EditInfo />} />
@@ -56,6 +58,10 @@ const [errorMsg, setErrorMsg] = useState("");
           <Route path="/delete-complete" element={<DeleteComplete />} />
           <Route path="/comment-list" element={<CommentList/>} />
           <Route path="/my-marks" element={<MyMarks />} />
+          <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
+          <Route path="/festivals/:contentid" element={<FestivalDetail baseLocate={baseLocate}/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/list" element={<FestivalList/>}/>
           <Route path="/festivalCalendar" element={<FestivalCalendar /> } />
           <Route path="/find/*" element={<FindPage />} />
           <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
