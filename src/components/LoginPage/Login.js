@@ -2,25 +2,33 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchLogin } from '../../utils/FestivalAPI';
 import { saveUserInfo } from '../../utils/LocalStorage';
-import { GiConsoleController } from 'react-icons/gi';
+import Popup from '../Popup';
+
 
 const Login = () => {
   const [userID, setUserID] = useState('');
   const [password, setPassword] = useState('');
   const [popUp, setPopUp] = useState(false);
-  // const navigate = useNavigate('');
+  const [popUpContent, setPopUpContent] = useState({
+    mainText: "",
+    subText: "",
+    btnText: "확인",
+  });
+  const navigate = useNavigate('');
 
 
   const LoginSubmit = async (e) => {
     e.preventDefault();
     const { data, error } = await fetchLogin(userID, password)
     if(error) {
-      console.log('로그인 실패')
+      setPopUpContent({
+        mainText:"등록된 회원 정보가 없습니다",
+        subText:"아이디 또는 비밀번호를 다시 확인해 주세요"
+      })
       setPopUp(true)
     } else if (data){
-      console.log('로그인 성공')
       saveUserInfo(data)
-      // navigate('main')
+      navigate('/list')
     }
   }
   return (
@@ -54,7 +62,7 @@ const Login = () => {
       <li><button>비밀번호 재설정</button></li>
       </ul>
       </div>
-      <p>SNS계정으로 간편 로그인하세요</p>
+      <p className='sns-info'>SNS계정으로 간편 로그인하세요</p>
       <div className='snsLogin'>
       <button className='kakao'>
       <img
@@ -73,21 +81,13 @@ const Login = () => {
       alt="네이버 간편 로그인 이미지" />
       </button>
       </div>
-      
-      {
-        popUp && (
-          <div className="popup-wrap">
-            <div className="popup">
-              <div className="popup-top">
-                {/* <PiWarningCircleFill className="warning-sign" /> */}
-                <p className="popup-ment1">일치하는 회원 정보가 없습니다</p>
-                <p className="popup-ment2">회원가입 후 이용해 주세요</p>
-              </div>
-              <button onClick={() => { setPopUp(false) }}>확인</button>
-            </div>
-          </div>
-        )
-      }
+        {popUp && (
+        <Popup
+          mainText={popUpContent.mainText}
+          subText={popUpContent.subText}
+          onClose={() => setPopUp(false)}
+        />
+      )}
     </div>
   );
 };
