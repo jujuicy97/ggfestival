@@ -1,0 +1,31 @@
+.comment-list {
+  @include body-m-style();
+  color: var(--gray-900);
+  .comment-item {
+    .profile-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 2rem;
+      margin: 2rem 0;
+      .info {
+        
+        .info1 {
+            display: flex;
+            justify-content: space-between;
+          .info2 {
+            display: flex;
+            align-items: center;
+            .info3{
+                margin-right: 1rem
+            }
+            .info4 {
+              @include body-s-style();
+              color: var(--gray-400);
+            }
+          }
+        }
+      }
+    }
+  }
+}

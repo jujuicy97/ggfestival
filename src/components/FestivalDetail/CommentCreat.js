@@ -1,18 +1,25 @@
 import { useState } from "react";
+import Popup from "../Popup";
 
-const CommentCreat = ({}) => {
+const CommentCreat = ({isLogin, onAddComment}) => {
     const [comment, setComment] = useState("");
-    const [isLogin, setIsLogin] = useState(true); // 임시 테스트
+    const [showPopup, setShowPopup] = useState(false);
 
+    //input 값 변경
     const commentChange = (e)=>{
         setComment(e.target.value);
     }
 
+    //댓글 등록
     const commentSub = ()=>{
         if(!comment.trim()) return;
-        //댓글 등록 api호출
-        console.log("댓글 등록:", comment);
+        onAddComment("testUser", comment); //부모에게 comment 전달, 부모의 addComments 함수 호출
         setComment(""); //등록 후 input 초기화
+    }
+
+    //로그인이 안 되어 있을 때 input 클릭 시 팝업
+    const commentClick = ()=>{
+        if(!isLogin) setShowPopup(true);
     }
 
     return (
@@ -23,13 +30,22 @@ const CommentCreat = ({}) => {
                 value={comment}
                 onChange={commentChange}
                 placeholder={ isLogin ? "댓글을 입력하세요" : "로그인이 필요합니다"}
-                disabled={!isLogin}
+                // disabled={!isLogin}
+                onClick={commentClick}
             />
+        {/* 미로그인 input 클릭 시 팝업 */}
+            {showPopup && (
+            <Popup 
+                popup
+                mainText="로그인이 필요합니다"
+                onClose={() => setShowPopup(false)}
+            />
+            )}
             {isLogin && (
                 <button
                     className="creat-btn"
                     onClick={commentSub}
-                    disabled={!comment.trim()}
+                    disabled={!comment.trim() || !isLogin}
                 >
                     등록
                 </button>

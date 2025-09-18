@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AllComments, Allfestival } from "../../utils/FestivalAPI";
+import { addComment, AllComments, Allfestival, changeComment, deleteComment, fetchComment } from "../../utils/FestivalAPI";
 import { IoIosArrowBack } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { CiShare2 } from "react-icons/ci";
@@ -10,6 +10,8 @@ import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import Dday from "./Dday";
 import Menu from "./Menu";
 import LoadFind from "./LoadFind";
+import CommentCreat from "./CommentCreat";
+import CommentList from "./CommentList";
 
 
 const FestivalDetail = ({baseLocate}) => {
@@ -51,19 +53,50 @@ const {contentid} = useParams();
 // console.log(festival);
 
 
-//contentid, festivalid를 가져와서 댓글 개수 띄우기  
-const [commentCount, setCommentCount] = useState(0);
+//댓글 기능(부모에서 관리)
+//contentid로 모든 댓글 가져오기
+const [comments, setComments] = useState([]);
+
 useEffect(()=>{
     if(!contentid) return;
-    const count = async () => {
+    const fetchComments = async () => {
         const { data, error } = await AllComments(contentid);
-        console.log("AllComments data:", data);
-        console.log("AllComments error:", error);
-        if (!error && data) setCommentCount(data.length);
-        else setCommentCount(0);
+        // console.log("AllComments data:", data);
+        // console.log("AllComments error:", error);
+        if (!error && data) setComments(data);
+        else setComments([]);
       };
-      count();
+      fetchComments();
     }, [contentid]);
+//댓글 추가 
+    const addComments = async (userID, content, festivalID)=>{
+        console.log("addComments 실행됨", userID, content, festivalID);
+        const { data, error } = await addComment(userID, content, contentid);
+        if(!error && data) {
+            setComments(prev => [data[0], ...prev]);
+        } //최신 댓글 상단
+    }
+//댓글 수정
+    const changeComments = async (id, userID, newContent) =>{
+        const { data, error } = await changeComment(id, userID, newContent);
+        if( !error && data ) {
+            setComments(prev => //이전 댓글 배열들(업뎃 전)
+            //수정하려는 c.id가 이전 id와 같다면 새로운 댓글로 교체, 다르면 그대로 유지(map으로 해당 댓글만 새 내용으로 교체)
+                prev.map(c => (c.id===id ? { ...c, content: newContent } : c))
+            );
+        }
+    };
+//댓글 삭제
+    const deleteComments = async (id, userID) =>{
+        const { data, error } = await deleteComment(id, userID);
+        if( !error && data ) {
+            setComments(prev =>
+                //삭제에 성공하면 error가 없는 상태가 되어서, 실행(filter로 해당 댓글만 삭제)
+                prev.filter(c => c.id !== id) 
+            );
+        }
+    };
+
 
 //지도 에러시
 if(!festival) return <p>Loading...</p>;
@@ -96,10 +129,10 @@ if(error) return <p>지도 로딩 실패</p>
 {/* 축제 정보 텍스트 */}
             <div className="detail-text-wrap">
                 <div className="menu">
-                    <Menu commentCount={commentCount}/>
+                    <Menu commentCount={comments.length}/>
                 </div>
                 <div className="text1">
-                    <div className="overview">{festival.overview}</div>
+                    <div id="progress-intro" className="overview">{festival.overview}</div>
                 </div>
                 <div className="text2">
                     <p><span>일자</span> {festival.startdate} ~ {festival.enddate}</p>
@@ -114,12 +147,13 @@ if(error) return <p>지도 로딩 실패</p>
                 <hr className="bar2"/>
             </div> 
 {/* 지도 영역 */}
-            <div className="map-wrapper">
+            <div id="progress-place" className="map-wrapper">
                 <div className="map-text-wrap">
                     <div className="map-title">
                         <FaMapMarkerAlt />
                         <p>{festival.addr1}</p>
                     </div>
+            {/* 길찾기 */}
                     <div className="load-find">
                         <LoadFind  className="find" baseLocate={baseLocate} festival={festival} />
                     </div>
@@ -151,9 +185,20 @@ if(error) return <p>지도 로딩 실패</p>
 
             </div>
 {/* 댓글 영역 */}
-            <div className="comment-wrap">
-                <div className="comment-num">댓글<span>{commentCount}</span></div>
-
+            <div id="progress-comment" className="comment-wrap">
+                <div className="comment-num">댓글<span>{comments.length}</span></div>
+                <CommentCreat 
+                    isLogin={true} //임시임. 실제 로그인 컴포넌트랑 연동해야함. 현재는 항상 로그인 true상태
+                    onAddComment={(content) => {
+                        const userID = "testUser"   //임시. 로그인 컴포넌트 연동 후 연결
+                        addComments(userID,content,contentid);
+                    }}
+                />
+                <CommentList 
+                    comments={comments}
+                    onChangeComment={changeComments}
+                    onDeleteComment={deleteComment}
+                />
             </div>
 
             

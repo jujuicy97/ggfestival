@@ -103,4 +103,17 @@
             height: 250px;
         }
     }
+
+//댓글 영역
+    .comment-wrap{
+      .comment-num{
+        @include h4-style();
+        display: flex;
+        gap: 0.5rem;
+        span{
+          @include body-l-style();
+          color: var(--primary-500);
+        }
+      }
+    }    
 }

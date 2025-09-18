@@ -14,20 +14,16 @@
 
 import { IoAlertCircle } from "react-icons/io5";
 
-
-const Popup = ( {mainText, subText, sub1Text, sub2Text, sub3Text, btnText = "확인", onClose}) => {
+const Popup = ( {mainText, subText, btnText = "확인", onClose}) => {
   return (
     <div className="popup">
       <div className="popup-box">
         <div className="popup-text">
           <IoAlertCircle />
           <h4>{mainText}</h4>
-          <p>{subText}</p>
         {/* 효진 추가 */}
           <div className="sub-wrap"> 
-            <p>{sub1Text}</p>
-            <p>{sub2Text}</p>
-            <p>{sub3Text}</p>
+            <p>{subText}</p>
           </div>
         </div>
         <button onClick={onClose}>{btnText}</button>
