@@ -1,5 +1,5 @@
-
 import { createClient } from "@supabase/supabase-js";
+import { data } from "react-router-dom";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
@@ -101,17 +101,6 @@ export const checkEmail = async (email) => {
     .single();
   return { exists: !!data, error };
 }
-
-// 프로필 정보 모두 가져오는 api
-export const getAllProfiles = async () => {
-  try {
-    const { data, error } = await supabase.from('profile_images').select('image_url');
-    if (error) return { data: [], error };
-    return { data: data.map(item => item.image_url), error: null };
-  } catch (err) {
-    return { data: [], error: err };
-  }
-};
 
 // 3. (회원가입)회원가입 시 input에 들어갈 정보들 저장 시켜주는 api와 랜덤 이미지 배정(확인완료)
 export const fetchSignUp = async ({ userID, password, userName, email, phone }) => {
@@ -241,9 +230,41 @@ export const checkPass = async (userID, password) => {
     .eq('userid', userID)
     .eq('password', password)
     .single();
-    return {data,error}
+  return { data, error }
 }
 
+//4. 마이페이지에서 내가 찜한 축제정보 불러오기에 사용하는 api
+// 내가 찜한 축제정보 가져오기(썸네일 이미지firstimage2, 시작일eventstartdate, 종료일eventenddate, 주소1addr1)
+export const fetchFavorites = async (id) => {
+  const { data, error } = await supabase
+    .from('favorites')
+    .select(`id,
+    festivalid,
+    userid,
+    festivals:festivalid(
+        contentid,
+        title,
+        firstimage,
+        startdate,
+        enddate,
+        addr1
+    )
+    `)
+    .eq('userid', id);
+  return { data, error };
+};
+
+
+//5. 프로필 정보 모두 가져오는 api
+export const getAllProfiles = async () => {
+  try {
+    const { data, error } = await supabase.from('profile_images').select('image_url');
+    if (error) return { data: [], error };
+    return { data: data.map(item => item.image_url), error: null };
+  } catch (err) {
+    return { data: [], error: err };
+  }
+};
 
 
 // ** 축제 정보 페이지 ** //
@@ -272,13 +293,13 @@ export const changeComment = async (id, userID, newContent) => {
 };
 
 //3. 댓글 삭제하기에 사용하는 api
-export const deleteComment = async(id,userID)=>{
-    const {data,error} = await supabase
+export const deleteComment = async (id, userID) => {
+  const { data, error } = await supabase
     .from('comments')
     .delete()
-    .eq('id',id)
-    .eq('userid',userID)
-    return{data,error};
+    .eq('id', id)
+    .eq('userid', userID)
+  return { data, error };
 };
 
 // 4. 모든 댓글 불러오가 api

@@ -1,9 +1,10 @@
 import { HiMiniCheckBadge } from "react-icons/hi2";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const FindComplete = ( {message} ) => {
   const location = useLocation();
   const resultId = location.state?.resultId;
+  const navigate = useNavigate();
 
   return (
     <div className="find-complete">
@@ -14,7 +15,7 @@ const FindComplete = ( {message} ) => {
       </div>
       <div className="btn-wrap">
         <p>지금 로그인하고 경기도의 축제를 즐겨보세요!</p>
-        <button>로그인하러 가기</button>
+        <button onClick={()=>{navigate("/login")}}>로그인하러 가기</button>
       </div>
     </div>
   );
