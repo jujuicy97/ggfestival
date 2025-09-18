@@ -1,0 +1,26 @@
+.controlBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 170px; /* bottom sheet 위에 걸쳐있음 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--gray-white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+    cursor: pointer;
+    z-index: 11000; /* bottom sheet보다 위 */
+    .handle{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        .menu{
+            color: var(--gray-400) 
+        }
+        @include body-m-style();
+    }
+  }

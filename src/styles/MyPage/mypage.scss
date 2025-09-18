@@ -1,0 +1,192 @@
+.mypage {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-color: var(--bg-white);
+  padding: 0 16px;
+  padding-top: 55px;
+
+  .user-info {
+    @include flex-layout(row, space-between, center);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    gap: 12px;
+    .profile-pic {
+      display: block;
+      width: 100%;
+      max-width: 100px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background-color: var(--gray-300);
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .user-details {
+      width: 100%;
+      p {
+        @include caption-style();
+        color: var(--gray-500);
+      }
+      h4 {
+        @include h4-style();
+        color: var(--font-dark);
+      }
+    }
+    .edit-icon {
+      position: absolute;
+      color: var(--gray-400);
+      font-size: 2.8rem;
+      top: 16px;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+
+  .wrap {
+    @include flex-layout(column);
+    gap: 16px;
+  }
+
+  .btn-list {
+    width: 100%;
+    height: 50px;
+    @include flex-layout();
+    gap: 12px;
+    button {
+      @include flex-layout();
+      background-color: var(--bg-white);
+      color: var(--gray-500);
+      box-shadow: 0px 0px 15px rgba($color: #969696, $alpha: 0.1);
+      border: 1px solid var(--gray-100);
+      padding: 8px;
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      border-radius: 8px;
+      gap: 16px;
+      svg {
+        font-size: 2rem;
+      }
+      p {
+        @include body-m-style();
+      }
+    }
+  }
+
+  .mark-wrap {
+    background-color: var(--bg-white);
+    box-shadow: 0px 0px 15px rgba($color: #969696, $alpha: 0.1);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    width: 100%;
+    .title {
+      @include flex-layout(row, space-between);
+      padding: 8px;
+      border-bottom: 1px solid var(--gray-100);
+      .title-text {
+        @include flex-layout();
+        gap: 8px;
+        p {
+          @include body-l-style();
+          color: var(--font-dark);
+        }
+        span {
+          @include caption-style();
+          color: var(--gray-400);
+        }
+      }
+      svg {
+        font-size: 2.5rem;
+        color: var(--gray-300);
+      }
+      .nexticon {
+        cursor: pointer;
+      }
+    }
+    .mark-item {
+      @include flex-layout(row, space-between, center);
+      height: 100px;
+      padding: 8px;
+      gap: 12px;
+      cursor: pointer;
+      .left {
+        flex: 0.4;
+        width: 100%;
+        height: 100%;
+        background-color: #969696;
+        border-radius: 5px;
+      }
+      .right {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        @include flex-layout(column, flex-start, left);
+        text-align: left;
+        h4 {
+          @include body-l-style();
+        }
+        p {
+          @include body-s-style();
+          color: var(--gray-400);
+        }
+      }
+    }
+    .no-mark {
+      @include flex-layout(column);
+      gap: 16px;
+      height: 200px;
+      svg {
+        font-size: 5rem;
+        color: var(--gray-400);
+      }
+      .text {
+        text-align: center;
+        p {
+          @include body-l-style();
+          color: var(--font-dark);
+        }
+        span {
+          @include caption-style();
+          color: var(--gray-400);
+        }
+      }
+    }
+  }
+  .menu-list {
+    width: 100%;
+    li {
+      height: 50px;
+      @include flex-layout(row, flex-start, center);
+      border-bottom: 1px solid var(--gray-100);
+      padding: 0 8px;
+      @include body-m-style();
+      color: var(--font-dark);
+      cursor: pointer;
+      &:hover {
+        background-color: var(--bg-light);
+      }
+    }
+  }
+}
+
+// 로그인 오류 화면
+.mypage {
+  .login-wrap {
+    width: 100%;
+    height: 80vh;
+    @include flex-layout(column);
+    p {
+      @include h4-style();
+      margin: 1rem;
+    }
+    button {
+      @include btn-basic();
+    }
+  }
+}
