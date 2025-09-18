@@ -14,17 +14,18 @@
 
 import { IoAlertCircle } from "react-icons/io5";
 
-const Popup = ({ onConfirm, onClose }) => {
+const Popup = ({ onConfirm, onClose, mainText, subText, cancelText, confirmText, hideIcon }) => {
   return (
     <div className="popup">
       <div className="popup-box">
         <div className="popup-text">
-          <IoAlertCircle />
-          <h4>로그아웃하시겠습니까?</h4>
+          {!hideIcon && <IoAlertCircle />}
+          <h4>{mainText}</h4>
+          <p>{subText}</p>
         </div>
         <div className="btns">
-          <button onClick={onClose}>취소</button>
-          <button onClick={onConfirm}>로그아웃</button>
+          <button onClick={onClose}>{cancelText || "취소"}</button>
+          <button onClick={onConfirm}>{confirmText || "확인"}</button>
         </div>
       </div>
     </div>

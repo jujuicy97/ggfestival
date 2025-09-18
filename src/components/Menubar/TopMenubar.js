@@ -1,30 +1,34 @@
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, matchPath } from 'react-router-dom';
 import DefaultMenu from './DefaultMenu';
 import MainMenu from './MainMenu';
-import SearchMenuBar from './SearchMenuBar';
 import DetailPageMenu from './DetailPageMenu';
-
+import SearchMenuBar from './SearchMenuBar';
 
 const TopMenubar = () => {
   const location = useLocation();
 
   const renderNavContent = () => {
-    switch (location.pathname) {
-      case '/':
+    switch (true) {
+      case location.pathname === '/':
         return <MainMenu />;
-      // case '/':
-      //   return <SearchMenuBar/>;
-      case '/mypage':
+      case location.pathname === '/mypage':
         return <DefaultMenu pagename="마이페이지" />;
-      case '/pwcheck':
+      case location.pathname === '/pwcheck':
         return <DefaultMenu pagename="설정" />;
-      case '/editinfo':
+      case location.pathname === '/editinfo':
         return <DefaultMenu pagename="회원 정보" />;
-      case '/delete-account':
+      case location.pathname === '/delete-account':
         return <DefaultMenu pagename="회원 탈퇴" />;
-      case '/comment-list':
-        return <DefaultMenu pagename="내 댓글 관리"/>;
+      case location.pathname === '/comment-list':
+        return <DefaultMenu pagename="내 댓글 관리" />;
+      case location.pathname === '/my-marks':
+        return <SearchMenuBar pagename="스크랩 목록" />;
+
+      // 수정: match 객체에서 params.contentid를 가져와 props로 전달
+      case !!matchPath({ path: '/festivals/:contentid', end: true }, location.pathname):
+        const match = matchPath({ path: '/festivals/:contentid', end: true }, location.pathname);
+        return <DetailPageMenu contentid={match?.params?.contentid} />;
+
       default:
         return <DefaultMenu />;
     }
@@ -35,6 +39,7 @@ const TopMenubar = () => {
       <nav className="top-menubar">
         {renderNavContent()}
       </nav>
+
     </div>
   );
 };
