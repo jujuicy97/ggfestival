@@ -33,28 +33,28 @@
       }
     }
 
-      .sub-wrap{      //효진 추가
+    .sub-wrap {
+      //효진 추가
       p {
         @include body-s-style();
         color: var(--gray-400);
-        margin: 1rem 0; 
+        margin: 1rem 0;
       }
     }
-    }
+  }
 
-    button {
-      @include btn-basic();
-    }
+  button {
+    @include btn-basic();
   }
 }
 
 .popup {
-  .btns{
+  .btns {
     @include flex-layout();
     width: 100%;
     gap: 16px;
-    button{
-      &:nth-child(1){
+    button {
+      &:nth-child(1) {
         @include btn-small-gray();
       }
     }

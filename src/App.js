@@ -12,6 +12,7 @@ import DeleteComplete from './components/MyPage/DeleteComplete';
 import CommentList from './components/MyPage/CommentList';
 import MyMarks from './components/MyPage/MyMarks';
 import MainMap from './components/FestivalMap/MainMap'
+import FestivalDetail from './components/MainPage/FestivalDetail';
 
 
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/delete-complete" element={<DeleteComplete />} />
           <Route path="/comment-list" element={<CommentList/>} />
           <Route path="/my-marks" element={<MyMarks />} />
+          <Route path="/festivals/:contentid" element={<FestivalDetail />} />
         </Routes>
       </div>
       <BottomMenuBar />

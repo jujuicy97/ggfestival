@@ -16,7 +16,7 @@ const SearchMenuBar = ({ pagename }) => {
       <p>
         {pagename ? pagename : "페이지 이름"}
       </p>
-      <IoSearch className="search-icon"/>
+      <IoSearch className="search-icon" onClick={()=>{navigate('/search')}}/>
     </div>
   );
 };
