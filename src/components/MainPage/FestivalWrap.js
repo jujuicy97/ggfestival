@@ -91,7 +91,7 @@ const FestivalWrap = () => {
         festivals.map(festival => (
           <div className='festivalitem' 
           key={festival.contentid}
-          onClick={() => navigate(`/festival/${festival.contentid}`)}
+          onClick={() => navigate(`/festivals/${festival.contentid}`)}
           >
             <div className='top'>
               <span>{festival.sigungucode}</span>

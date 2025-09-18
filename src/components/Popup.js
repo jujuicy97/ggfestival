@@ -4,7 +4,6 @@
 
 //   {showPopup && (
   //     <Popup 
-  //       popup
   //       mainText="메인 텍스트" 
   //       subText="서브 텍스트" 
   //       btnText="버튼 텍스트" // 기본값: "확인" (btnText 자체를 안 적으면 확인으로 나옵니다! "확인"이 아닐 경우에만 적어주시면 돼요)
@@ -21,9 +20,12 @@ const Popup = ( {mainText, subText, btnText = "확인", onClose}) => {
         <div className="popup-text">
           <IoAlertCircle />
           <h4>{mainText}</h4>
+          <p>{subText}</p>
         {/* 효진 추가 */}
           <div className="sub-wrap"> 
-            <p>{subText}</p>
+            <p>{sub1Text}</p>
+            <p>{sub2Text}</p>
+            <p>{sub3Text}</p>
           </div>
         </div>
         <button onClick={onClose}>{btnText}</button>
