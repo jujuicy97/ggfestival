@@ -24,7 +24,9 @@
 
 //SearchPage
 @import "./styles/SearchPage/Search.scss";
+
 //SignUp
+@import "./styles/SignUp/AgreeMent.scss";
 
 //LoginPage
 @import "./styles/LoginPage/Login.scss";
@@ -44,3 +46,6 @@
 //Menubar
 @import "./styles/Menubar/bottommenubar.scss";
 @import "./styles/Menubar/topmenubar.scss";
+
+//Popup
+@import "./styles/Popup.scss";

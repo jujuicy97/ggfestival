@@ -55,7 +55,7 @@ const Login = () => {
         <button type='submit'>로그인</button>
       </form>
       <div className='Login-btn1'>
-      <button>회원가입 ＞</button>
+      <button onClick={()=>{navigate('/signup')}}>회원가입 ＞</button>
       <ul>
       <li><button>아이디찾기</button></li>
       <li>|</li>
