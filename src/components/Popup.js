@@ -21,12 +21,6 @@ const Popup = ( {mainText, subText, btnText = "확인", onClose}) => {
           <IoAlertCircle />
           <h4>{mainText}</h4>
           <p>{subText}</p>
-        {/* 효진 추가 */}
-          <div className="sub-wrap"> 
-            <p>{sub1Text}</p>
-            <p>{sub2Text}</p>
-            <p>{sub3Text}</p>
-          </div>
         </div>
         <button onClick={onClose}>{btnText}</button>
       </div>
