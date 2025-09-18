@@ -1,12 +1,11 @@
 @import "./styles/global.scss";
-@import "./styles/Popup.scss";
-
-
 
 /* 각각 맞는 Page아래에 리스트업해주세요! */
 //MainPage
 @import "./styles/MainPage/mainpage.scss";
+@import "./styles/MainPage/weather.scss";
 //FestivalList
+@import "./styles/FestivalList/FestivalList.scss";
 
 //FestivalMap
 @import "./styles/FestivalMap/MainMap.scss";
@@ -25,10 +24,11 @@
 @import "./styles/CalendarPage/CalendarList.scss";
 
 //SearchPage
-
+@import "./styles/SearchPage/Search.scss";
 //SignUp
 
 //LoginPage
+@import "./styles/LoginPage/Login.scss";
 
 //ID&PW
 @import "./styles/FindPage/FindInformation.scss";
