@@ -24,7 +24,7 @@ const BottomMenuBar = () => {
        <Link to="/" className="nav-link">
         <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive} to="/" />
       </Link>
-      <Link to="/a" className="nav-link">
+      <Link to="/list" className="nav-link">
         <NavItem name=" 지역별" DefaultIcon={AreaDefault} ActiveIcon={AreaActive} to="/a" />
       </Link>
       <Link to="/b" className="nav-link">
