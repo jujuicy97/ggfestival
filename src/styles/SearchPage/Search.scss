@@ -1,0 +1,105 @@
+#search{
+    @include flex-layout(column);
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0.5rem;
+    > *{
+        width: 100%;
+    }
+    .cancel{
+        color: var(--gray-500);
+        font-size: 27px;
+    }
+    .search-tab{
+        background: $gradient-secondary;
+        @include flex-layout();
+        padding: 2px;
+        border-radius: 5rem;
+        form{
+            @include flex-layout();
+            width: 100%;
+            background-color: var(--gray-white);
+            border-radius: 5rem;
+            input{
+                padding: 1.2rem 1.5rem;
+                border: none;
+                width: 85%;
+                @include body-l-style();
+                border-radius: 5rem;
+                outline: none;
+                &::placeholder{
+                    color: var(--gray-300);
+                }
+            }
+            button{
+                font-size: 2.5rem;
+                background: none;
+                padding-right: 1rem;
+                color: $gradient-secondary;
+                svg{
+                    @include flex-layout();
+                    color: var(--primary-500);
+                }
+            }
+        }
+    }
+    .recommend{
+        padding: 0 2rem;
+        h4{
+            @include h4-style();
+            padding: 1rem 0;
+        }
+        button{
+            padding: 8px 2rem;
+            border-radius: 5rem;
+            @include body-m-style();
+            background-color: var(--gray-white);
+            color: var(--primary-500);
+            box-shadow: 0 0 15px rgba(0,0,0,0.03);
+            &:hover{
+                background-color: var(--primary-100);
+            }
+        }
+        .keyword{
+            > div{
+                @include flex-layout($justify:space-around);
+                margin: 1rem 0;
+                gap: 1rem;
+            }
+        }
+    }
+    .popular{
+        padding: 0 2rem;
+        h4{
+            @include h4-style();
+            padding: 1rem 0;
+        }
+        p{
+            color: var(--gray-500);
+        }
+        .list{
+            > div{
+                @include flex-layout($justify:flex-start);
+                gap: 2rem;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--gray-100);
+                cursor: pointer;
+                &:hover{
+                    scale: 1.003;
+                    text-shadow: 0 0 10px rgba(0,0,0,0.03)
+                }
+                .num{
+                    @include body-l-style();
+                }
+                > div{
+                    @include flex-layout();
+                    gap: 1rem;
+                    .title{
+                        @include body-l-style();
+                    }
+                }
+            }
+        }
+    }
+}
