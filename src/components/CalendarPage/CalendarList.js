@@ -1,15 +1,57 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 import Scrapicon01 from "../../icons/ScrapIcon-off.svg";
 import Scrapicon02 from "../../icons/ScrapIcon-on.svg";
 import { FaTrash } from "react-icons/fa6";
+import { getUserInfo } from "../../utils/LocalStorage";
+import { addFavorites } from "../../utils/FestivalAPI";
 
 
 const CalendarList = ({ selectDate, festivals }) => {
   const navigate = useNavigate();
+  const userInfo = getUserInfo();
   const [scraps, setScraps] = useState({});
+
+  // 화면 진입 시 이미 찜한 축제 상태 불러오기
+  useEffect(() => {
+    if (!userInfo) return;
+
+    const fetchScraps = async () => {
+      const newScraps = {};
+      for ( let festival of festivals ){
+        try {
+          const res = await addFavorites(userInfo.id, festival.contentid);
+          newScraps[festival.id] = res.action === "added";
+        } catch (err) {
+          console.error("스크랩 불러오기 오류:", err);
+        }
+      }
+      setScraps(newScraps);
+    };
+    fetchScraps();
+  }, [festivals, userInfo]);
+
+  // 찜 토글 버튼
+  const handleScrapClick = async (festival, e) => {
+    e.stopPropagation();
+    if (!userInfo) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const res = await addFavorites(userInfo.id, festival.contentid);
+      setScraps((prev) => ({
+        ...prev,
+        [festival.id]: res.action === "added",
+      }));
+    } catch (err) {
+      console.error("찜하기 오류:", err);
+    }
+  };
+
 
   // 날짜에 맞는 축제 필터링
 const filteredFestivals = festivals.filter((festival) => {
@@ -37,9 +79,9 @@ const getFestivalStatus = (festival) => {
 };
 
   // 스크랩 토글 버튼
-  const toggleScrap = (id) => {
-    setScraps((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
+  // const toggleScrap = (id) => {
+  //   setScraps((prev) => ({ ...prev, [id]: !prev[id] }));
+  // };
 
   return (
     <div className="calendar-list">
@@ -71,10 +113,7 @@ const getFestivalStatus = (festival) => {
               <img
                 src={scraps[item.id] ? Scrapicon02 : Scrapicon01}
                 alt="scrap-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleScrap(item.id);
-                }}
+                onClick={(e) => {handleScrapClick(item, e)}}
               />
             </div>
 
