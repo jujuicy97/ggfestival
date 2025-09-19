@@ -93,8 +93,7 @@ const DetailPageMenu = ({ contentid }) => {
       {showPopup && (
         <Popup
           mainText="로그인이 필요합니다"
-          subText="찜하기 기능은 로그인 후 이용할 수 있습니다."
-          btnText="로그인하기"
+          subText="스크랩을 이용하려면 먼저 로그인해주세요."
           onClose={() => {
             setShowPopup(false);
           }}
