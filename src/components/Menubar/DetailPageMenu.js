@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
 import { ReactComponent as Mark } from '../../icons/ScrapIcon-off.svg';
 import { ReactComponent as MarkActive } from '../../icons/ScrapIcon-on.svg';
