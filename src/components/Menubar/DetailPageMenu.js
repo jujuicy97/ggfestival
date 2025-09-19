@@ -6,11 +6,13 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 import { fetchFavorites, addFavorites, Allfestival } from '../../utils/FestivalAPI';
 import { getUserInfo } from '../../utils/LocalStorage';
+import Popup from '../Popup';
 
 const DetailPageMenu = ({ contentid }) => {
   const navigate = useNavigate();
   const [isFavorited, setIsFavorited] = useState(false);
-  
+  const [showPopup, setShowPopup] = useState(false);
+
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -28,8 +30,10 @@ const DetailPageMenu = ({ contentid }) => {
 
   const handleToggleFavorite = async () => {
     const user = getUserInfo();
-    if (!user) return;
-
+    if (!user) {
+      setShowPopup(true); // 로그인 팝업 띄우기
+      return;
+    }
     const result = await addFavorites(user.id, contentid);
     if (result.success) {
       const { data } = await fetchFavorites(user.id);
@@ -42,34 +46,34 @@ const DetailPageMenu = ({ contentid }) => {
     }
   };
 
-const handleShare = async () => {
-  try {
-    const { data, error } = await Allfestival();
-    if (error || !data) {
-      alert('축제 정보를 불러올 수 없습니다.');
-      return;
-    }
+  const handleShare = async () => {
+    try {
+      const { data, error } = await Allfestival();
+      if (error || !data) {
+        alert('축제 정보를 불러올 수 없습니다.');
+        return;
+      }
 
-    const festival = data.find(f => String(f.contentid) === String(contentid));
-    if (!festival) {
-      alert('축제 정보를 불러올 수 없습니다.');
-      return;
-    }
+      const festival = data.find(f => String(f.contentid) === String(contentid));
+      if (!festival) {
+        alert('축제 정보를 불러올 수 없습니다.');
+        return;
+      }
 
-    const shareData = {
-      title: "✨경축 축제 정보✨",
-      text: `"${festival.title}" 열립니다!🎉\n🗓️ 언제? ${festival.startdate} ~ ${festival.enddate}\n📍어디서?  ${festival.addr1}\n\n👉 자세히 보기 ${window.location.href}`
-    };
+      const shareData = {
+        title: "✨경축 축제 정보✨",
+        text: `"${festival.title}" 열립니다!🎉\n🗓️ 언제? ${festival.startdate} ~ ${festival.enddate}\n📍어디서?  ${festival.addr1}\n\n👉 자세히 보기 ${window.location.href}`
+      };
 
-    if (navigator.share) {
-      await navigator.share(shareData);
-      console.log('공유 완료');
+      if (navigator.share) {
+        await navigator.share(shareData);
+        console.log('공유 완료');
+      }
+      // else 부분 제거 → 지원 안 되면 그냥 아무 동작 안 함
+    } catch (err) {
+      console.error('공유 실패', err);
     }
-    // else 부분 제거 → 지원 안 되면 그냥 아무 동작 안 함
-  } catch (err) {
-    console.error('공유 실패', err);
-  }
-};
+  };
 
   return (
     <div className='detail-page-menu'>
@@ -85,6 +89,17 @@ const handleShare = async () => {
           onClick={handleShare}
         />
       </div>
+
+      {showPopup && (
+        <Popup
+          mainText="로그인이 필요합니다"
+          subText="찜하기 기능은 로그인 후 이용할 수 있습니다."
+          btnText="로그인하기"
+          onClose={() => {
+            setShowPopup(false);
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -102,17 +102,6 @@ export const checkEmail = async (email)=>{
     return {exists : !!data,error};
 }
 
-// 프로필 정보 모두 가져오는 api
-export const getAllProfiles = async () => {
-  try {
-    const { data, error } = await supabase.from('profile_images').select('image_url');
-    if (error) return { data: [], error };
-    return { data: data.map(item => item.image_url), error: null };
-  } catch (err) {
-    return { data: [], error: err };
-  }
-};
-
 // 3. (회원가입)회원가입 시 input에 들어갈 정보들 저장 시켜주는 api와 랜덤 이미지 배정(확인완료)
 export const fetchSignUp = async ({ userID, password, userName, email, phone }) => {
   try {

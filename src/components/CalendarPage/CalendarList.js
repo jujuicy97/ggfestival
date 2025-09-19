@@ -54,7 +54,7 @@ const getFestivalStatus = (festival) => {
           <div
             className="festival-card"
             key={item.id}
-            onClick={() => navigate(`/festival/${item.contentid}`)}
+            onClick={() => navigate(`/festivals/${item.contentid}`)}
           >
             <img src={item.firstimage} alt={item.title} />
             <div className="card-badge">
