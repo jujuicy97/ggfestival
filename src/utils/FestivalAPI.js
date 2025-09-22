@@ -3,7 +3,7 @@ import { data } from "react-router-dom";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-const supabase = createClient(supabaseUrl,supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // 혹시 적용이 안되는 부분이 있으시면 꼭 말씀해주세요!
 // 수정 후 다시 배포해드리겠습니다!
@@ -12,14 +12,14 @@ const supabase = createClient(supabaseUrl,supabaseKey);
 
 //1. 로그인 하기에 사용하는 api (확인 완료)
 //필요한 정보 : input에 입력된 userid와 password
-export const fetchLogin = async (userID,password)=>{
-    const {data,error} = await supabase
+export const fetchLogin = async (userID, password) => {
+  const { data, error } = await supabase
     .from('users')
     .select('*')
-    .eq('userid',userID)
-    .eq('password',password)
+    .eq('userid', userID)
+    .eq('password', password)
     .single();
-    return {data,error};
+  return { data, error };
 }
 
 //2. 아이디 찾기에 사용하는 api (확인완료)
@@ -93,8 +93,8 @@ export const checkUserID = async (userID) => {
 
 //2. 중복된 이메일 확인 절차에 사용하는 api (확인 완료)
 //  중복된 이메일 확인을 위한 users테이블의 email 정보 가져오기
-export const checkEmail = async (email)=>{
-    const {data, error} = await supabase
+export const checkEmail = async (email) => {
+  const { data, error } = await supabase
     .from('users')
     .select('email')
     .eq('email', email)
@@ -235,25 +235,23 @@ export const checkPass = async (userID, password) => {
 
 //4. 마이페이지에서 내가 찜한 축제정보 불러오기에 사용하는 api
 // 내가 찜한 축제정보 가져오기(썸네일 이미지firstimage2, 시작일eventstartdate, 종료일eventenddate, 주소1addr1)
-export const fetchFavorites = async (id)=>{
-    const {data,error} = await supabase
-.from('favorites')
+export const fetchFavorites = async (id) => {
+  const { data, error } = await supabase
+    .from('favorites')
     .select(`id,
     festivalid,
     userid,
     festivals:festivalid(
         contentid,
         title,
-        firstimage,
+        firstimage2,
         startdate,
         enddate,
-        addr1,
-        mapx,
-        mapy
+        addr1
     )
     `)
-    .eq('userid',id);
-    return{data,error};
+    .eq('userid', id);
+  return { data, error };
 };
 
 
@@ -279,10 +277,12 @@ export const addComment = async (userID, contentid, content) => {
     .insert([{
       content: content,
       userid: userID,
-      contentid: contentid
+      contentid: contentid,
     }])
+    .select(); // returning: 'representation' 역할 // ***효진 추가
   return { data, error };
 }
+
 
 //2. 댓글 수정하기에 사용하는 api
 export const changeComment = async (id, userID, newContent) => {
@@ -296,12 +296,12 @@ export const changeComment = async (id, userID, newContent) => {
 
 //3. 댓글 삭제하기에 사용하는 api
 export const deleteComment = async (id, userID) => {
-    const { data, error } = await supabase
-        .from('comments')
-        .delete()
-        .eq('id', id)
-        .eq('userid', userID)
-    return { data, error };
+  const { data, error } = await supabase
+    .from('comments')
+    .delete()
+    .eq('id', id)
+    .eq('userid', userID)
+  return { data, error };
 };
 
 // 4. 모든 댓글 불러오가 api

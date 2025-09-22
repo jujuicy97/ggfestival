@@ -65,7 +65,7 @@ const [errorMsg, setErrorMsg] = useState("");
           <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
           <Route path="/festivals/:contentid" element={<FestivalDetail baseLocate={baseLocate}/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/list/:regionId" element={<FestivalList/>}/>
+          <Route path="/list/:regionId" element={<FestivalList setSearchWord={setSearchWord} searchWord={searchWord}/>}/>
           <Route path="/festivalCalendar" element={<FestivalCalendar /> } />
           <Route path="/find/*" element={<FindPage />} />
           <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
