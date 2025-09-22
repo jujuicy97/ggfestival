@@ -43,6 +43,7 @@ const regionsData = [
 const GMap = () => {
   const [hovered, setHovered] = useState(null);
   const navigate = useNavigate();
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
   // 마우스 진입 시 호출되는 함수
   const handleMouseEnter = (regionId) => {
@@ -57,6 +58,10 @@ const GMap = () => {
   const sortedRegions = hovered
     ? [...regionsData.filter(r => r.id !== hovered), regionsData.find(r => r.id === hovered)]
     : regionsData;
+
+  const handleClick = (id) => {
+    navigate(`/list/${id}`); // 클릭 시 해당 지역 페이지로 이동
+  };
 
   return (
     <div className="gmap">
@@ -78,6 +83,7 @@ const GMap = () => {
               onMouseEnter={() => handleMouseEnter(region.id)}
               onMouseLeave={handleMouseLeave}
               className={`region ${hovered === region.id ? 'hovered' : ''}`}
+              onClick={() => handleClick(region.id)}
             >
               <path
                 d={region.path}

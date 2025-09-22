@@ -1,8 +1,22 @@
 .comment-creat{
-    // .creat-input{
-
-    // }
-    // .creat-btn{
-
-    // }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include input-style();
+    
+    // border: 1px solid var(--gray-300);
+    .creat-input{
+        border: none;
+        @include input-style();
+        @include body-s-style();
+    }
+    .creat-btn{
+        width: 60px;
+        height: 35px;
+        background-color: var(--primary-500);
+        color: var(--gray-white);
+        @include body-s-style();
+        border-radius: 10px;
+        
+    }
 }

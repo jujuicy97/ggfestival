@@ -10,9 +10,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Popup from '../Popup';
 import { fetchFavorites } from '../../utils/FestivalAPI';
 import FestivalWrap from '../MainPage/FestivalWrap';
+import { useParams } from 'react-router-dom';
 
 const FestivalList = ({ setSearchWord, searchWord }) => {
   const [search, setSearch] = useState(searchWord || '');
+  const { regionId } = useParams();
   // 메인 지역 선택 값을 저장할 상태(전체,동부,서부,남부)
   const [selectedRegion, setSelectedRegion] = useState('all');
   // 현재 활성화된 하위 지역 버튼의 값을 저장할 상태(수원,안양 등)
@@ -207,6 +209,17 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
     setFillteredFestivals(currentFiltered);
   }, [selectedRegion, activeSubRegion, search, showOngoing, sortOrder, allFestivals]);
 
+  useEffect(() => {
+  if (regionId) {
+    if (regionDataMap[regionId]) {
+      setSelectedRegion(regionId);
+      setActiveSubRegion(regionDataMap[regionId][0]); // 기본값 '전체'
+    } else {
+      setSelectedRegion('all');
+      setActiveSubRegion('전체');
+    }
+  }
+}, [regionId]);
 
   // 메인 셀렉트 박스 변경 핸들러
   const handleRegionChange = (e) => {

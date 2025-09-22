@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { AllComments, Allfestival } from "../../utils/FestivalAPI";
+import { data, useParams } from "react-router-dom";
+import { addComment, AllComments, Allfestival, changeComment, deleteComment, fetchComment, getRandomProfile } from "../../utils/FestivalAPI";
 import { IoIosArrowBack } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { CiShare2 } from "react-icons/ci";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { IoNavigate } from "react-icons/io5";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import Dday from "./Dday";
 import Menu from "./Menu";
 import LoadFind from "./LoadFind";
+import CommentCreat from "./CommentCreat";
+import CommentList from "./CommentList";
+import { getUserInfo } from "../../utils/LocalStorage";
+import Weather from "./Weather";
 
 
 const FestivalDetail = ({baseLocate}) => {
@@ -51,34 +54,95 @@ const {contentid} = useParams();
 // console.log(festival);
 
 
-//contentid, festivalid를 가져와서 댓글 개수 띄우기  
-const [commentCount, setCommentCount] = useState(0);
+//댓글 기능(부모에서 관리)
+//contentid로 모든 댓글 가져오기
+const [comments, setComments] = useState([]);
+const user = getUserInfo();
+// console.log("user:", user);
+
 useEffect(()=>{
     if(!contentid) return;
-    const count = async () => {
+    const fetchComments = async () => {
         const { data, error } = await AllComments(contentid);
-        console.log("AllComments data:", data);
-        console.log("AllComments error:", error);
-        if (!error && data) setCommentCount(data.length);
-        else setCommentCount(0);
+        // console.log("AllComments data:", data);
+        // console.log("AllComments error:", error);
+        if (!error && data) setComments(data);
+        else setComments([]);
       };
-      count();
+      fetchComments();
     }, [contentid]);
+
+//댓글 추가 
+const addComments = async (userID, content) => {
+    const user = getUserInfo();
+    if (!contentid || !userID || !user) return;
+
+    // console.log("=== 댓글 등록 디버깅 ===");
+    // console.log("userID:", userID);      // 유저 아이디 값
+    // console.log("contentid:", contentid); // 축제 contentid
+    // console.log("content:", content);    // 작성한 댓글 내용
+    // console.log("user object:", user);  // 로그인 유저 정보
+
+
+    const { data, error } = await addComment(userID, contentid, content);
+
+    // console.log("Supabase data:", data);  // 등록 후 반환 데이터
+    // console.log("Supabase error:", error); // 에러 발생 시 확인
+
+    if (!error && data) {
+        const newComment = {
+            ...data[0],
+            content: content,
+            users: {
+                userName: user.userName,
+                profile_image_url: user.profile_image_url
+            }
+        };
+        setComments(prev => [newComment, ...prev]);
+    }
+};
+    // console.log(data);
+
+//댓글 수정
+    const changeComments = async (id, newContent) =>{
+        if (!user) return;
+
+    // 화면 먼저 업데이트
+    setComments(prev =>
+        prev.map(c => (c.id===id ? { ...c, content: newContent } : c))
+    );    
+
+        const { data, error } = await changeComment(id, user.id, newContent);
+        if( error ) {
+            console.error("댓글 수정 실패", error);
+            // 실패하면 이전 상태로
+            setComments(prev => //이전 댓글 배열들(업뎃 전)
+            //수정하려는 c.id가 이전 id와 같다면 새로운 댓글로 교체, 다르면 그대로 유지(map으로 해당 댓글만 새 내용으로 교체)
+            prev.map(c => (c.id===id ? { ...c, content: comments.find(x => x.id === id).content } : c))
+            );
+        }
+    };
+
+//댓글 삭제
+    const deleteComments = async (id) =>{
+        const { data, error } = await deleteComment(id, user.id);
+        if( !error ) {
+            setComments(prev =>
+                //삭제에 성공하면 error가 없는 상태가 되어서, 실행(filter로 해당 댓글만 삭제)
+                prev.filter(c => c.id !== id) 
+            );
+        }
+    };
+
 
 //지도 에러시
 if(!festival) return <p>Loading...</p>;
 if(loading) return <p>지도 로딩중...</p>;
 if(error) return <p>지도 로딩 실패</p>
 
-
     return (
 // 뒤로가기, 찜, 공유 아이콘        
         <div className="detail-wrap">
-            <div className="header-bar">
-                <IoIosArrowBack />
-                <CiBookmark />
-                <CiShare2 />
-            </div>
 {/* 메뉴와 날씨 정보 */}
             <div className="detail-top">
                 {festival.firstimage && <img src={festival.firstimage} alt={festival.title} />}
@@ -89,14 +153,14 @@ if(error) return <p>지도 로딩 실패</p>
                         <p className="date">{festival.startdate} ~ {festival.enddate}</p>
                     </div>
                     <div className="date-weather-right">
-                        <p>날씨 구현</p>
+                        <Weather lat={festival.mapy} lon={festival.mapx} />
                     </div>
                 </div>
             </div>
 {/* 축제 정보 텍스트 */}
-            <div className="detail-text-wrap">
+            <div id="progress-intro" className="detail-text-wrap">
                 <div className="menu">
-                    <Menu commentCount={commentCount}/>
+                    <Menu commentCount={comments.length}/>
                 </div>
                 <div className="text1">
                     <div className="overview">{festival.overview}</div>
@@ -104,7 +168,7 @@ if(error) return <p>지도 로딩 실패</p>
                 <div className="text2">
                     <p><span>일자</span> {festival.startdate} ~ {festival.enddate}</p>
                     <p><span>시간</span> {festival.playtime}</p>
-                    <p><span>요금</span> {festival.usetimefestival}</p>
+                    <p><span>요금</span> {festival.usetimefestival.replace(/<br\s*\/?>/gi, " ")}</p>
                     {/* 연령제한이 없는 경우는 없음으로 표시하기 구현 */}
                     <p><span>연령</span> {festival.agelimit}</p> 
                     <p><span>주최</span> {festival.telname}</p>
@@ -114,12 +178,13 @@ if(error) return <p>지도 로딩 실패</p>
                 <hr className="bar2"/>
             </div> 
 {/* 지도 영역 */}
-            <div className="map-wrapper">
+            <div id="progress-place" className="map-wrapper">
                 <div className="map-text-wrap">
                     <div className="map-title">
                         <FaMapMarkerAlt />
                         <p>{festival.addr1}</p>
                     </div>
+            {/* 길찾기 */}
                     <div className="load-find">
                         <LoadFind  className="find" baseLocate={baseLocate} festival={festival} />
                     </div>
@@ -151,10 +216,21 @@ if(error) return <p>지도 로딩 실패</p>
 
             </div>
 {/* 댓글 영역 */}
-            <div className="comment-wrap">
-                <div className="comment-num">댓글<span>{commentCount}</span></div>
+            <div id="progress-comment" className="comment-wrap">
+                <div className="comment-num">댓글<span>{comments.length}</span></div>
+                <CommentCreat 
+                    isLogin={!!user}
+                    user={user}
+                    onAddComment={addComments}
+                    />
 
-            </div>
+                    <CommentList 
+                    comments={comments}
+                    user={user}
+                    onChangeComment={changeComments}
+                    onDeleteComment={deleteComments}
+                    />
+                </div>
 
             
         </div>

@@ -1,5 +1,8 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import NavItem from './NavItem';
+import { getUserInfo } from '../../utils/LocalStorage';
 
 // home
 import { ReactComponent as HomeDefault } from '../../icons/home.svg';
@@ -16,27 +19,53 @@ import { ReactComponent as CalendarActive } from '../../icons/calendar-2.svg';
 //mark
 import { ReactComponent as MarkDefault } from '../../icons/mark.svg';
 import { ReactComponent as MarkActive } from '../../icons/mark-2.svg';
+import Popup from '../Popup';
 
 
 const BottomMenuBar = () => {
+  const navigate = useNavigate();
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
+  const handleMarkClick = (e) => {
+    const userInfo = getUserInfo(); // 로그인 정보 가져오기
+    if (!userInfo) {
+      e.preventDefault();
+      setShowLoginPopup(true);
+    } else {
+      navigate('/my-marks');
+    }
+  };
+
   return (
-    <nav className="bottom-navbar">
-       <Link to="/" className="nav-link">
-        <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive} to="/" />
-      </Link>
-      <Link to="/list" className="nav-link">
-        <NavItem name=" 지역별" DefaultIcon={AreaDefault} ActiveIcon={AreaActive} to="/a" />
-      </Link>
-      <Link to="/b" className="nav-link">
-        <NavItem name="지도" DefaultIcon={MapDefault} ActiveIcon={MapActive} to="/b" />
-      </Link>
-      <Link to="/c" className="nav-link">
-        <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} to="/c" />
-      </Link>
-      <Link to="/my-marks" className="nav-link">
-        <NavItem name="스크랩" DefaultIcon={MarkDefault} ActiveIcon={MarkActive} to="/d" />
-      </Link>
-    </nav>
+    <>
+      <nav className="bottom-navbar">
+        <Link to="/" className="nav-link">
+          <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive} />
+        </Link>
+        <Link to="/list/:regionId" className="nav-link">
+          <NavItem name=" 지역별" DefaultIcon={AreaDefault} ActiveIcon={AreaActive} />
+        </Link>
+        <Link to="/mainMap" className="nav-link">
+          <NavItem name="지도" DefaultIcon={MapDefault} ActiveIcon={MapActive} />
+        </Link>
+        <Link to="/festivalCalendar" className="nav-link">
+          <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} />
+        </Link>
+        <div className="nav-link" onClick={handleMarkClick}>
+          <NavItem name="스크랩" DefaultIcon={MarkDefault} ActiveIcon={MarkActive} />
+        </div>
+      </nav>
+
+      {showLoginPopup && (
+  <Popup
+    mainText="로그인이 필요합니다."
+    subText="스크랩을 이용하려면 먼저 로그인해주세요."
+    btnText="확인"
+    onClose={() => setShowLoginPopup(false)}
+  />
+)}
+    </>
+
   );
 };
 
