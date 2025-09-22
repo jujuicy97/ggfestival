@@ -51,6 +51,8 @@ const MyPage = () => {
         popup
         mainText="로그인 정보가 없습니다"
         subText="먼저 로그인을 해주세요"
+        cancelText="취소"
+        confirmText="확인"
         onClose={() => {
           setShowPopup(false);
           navigate('/login');
@@ -64,6 +66,9 @@ const MyPage = () => {
     <div className='mypage'>
       {showPopup && (
         <Popup
+          mainText="로그아웃 하시겠습니까?"
+          cancelText="취소"
+          confirmText="로그아웃"
           onConfirm={handleConfirmLogout} // 확인
           onClose={handleCancelLogout}    // 취소
         />

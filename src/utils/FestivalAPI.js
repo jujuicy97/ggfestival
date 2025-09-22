@@ -277,10 +277,12 @@ export const addComment = async (userID, contentid, content) => {
     .insert([{
       content: content,
       userid: userID,
-      contentid: contentid
+      contentid: contentid,
     }])
+    .select(); // returning: 'representation' 역할 // ***효진 추가
   return { data, error };
 }
+
 
 //2. 댓글 수정하기에 사용하는 api
 export const changeComment = async (id, userID, newContent) => {

@@ -11,7 +11,7 @@ import FestivalWrap from './FestivalWrap';
 import Comming from './Comming';
 import GMap from './GMap';
 
-const Mainpage = () => {
+const Mainpage = ({baseLocate}) => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(getUserInfo());
   return (
@@ -34,18 +34,18 @@ const Mainpage = () => {
 
       <section className='mainpage-section'>
         <div className='btn-wrap'>
-          <button>
+          <button onClick={() => navigate('/mainMap')}>
             <Mapicon className='icon' />
             <div className='top'>
               <p>Map</p>
             </div>
-            <div className='bottom'>
+            <div className='bottom' onClick={() => navigate('/mainMap')}>
               <p>내 주변 축제 한눈에 확인</p>
-              <h3>경기도 축제 지도</h3>
+              <h3 >경기도 축제 지도</h3>
             </div>
           </button>
 
-          <button>
+          <button onClick={() => navigate('/festivalCalendar')}>
             <Calicon className='icon' />
             <div className='top'>
               <p>Calendar</p>
@@ -60,7 +60,7 @@ const Mainpage = () => {
       {/* 로그인 && 찜 목록에 다가올 축제가 있을 경우 */}
       {userInfo &&
         <section className='mainpage-section'>
-          <Comming />
+          <Comming baseLocate={baseLocate} />
         </section>
       }
 

@@ -1,7 +1,7 @@
 .detail-wrap {
   color: var(--gray-900);
   @include body-m-style();
-  padding: 16px;
+  padding: 55px 16px 70px 16px;
  
  //축제 정보 영역 
   .header-bar {
@@ -103,4 +103,17 @@
             height: 250px;
         }
     }
+
+//댓글 영역
+    .comment-wrap{
+      .comment-num{
+        @include h4-style();
+        display: flex;
+        gap: 0.5rem;
+        span{
+          @include body-l-style();
+          color: var(--primary-500);
+        }
+      }
+    }    
 }
