@@ -5,7 +5,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { CiShare2 } from "react-icons/ci";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { IoNavigate } from "react-icons/io5";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import Dday from "./Dday";
 import Menu from "./Menu";
@@ -13,6 +12,7 @@ import LoadFind from "./LoadFind";
 import CommentCreat from "./CommentCreat";
 import CommentList from "./CommentList";
 import { getUserInfo } from "../../utils/LocalStorage";
+import Weather from "./Weather";
 
 
 const FestivalDetail = ({baseLocate}) => {
@@ -143,11 +143,6 @@ if(error) return <p>지도 로딩 실패</p>
     return (
 // 뒤로가기, 찜, 공유 아이콘        
         <div className="detail-wrap">
-            <div className="header-bar">
-                <IoIosArrowBack />
-                <CiBookmark />
-                <CiShare2 />
-            </div>
 {/* 메뉴와 날씨 정보 */}
             <div className="detail-top">
                 {festival.firstimage && <img src={festival.firstimage} alt={festival.title} />}
@@ -158,7 +153,7 @@ if(error) return <p>지도 로딩 실패</p>
                         <p className="date">{festival.startdate} ~ {festival.enddate}</p>
                     </div>
                     <div className="date-weather-right">
-                        <p>날씨 구현</p>
+                        <Weather lat={festival.mapy} lon={festival.mapx} />
                     </div>
                 </div>
             </div>

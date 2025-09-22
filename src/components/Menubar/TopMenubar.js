@@ -19,10 +19,24 @@ const TopMenubar = () => {
         return <DefaultMenu pagename="회원 정보" />;
       case location.pathname === '/delete-account':
         return <DefaultMenu pagename="회원 탈퇴" />;
+              case location.pathname === '/delete-complete':
+        return <SearchMenuBar pagename="회원 탈퇴" />;
       case location.pathname === '/comment-list':
         return <DefaultMenu pagename="내 댓글 관리" />;
       case location.pathname === '/my-marks':
         return <SearchMenuBar pagename="스크랩 목록" />;
+      case location.pathname === '/list/:regionId':
+        return null;
+      case location.pathname === '/list/north':
+        return null;
+      case location.pathname === '/list/west':
+        return null;
+      case location.pathname === '/list/east':
+        return null;
+      case location.pathname === '/list/south':
+        return null;
+      case location.pathname === '/search':
+        return null;
 
       // 수정: match 객체에서 params.contentid를 가져와 props로 전달
       case !!matchPath({ path: '/festivals/:contentid', end: true }, location.pathname):
