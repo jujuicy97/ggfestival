@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import { fetchFavorites } from '../../utils/FestivalAPI';
 import { getUserInfo } from '../../utils/LocalStorage';
-import { TbArrowFork } from "react-icons/tb";
+import { useNavigate } from 'react-router-dom';
+import LoadFind from './LoadFind';
 
-const Comming = () => {
+const Comming = ({baseLocate}) => {
+  const navigate = useNavigate();
   const [festival, setFestival] = useState(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0 });
 
   useEffect(() => {
-    const loadFestival = async () => {
+    const loadData = async () => {
+      // ✅ 현재 위치 가져오기
+
+      // ✅ 축제 불러오기
       const user = getUserInfo();
       if (!user) return;
 
@@ -27,40 +32,37 @@ const Comming = () => {
           );
 
         const upcoming = sorted.find(f => new Date(f.festivals.startdate) >= now);
-        setFestival(upcoming?.festivals || null);
+        const fest = upcoming?.festivals || null;
+        setFestival(fest);
+
+        // ✅ 카운트다운 업데이트
+        if (fest) {
+          const updateCountdown = () => {
+            const now = new Date();
+            const startDate = new Date(fest.startdate);
+            const diff = startDate - now;
+
+            if (diff <= 0) {
+              setCountdown({ days: 0, hours: 0, minutes: 0 });
+              return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+            setCountdown({ days, hours, minutes });
+          };
+
+          updateCountdown(); // 초기 실행
+          const interval = setInterval(updateCountdown, 1000 * 60);
+          return () => clearInterval(interval);
+        }
       }
     };
 
-    loadFestival();
-  }, []);
-
-  useEffect(() => {
-    if (!festival) return;
-
-    const updateCountdown = () => {
-      const now = new Date();
-      const startDate = new Date(festival.startdate);
-      const diff = startDate - now;
-
-      if (diff <= 0) {
-        setCountdown({ days: 0, hours: 0, minutes: 0 });
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-      setCountdown({ days, hours, minutes });
-    };
-
-    // 초기 계산
-    updateCountdown();
-
-    // 1분 단위 업데이트
-    const interval = setInterval(updateCountdown, 1000 * 60);
-    return () => clearInterval(interval);
-  }, [festival]);
+    loadData();
+  }, []); // 처음에만 실행
 
   if (!festival) return null;
 
@@ -70,11 +72,11 @@ const Comming = () => {
         <h3>다가오는 축제</h3>
         <p>나의 축제가 곧 열려요!</p>
       </div>
-      <div className='comming-item'>
+      <div className='comming-item' onClick={() => navigate(`/festivals/${festival.contentid}`)}>
         <div className='left'>
           <span>
-            {festival.firstimage2 ? (
-              <img src={festival.firstimage2} alt={festival.title} />
+            {festival.firstimage ? (
+              <img src={festival.firstimage} alt={festival.title} />
             ) : (
               '이미지 없음'
             )}
@@ -88,10 +90,7 @@ const Comming = () => {
                 {festival.startdate} ~ {festival.enddate}
               </span>
             </div>
-            <button>
-              <TbArrowFork />
-              길찾기
-            </button>
+            <LoadFind baseLocate={baseLocate} festival={festival} />
           </div>
 
           <div className='countdown-container'>

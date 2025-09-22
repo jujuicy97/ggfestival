@@ -1,8 +1,10 @@
 @import "./styles/global.scss";
+@import "./styles/Popup.scss";
 
 /* 각각 맞는 Page아래에 리스트업해주세요! */
 //MainPage
 @import "./styles/MainPage/mainpage.scss";
+@import "./styles/MainPage/weather.scss";
 //FestivalList
 @import "./styles/FestivalList/FestivalList.scss";
 
