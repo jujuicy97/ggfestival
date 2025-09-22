@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/* 컴포넌트 scss파일은 App.scss에 등록하기 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+button, input, label {
+  display: block;
+  font-size: inherit;
+  color: inherit;
+}
+
+:root {
+  --primary-900: #0C282E;
+  --primary-800: #174C56;
+  --primary-700: #21707B;
+  --primary-600: #2C94A0;
+  --primary-500: #37B7C4;
+  --primary-400: #55D4DF;
+  --primary-300: #73DCE5;
+  --primary-200: #AFE9ED;
+  --primary-100: #EBFAFB;
+  --primary-50: #F8FFFF;
+  --secondary-900: #345C26;
+  --secondary-800: #4A7A33;
+  --secondary-700: #66994D;
+  --secondary-600: #82B568;
+  --secondary-500: #A7D28B;
+  --secondary-400: #BFE0A8;
+  --secondary-300: #D4EBC5;
+  --secondary-200: #EEF9E6;
+  --secondary-100: #F5FEF1;
+  --secondary-50: #FBFFF9;
+  --gray-900: #111111;
+  --gray-700: #333333;
+  --gray-500: #666666;
+  --gray-400: #999999;
+  --gray-300: #D1D5DB;
+  --gray-100: #F3F4F6;
+  --gray-50: #F9FAFB;
+  --gray-white: #FFFFFF;
+  --font-dark: var(--gray-900);
+  --font-lightdark: var(--gray-700);
+  --font-standard: var(--gray-500);
+  --font-white: var(--gray-white);
+  --bg-white: var(--gray-white);
+  --bg-light: var(--gray-50);
+  --bg-medium: var(--gray-100);
+}
+
+/* font */
+/* 기본적인 mixin */
+html {
+  font-size: 62.5%;
+  letter-spacing: -0.02em;
+}
+
+body {
+  font-family: "Pretendard Variable", sans-serif;
+  color: var(--font-light);
+}/*# sourceMappingURL=global.css.map */

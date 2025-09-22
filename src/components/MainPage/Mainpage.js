@@ -39,9 +39,9 @@ const Mainpage = ({baseLocate}) => {
             <div className='top'>
               <p>Map</p>
             </div>
-            <div className='bottom'>
+            <div className='bottom' onClick={() => navigate('/mainMap')}>
               <p>내 주변 축제 한눈에 확인</p>
-              <h3>경기도 축제 지도</h3>
+              <h3 >경기도 축제 지도</h3>
             </div>
           </button>
 
