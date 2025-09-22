@@ -161,7 +161,7 @@ const noteClick = ()=>{
               </div>
             </CustomOverlayMap>
             {/* 20km 반경 원  */}
-            <Circle
+            {/* <Circle
               center={baseLocate} //원의 중심좌표
               radius={10000} //미터 단위의 원의 반지름
               strokeWeight={3} //선의 두께
@@ -170,7 +170,7 @@ const noteClick = ()=>{
               strokeStyle="dashed" //선의 스타일
               fillColor="#FFCCC" //채우기 색깔
               fillOpacity={0.2}
-            />
+            /> */}
             {/* 축제 데이터와 거리 계산한 함수를 map으로 돌려서 20km반경 이내의 축제만 출력 */}
             {festivalData.map((festival) => {
               const distance = getDistance(
@@ -197,14 +197,14 @@ const noteClick = ()=>{
                   title={festival.name}
                 /> */}
                   {/* 마커 위의 설명 div overlay */}
-                  <CustomOverlayMap
+                  <CustomOverlayMap 
                     position={{ lat: festival.mapy, lng: festival.mapx }}
                     yAnchor={1}
                   >
                     <div className="surround-customoverlay">
                       <a href="#" target="_blank" rel="noreferrer" className="overlay-box">
                         {/* <img
-                          src={process.env.PUBLIC_URL + "/surroundFestival.png"}
+                          src={process.env.PUBLIC_U RL + "/surroundFestival.png"}
                           alt={festival.title}
                           style={{ width: 100, height: 50 }}
                         /> */}

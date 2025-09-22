@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { addComment, AllComments, Allfestival, changeComment, deleteComment, fetchComment } from "../../utils/FestivalAPI";
+import { data, useParams } from "react-router-dom";
+import { addComment, AllComments, Allfestival, changeComment, deleteComment, fetchComment, getRandomProfile } from "../../utils/FestivalAPI";
 import { IoIosArrowBack } from "react-icons/io";
 import { CiBookmark } from "react-icons/ci";
 import { CiShare2 } from "react-icons/ci";
@@ -12,6 +12,7 @@ import Menu from "./Menu";
 import LoadFind from "./LoadFind";
 import CommentCreat from "./CommentCreat";
 import CommentList from "./CommentList";
+import { getUserInfo } from "../../utils/LocalStorage";
 
 
 const FestivalDetail = ({baseLocate}) => {
@@ -56,6 +57,8 @@ const {contentid} = useParams();
 //댓글 기능(부모에서 관리)
 //contentid로 모든 댓글 가져오기
 const [comments, setComments] = useState([]);
+const user = getUserInfo();
+// console.log("user:", user);
 
 useEffect(()=>{
     if(!contentid) return;
@@ -68,28 +71,62 @@ useEffect(()=>{
       };
       fetchComments();
     }, [contentid]);
+
 //댓글 추가 
-    const addComments = async (userID, content, festivalID)=>{
-        console.log("addComments 실행됨", userID, content, festivalID);
-        const { data, error } = await addComment(userID, content, contentid);
-        if(!error && data) {
-            setComments(prev => [data[0], ...prev]);
-        } //최신 댓글 상단
+const addComments = async (userID, content) => {
+    const user = getUserInfo();
+    if (!contentid || !userID || !user) return;
+
+    // console.log("=== 댓글 등록 디버깅 ===");
+    // console.log("userID:", userID);      // 유저 아이디 값
+    // console.log("contentid:", contentid); // 축제 contentid
+    // console.log("content:", content);    // 작성한 댓글 내용
+    // console.log("user object:", user);  // 로그인 유저 정보
+
+
+    const { data, error } = await addComment(userID, contentid, content);
+
+    // console.log("Supabase data:", data);  // 등록 후 반환 데이터
+    // console.log("Supabase error:", error); // 에러 발생 시 확인
+
+    if (!error && data) {
+        const newComment = {
+            ...data[0],
+            content: content,
+            users: {
+                userName: user.userName,
+                profile_image_url: user.profile_image_url
+            }
+        };
+        setComments(prev => [newComment, ...prev]);
     }
+};
+    // console.log(data);
+
 //댓글 수정
-    const changeComments = async (id, userID, newContent) =>{
-        const { data, error } = await changeComment(id, userID, newContent);
-        if( !error && data ) {
+    const changeComments = async (id, newContent) =>{
+        if (!user) return;
+
+    // 화면 먼저 업데이트
+    setComments(prev =>
+        prev.map(c => (c.id===id ? { ...c, content: newContent } : c))
+    );    
+
+        const { data, error } = await changeComment(id, user.id, newContent);
+        if( error ) {
+            console.error("댓글 수정 실패", error);
+            // 실패하면 이전 상태로
             setComments(prev => //이전 댓글 배열들(업뎃 전)
             //수정하려는 c.id가 이전 id와 같다면 새로운 댓글로 교체, 다르면 그대로 유지(map으로 해당 댓글만 새 내용으로 교체)
-                prev.map(c => (c.id===id ? { ...c, content: newContent } : c))
+            prev.map(c => (c.id===id ? { ...c, content: comments.find(x => x.id === id).content } : c))
             );
         }
     };
+
 //댓글 삭제
-    const deleteComments = async (id, userID) =>{
-        const { data, error } = await deleteComment(id, userID);
-        if( !error && data ) {
+    const deleteComments = async (id) =>{
+        const { data, error } = await deleteComment(id, user.id);
+        if( !error ) {
             setComments(prev =>
                 //삭제에 성공하면 error가 없는 상태가 되어서, 실행(filter로 해당 댓글만 삭제)
                 prev.filter(c => c.id !== id) 
@@ -102,7 +139,6 @@ useEffect(()=>{
 if(!festival) return <p>Loading...</p>;
 if(loading) return <p>지도 로딩중...</p>;
 if(error) return <p>지도 로딩 실패</p>
-
 
     return (
 // 뒤로가기, 찜, 공유 아이콘        
@@ -188,18 +224,18 @@ if(error) return <p>지도 로딩 실패</p>
             <div id="progress-comment" className="comment-wrap">
                 <div className="comment-num">댓글<span>{comments.length}</span></div>
                 <CommentCreat 
-                    isLogin={true} //임시임. 실제 로그인 컴포넌트랑 연동해야함. 현재는 항상 로그인 true상태
-                    onAddComment={(content) => {
-                        const userID = "testUser"   //임시. 로그인 컴포넌트 연동 후 연결
-                        addComments(userID,content,contentid);
-                    }}
-                />
-                <CommentList 
+                    isLogin={!!user}
+                    user={user}
+                    onAddComment={addComments}
+                    />
+
+                    <CommentList 
                     comments={comments}
+                    user={user}
                     onChangeComment={changeComments}
-                    onDeleteComment={deleteComment}
-                />
-            </div>
+                    onDeleteComment={deleteComments}
+                    />
+                </div>
 
             
         </div>

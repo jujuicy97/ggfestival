@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Popup from "../Popup";
+import { getUserInfo } from "../../utils/LocalStorage";
 
-const CommentCreat = ({isLogin, onAddComment}) => {
+const CommentCreat = ({isLogin, user, onAddComment}) => {
     const [comment, setComment] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
@@ -13,7 +14,8 @@ const CommentCreat = ({isLogin, onAddComment}) => {
     //댓글 등록
     const commentSub = ()=>{
         if(!comment.trim()) return;
-        onAddComment("testUser", comment); //부모에게 comment 전달, 부모의 addComments 함수 호출
+        if(!user) return; //로그인이 안되어 있으면 등록 안됨
+        onAddComment(user.id, comment); //부모에게 comment 전달, 부모의 addComments 함수 호출
         setComment(""); //등록 후 input 초기화
     }
 

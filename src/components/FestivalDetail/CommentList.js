@@ -1,17 +1,28 @@
+import { useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
 
-const CommentList = ({ comments, onChangeComment, onDeleteComment }) => {
+const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
   // console.log(comments);
+  const [openOption, setOpenOption] = useState(false); //어떤 댓글에서 옵션이 열려있는지 확인
+  const [editID, setEditID] = useState(null); //댓글 수정중인지 아닌지
+  const [editDetail, setEditDetail] = useState(""); //수정할 댓글 내용
+
+  const handleOption = (id) => {
+    setOpenOption((prev) => (prev === id ? null : id));
+  };
 
   return (
     <div className="comment-list">
       {comments.length === 0 && <p>댓글이 없습니다</p>}
       {comments.map((c) => {
+        const myComment = user?.id === c.userid; //내가 작성한 댓글인지 아닌지
+        const myEdit = editID === c.id; //내가 수정할 댓글인지 아닌지
+
         return (
           <div key={c.id} className="comment-item">
             <div className="profile-info">
               <img
-                src={c.users.profile_image_url}
+                src={c.users?.profile_image_url || "/default-profile.png"}
                 alt="프로필 이미지"
                 style={{
                   width: "40px",
@@ -23,15 +34,81 @@ const CommentList = ({ comments, onChangeComment, onDeleteComment }) => {
               <div className="info">
                 <div className="info1">
                   <div className="info2">
-                    <p className="info3">{c.users.userName}</p>
+                    <p className="info3">{c.users?.userName || "익명"}</p>
                     <p className="info4">{c.created_at.slice(0, 10)}</p>
                     <p className="info4">
                       {c.created_at.slice(10, -13).replace("T", "")}
                     </p>
                   </div>
-                  <SlOptionsVertical />
+                  <SlOptionsVertical onClick={() => handleOption(c.id)} />
                 </div>
-                <p>{c.content}</p>
+
+                {/* 메뉴 */}
+                {openOption === c.id && (
+                  <div className="comment-option">
+                    {myComment ? (
+                      <>
+                        <button
+                          onClick={() => {
+                            setEditID(c.id);
+                            setEditDetail(c.content);
+                            setOpenOption(null);
+                          }}
+                        >
+                          수정
+                        </button>
+                        <button
+                          onClick={() => {
+                            onDeleteComment(c.id);
+                          }}
+                        >
+                          삭제
+                        </button>
+                        <button
+                          onClick={() =>
+                            navigator.clipboard.writeText(c.content)
+                          }
+                        >
+                          댓글 복사
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button>신고</button>
+                        <button
+                          onClick={() =>
+                            navigator.clipboard.writeText(c.content)
+                          }
+                        >
+                          댓글 복사
+                        </button>
+                        <button>작성자 차단</button>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {/* 댓글 내용 / 수정 input */}
+                {myEdit ? (
+                  <div className="edit-input">
+                    <input
+                      type="text"
+                      value={editDetail}
+                      onChange={(e) => setEditDetail(e.target.value)}
+                    />
+                    <button
+                      onClick={() => {
+                        onChangeComment(c.id, editDetail);
+                        setEditID(null); //수정 종료
+                      }}
+                    >
+                      저장
+                    </button>
+                    <button onClick={() => setEditID(null)}>취소</button>
+                  </div>
+                ) : (
+                  <p>{c.content}</p>
+                )}
               </div>
             </div>
           </div>
