@@ -6,9 +6,17 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
   const [openOption, setOpenOption] = useState(false); //어떤 댓글에서 옵션이 열려있는지 확인
   const [editID, setEditID] = useState(null); //댓글 수정중인지 아닌지
   const [editDetail, setEditDetail] = useState(""); //수정할 댓글 내용
+  const [copyID, setCopyID] = useState(null); //댓글 복사
 
   const handleOption = (id) => {
     setOpenOption((prev) => (prev === id ? null : id));
+  };
+
+  //댓글 복사 메시지
+  const handleCopy = (c) => {
+    navigator.clipboard.writeText(c.content);
+    setCopyID(c.id);
+    setTimeout(() => setCopyID(null), 1500); //1.5초 후 메시지 사라짐
   };
 
   return (
@@ -32,6 +40,11 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
                 }}
               />
               <div className="info">
+                {copyID === c.id && (
+                  <span style={{ color: "#37B7C4", fontSize: "12px" }}>
+                    댓글이 복사되었습니다
+                  </span>
+                )}
                 <div className="info1">
                   <div className="info2">
                     <p className="info3">{c.users?.userName || "익명"}</p>
@@ -49,6 +62,7 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
                     {myComment ? (
                       <>
                         <button
+                          className="edit"
                           onClick={() => {
                             setEditID(c.id);
                             setEditDetail(c.content);
@@ -58,28 +72,21 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
                           수정
                         </button>
                         <button
+                          className="delete"
                           onClick={() => {
                             onDeleteComment(c.id);
                           }}
                         >
                           삭제
                         </button>
-                        <button
-                          onClick={() =>
-                            navigator.clipboard.writeText(c.content)
-                          }
-                        >
+                        <button className="copy" onClick={() => handleCopy(c)}>
                           댓글 복사
                         </button>
                       </>
                     ) : (
                       <>
                         <button>신고</button>
-                        <button
-                          onClick={() =>
-                            navigator.clipboard.writeText(c.content)
-                          }
-                        >
+                        <button className="copy2" onClick={() => handleCopy(c)}>
                           댓글 복사
                         </button>
                         <button>작성자 차단</button>
@@ -96,15 +103,23 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
                       value={editDetail}
                       onChange={(e) => setEditDetail(e.target.value)}
                     />
-                    <button
-                      onClick={() => {
-                        onChangeComment(c.id, editDetail);
-                        setEditID(null); //수정 종료
-                      }}
-                    >
-                      저장
-                    </button>
-                    <button onClick={() => setEditID(null)}>취소</button>
+                    <div className="btn-wrap">
+                      <button
+                        className="save"
+                        onClick={() => {
+                          onChangeComment(c.id, editDetail);
+                          setEditID(null); //수정 종료
+                        }}
+                      >
+                        저장
+                      </button>
+                      <button
+                        className="cancle"
+                        onClick={() => setEditID(null)}
+                      >
+                        취소
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <p>{c.content}</p>

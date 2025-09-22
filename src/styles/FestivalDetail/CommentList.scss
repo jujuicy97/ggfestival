@@ -26,6 +26,38 @@
             }
           }
         }
+        .comment-option{
+          display: flex;
+          justify-content: end;
+          .edit, .delete, .copy{
+            @include body-s-style();
+            padding: 0.5rem;
+            border: 1px solid var(--gray-white);
+            background-color: var(--primary-500);
+            color: var(--gray-white);
+            transition: all 0.2s ease;
+            &:hover{
+              background-color: var(--primary-500);
+              filter: brightness(85%); 
+              opacity: 0.9;             
+            }
+          }
+        }
+        .edit-input{
+          display: flex;
+          .btn-wrap{
+            display: flex;
+          .save, .cancle{
+            display: flex;
+            justify-content: end;
+            @include body-s-style();
+            padding: 0.5rem;
+            border: 1px solid var(--gray-white);
+            background-color: var(--primary-500);
+            color: var(--gray-white);
+          }
+        }
+        }
       }
     }
   }

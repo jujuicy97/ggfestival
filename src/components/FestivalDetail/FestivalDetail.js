@@ -163,17 +163,17 @@ if(error) return <p>지도 로딩 실패</p>
                 </div>
             </div>
 {/* 축제 정보 텍스트 */}
-            <div className="detail-text-wrap">
+            <div id="progress-intro" className="detail-text-wrap">
                 <div className="menu">
                     <Menu commentCount={comments.length}/>
                 </div>
                 <div className="text1">
-                    <div id="progress-intro" className="overview">{festival.overview}</div>
+                    <div className="overview">{festival.overview}</div>
                 </div>
                 <div className="text2">
                     <p><span>일자</span> {festival.startdate} ~ {festival.enddate}</p>
                     <p><span>시간</span> {festival.playtime}</p>
-                    <p><span>요금</span> {festival.usetimefestival}</p>
+                    <p><span>요금</span> {festival.usetimefestival.replace(/<br\s*\/?>/gi, " ")}</p>
                     {/* 연령제한이 없는 경우는 없음으로 표시하기 구현 */}
                     <p><span>연령</span> {festival.agelimit}</p> 
                     <p><span>주최</span> {festival.telname}</p>

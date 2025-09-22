@@ -7,6 +7,7 @@ import { BsQuestionCircleFill } from "react-icons/bs";
 import Popup from "../Popup";
 import { getDistance } from "../../utils/Distance";
 import { Allfestival } from "../../utils/FestivalAPI";
+import { useNavigate } from "react-router-dom";
 
 //useKakaoLoader훅 사용하지 않을 때 스크립트로 동적 로딩하는 방법
 // //카카오 지도 api 스크립트 로드 함수
@@ -25,6 +26,8 @@ import { Allfestival } from "../../utils/FestivalAPI";
 
 
 const MainMap = () => {
+  const navigate = useNavigate(); //주변 축제 클릭 시 해당 축제 상세 페이지로 이동
+
   //지도 중심 좌표(내 위치) 및 에러 상태 관리
   //카카오 지도를 불러와주는 훅 : useKakaoLoader
   const [loading, error] = useKakaoLoader({
@@ -78,27 +81,6 @@ const MainMap = () => {
   }, []);
 
 
-
-  //거리 및 임시 데이터
-  // const km = 20;
-  // const latOffset = km / 111; // 위도 20km 이동
-  // const lngOffset = km / (111 * Math.cos((baseLocate.lat * Math.PI) / 180)); // 경도 20km 이동
-
-  // const festivalData = [
-  //   {
-  //     name: "화성행궁야간개장",
-  //     lat: baseLocate.lat + 0.09,
-  //     lng: baseLocate.lng,
-  //   },
-  //   {
-  //     name: "재즈페스티벌",
-  //     lat: baseLocate.lat,
-  //     lng: baseLocate.lng + lngOffset,
-  //   },
-  // ];
-
-
-  //
 //팝업 노출 함수
 const noteClick = ()=>{
     setShowPopup(true);
@@ -132,7 +114,7 @@ const noteClick = ()=>{
       >
         {!loading && (
           <>
-            {/* 마커 */}
+      {/* 마커 */}
             <MapMarker
               position={baseLocate}
               image={{
@@ -148,7 +130,7 @@ const noteClick = ()=>{
                 )
               }
             />
-            {/* 마커 위의 설명 div overlay */}
+      {/* 마커 위의 설명 div overlay */}
             <CustomOverlayMap position={baseLocate} yAnchor={1}>
               <div className="base-customoverlay">
                 <a
@@ -160,7 +142,7 @@ const noteClick = ()=>{
                 </a>
               </div>
             </CustomOverlayMap>
-            {/* 20km 반경 원  */}
+      {/* 20km 반경 원  */}
             {/* <Circle
               center={baseLocate} //원의 중심좌표
               radius={10000} //미터 단위의 원의 반지름
@@ -171,7 +153,7 @@ const noteClick = ()=>{
               fillColor="#FFCCC" //채우기 색깔
               fillOpacity={0.2}
             /> */}
-            {/* 축제 데이터와 거리 계산한 함수를 map으로 돌려서 20km반경 이내의 축제만 출력 */}
+      {/* 축제 데이터와 거리 계산한 함수를 map으로 돌려서 5km반경 이내의 축제만 출력 */}
             {festivalData.map((festival) => {
               const distance = getDistance(
                 baseLocate.lat,
@@ -186,28 +168,18 @@ const noteClick = ()=>{
 
               return (
                 <div key={festival.title}>
-                  {/* 마커
-                <MapMarker
-                  position={{lat: festival.lat, lng: festival.lng}}
-                  image={{
-                    src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png",
-                    size: { width: 64, height: 69 },
-                    options: { offset: { x: 27, y: 69 } },
-                  }}
-                  title={festival.name}
-                /> */}
-                  {/* 마커 위의 설명 div overlay */}
+              {/* 마커 위의 설명 div overlay */}
                   <CustomOverlayMap 
                     position={{ lat: festival.mapy, lng: festival.mapx }}
                     yAnchor={1}
                   >
-                    <div className="surround-customoverlay">
+                    <div 
+                      className="surround-customoverlay"
+                      style={{cursor: "pointer"}}
+                      //주변 축제 오버레이 클릭 시 상세 페이지로 이동 
+                      onClick={()=>navigate(`/festivals/${festival.contentid}`)}
+                    >
                       <a href="#" target="_blank" rel="noreferrer" className="overlay-box">
-                        {/* <img
-                          src={process.env.PUBLIC_U RL + "/surroundFestival.png"}
-                          alt={festival.title}
-                          style={{ width: 100, height: 50 }}
-                        /> */}
                         <span className="title">{festival.title}</span>
                       </a>
                     </div>

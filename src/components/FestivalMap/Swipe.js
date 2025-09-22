@@ -10,13 +10,14 @@ import { getDistance } from "../../utils/Distance";
 import ControlBar from "./ControlBar";
 import { FiMapPin } from "react-icons/fi";
 import { IoMenu } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useActionData, useNavigate } from "react-router-dom";
 
 
 //축제 api
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
+const kakaoLestKey = process.env.REACT_APP_KAKAO_REST_KEY;
 
 const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorite }) => {
 
@@ -46,11 +47,6 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   }, []);
   // console.log(festivalList);
 
-  // //축제 리스트를 20km 이내로 필터링
-  // const filterFestivalList = festivalList.filter((f)=>{
-  //   const dist = getDistance(baseLocate.lat, baseLocate.lng)
-
-  // })
 
   //스와이프 바텀 시트
   //바텀시트의 수직 위치 0일때 300px 위치, 음수면 화면 위로 올라가게
@@ -102,6 +98,33 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   }, [isExtend, api]);
   //isExtend 상태가 변경될 때마다 애니메이션 시작
 
+
+// 현재 위치 좌표값 -> 도로명/지번 주소 변환 (classname : locater-title에서 사용)
+  const [currentAddress, setCurrentAddress] = useState("");
+  useEffect(()=>{
+    const address = async ()=>{
+      if(!baseLocate.lat || !baseLocate.lng);
+      try{
+        const res = await fetch(
+          `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${baseLocate.lng}&y=${baseLocate.lat}`,
+          {
+            headers: {
+              Authorization: `KakaoAK ${kakaoLestKey}`,
+            },
+          }
+        );
+        const data = await res.json();
+        const address = data.documents[0]?.address?.address_name || "주소 정보 없음";
+        setCurrentAddress(address);
+      } catch (err) {
+        console.error("주소 변환 오류:", err);
+        setCurrentAddress("주소 변환 실패");
+      }
+    };
+    address();
+  }, [baseLocate]);
+
+
   return (
     <>
 {/* 목록보기, 지도보기 버튼 토글 */}
@@ -141,7 +164,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
         <ul className="swipeContent-wrap">
 
           <div className="bar"></div>
-          <div className="locate-title">{`${baseLocate.lat} ${baseLocate.lng}`}</div>
+          <div className="locate-title">{currentAddress || `${baseLocate.lat},${baseLocate.lng}`}</div>
     {/* festivalList 가져온거 뿌리기 */}
           {festivalList
           //먼저 filter로 5키로 이내 축제만 거름
