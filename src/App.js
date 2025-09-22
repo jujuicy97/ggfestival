@@ -19,6 +19,7 @@ import FestivalList from "./components/FestivalList/FestivalList";
 import Login from "./components/LoginPage/Login";
 import { useEffect, useState } from "react";
 import Search from './components/SearchPage/Search';
+import SignUp from './components/SignUp/SignUp';
 
 const App = () => {
 const [searchWord,setSearchWord] = useState('');
@@ -69,6 +70,7 @@ const [errorMsg, setErrorMsg] = useState("");
           <Route path="/find/*" element={<FindPage />} />
           <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
           <Route path="/festivals/:contentid" element={<FestivalDetail baseLocate={baseLocate}/>} />
+          <Route path="/signup/*" element={<SignUp/>}/>
         </Routes>
       </div>
       <BottomMenuBar />

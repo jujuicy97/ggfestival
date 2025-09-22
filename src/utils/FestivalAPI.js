@@ -87,7 +87,7 @@ export const checkUserID = async (userID) => {
     .from('users')
     .select('userid')
     .eq('userid', userID)
-    .single();
+    .maybeSingle();
   return { exists: !!data, error };
 }
 
@@ -98,7 +98,7 @@ export const checkEmail = async (email) => {
     .from('users')
     .select('email')
     .eq('email', email)
-    .single();
+    .maybeSingle();
   return { exists: !!data, error };
 }
 
