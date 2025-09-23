@@ -30,8 +30,8 @@ const BottomMenuBar = () => {
       <Link to="/b" className="nav-link">
         <NavItem name="지도" DefaultIcon={MapDefault} ActiveIcon={MapActive} to="/b" />
       </Link>
-      <Link to="/c" className="nav-link">
-        <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} to="/c" />
+      <Link to="/festivalCalendar" className="nav-link">
+        <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} to="/festivalCalendar" />
       </Link>
       <Link to="/my-marks" className="nav-link">
         <NavItem name="스크랩" DefaultIcon={MarkDefault} ActiveIcon={MarkActive} to="/d" />

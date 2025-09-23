@@ -153,7 +153,6 @@ const getFestivalStatus = (festival) => {
         <Popup
           mainText="로그인이 필요합니다" 
           subText="스크랩 기능을 이용하려면 로그인 해주세요" 
-          btnText="버튼 텍스트" // 기본값: "확인" (btnText 자체를 안 적으면 확인으로 나옵니다! "확인"이 아닐 경우에만 적어주시면 돼요)
           onClose={() => setPopup(false)}
         />
       )}

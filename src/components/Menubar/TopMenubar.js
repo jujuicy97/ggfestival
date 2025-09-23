@@ -27,6 +27,10 @@ const TopMenubar = () => {
         return <SearchMenuBar pagename="아이디 찾기 / 비밀번호 재설정" />;
       case location.pathname === '/find/pw/edit':
         return <SearchMenuBar pagename="비밀번호 재설정" />;
+      case location.pathname === '/find/id/result':
+        return;
+      case location.pathname === '/find/pw/result':
+        return;
       case location.pathname === '/festivalCalendar':
         return <SearchMenuBar pagename="축제 달력" />;
 

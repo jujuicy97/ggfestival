@@ -41,10 +41,6 @@
     width: 100%;
     @include flex-layout(column);
     gap: 15px;
-    // display: grid;
-    // grid-template-columns: repeat(2, 1fr);
-    // row-gap: 1.5rem;
-    // column-gap: 1.2rem;
     .festival-card {
       width: 100%;
       @include flex-layout(row, flex-start, flex-start);

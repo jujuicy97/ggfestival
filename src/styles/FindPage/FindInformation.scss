@@ -1,7 +1,7 @@
 #find-idpw {
   height: calc(100vh - 125px);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 70px 16px;
   padding-bottom: 10px;
   ul {
     @include flex-layout();
@@ -65,14 +65,13 @@
     height: 100vh;
     min-height: calc(100vh - 140px);
     margin: 0 auto;
-    padding: 70px 16px;
+    padding: 90px 16px;
   }
 }
 
-// --- 아이디 찾기 & 비밀번호 재설정 완료 공통 스타일
+// --- 아이디 찾기 & 비밀번호 재설정 완료 공통 스타일 ---
 
 .find-complete {
-  // height: 100vh;
   height: calc(100vh - 90px);
   margin: 0 auto;
   padding: 0 16px;
