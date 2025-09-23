@@ -10,6 +10,7 @@
     }
     .input-wrap{
         padding-bottom: 3rem;
+        height: 85%;
         .same{
             color: var(--primary-500);
             @include caption-style();

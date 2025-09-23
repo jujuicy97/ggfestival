@@ -40,6 +40,7 @@ const SignInfo = () => {
         }
         setAvailId(!exists);
     }
+    // ID 중복확인 버튼
     const handleCheckID = ()=>{
         if(!id || id.length < 6){
             setNoId(true);
@@ -59,9 +60,11 @@ const SignInfo = () => {
         }
         setAvailEmail(!exists);
     }
+    // Email 중복확인 버튼
     const handleCheckEmail = ()=>{
         if(!email){
             setNoEmail(true);
+            setWrongEmail(false);
             return;
         }
         if(!isValidEmail(email)){
@@ -87,7 +90,7 @@ const SignInfo = () => {
         success ? console.log('성공') : console.log('실패');
     }
     
-    // 회원가입 
+    // 회원가입 버튼
     const handleSignUp = ()=>{
         //정보 입력누락
         if(!name || !id || !pw || !rePass || !phone || !email){
@@ -100,12 +103,15 @@ const SignInfo = () => {
             }
             return;
         }
+        // 이름입력됨(팝업창)
         if(name) {
             setNoName(false);
         }
+        // 번호입력됨(팝업창)
         if(phone){
             setNoPhone(false);
         }
+        // 중복확인이 되지않은것 체크
         if(!idCheckBtn || !emailCheckBtn){
             if(!idCheckBtn){
                 setDupId(true);
@@ -115,16 +121,19 @@ const SignInfo = () => {
             }
             return;
         }
+        // 잘못된 이메일 형식
         if(!isValidEmail(email)){
             setWrongEmail(true);
             return;
         }
+        // 비밀번호가 일치하지않을시 리턴
         if(pw !== rePass){
             return;
         }
         insertSignUp();
         navigate('/signup/complete');
     }
+    // 비밀번호 input 일치하지않는 문구
     useEffect(()=>{
         if(pw && rePass){
             setAvailPw(true);
@@ -132,9 +141,11 @@ const SignInfo = () => {
             setAvailPw(false);
         }
     },[pw,rePass])
+    // 아이디값이 변경될때마다 다시 중복확인하게
     useEffect(()=>{
         setIdCheckBtn(false);
     },[id])
+    // 이메일값이 변경될때마다 다시 중복확인하게
     useEffect(()=>{
         setEmailCheckBtn(false);
     },[email])
