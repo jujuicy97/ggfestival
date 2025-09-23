@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchFavorites, addFavorites, Allfestival } from "../../utils/FestivalAPI";
+import { fetchFavorites, addFavorites } from "../../utils/FestivalAPI";
 import { getUserInfo } from '../../utils/LocalStorage';
 import { MdOutlineFestival } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
@@ -57,8 +57,8 @@ const MyMarks = () => {
         <div className="mark-list">
           {favorites.map((fav) => (
             <div className="mark-item"
-            key={fav.id}
-            onClick={() => navigate(`/festivals/${fav.festivals.contentid}`)}
+              key={fav.id}
+              onClick={() => navigate(`/festivals/${fav.festivals.contentid}`)}
             >
               <div className="top">
                 <img
@@ -67,7 +67,10 @@ const MyMarks = () => {
                 />
                 <button
                   className="mark-btn"
-                  onClick={() => handleToggleFavorite(fav.festivals.contentid)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleToggleFavorite(fav.festivals.contentid);
+                  }}
                 >
                   {fav.isFavorited
                     ? <MarkActive style={{ width: "auto", height: "2.5rem" }} />

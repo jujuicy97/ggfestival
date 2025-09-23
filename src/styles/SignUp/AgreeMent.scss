@@ -1,0 +1,96 @@
+#agree-ment{
+    height: 100vh;
+    padding: 70px 32px;
+    @include flex-layout(column,flex-start,flex-start);
+    position: relative;
+    .agree-wrap{
+        @include flex-layout(column,flex-start,flex-start);
+        width: 100%;
+        h3{
+            @include h3-style();
+            margin: 3rem 0;
+        }
+        .all-check{
+            @include flex-layout($justify:flex-start);
+            padding: 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 10px;
+            width: 100%;
+            gap: 2rem;
+            cursor: pointer;
+            p{
+                @include body-m-style();
+            }
+            svg{
+                color: var(--gray-300);
+                width: 21px;
+                height: 21px;
+            }
+            &.isChecked{
+                border: 1px solid var(--primary-500);
+                svg{
+                    color: var(--primary-500); 
+                }
+            }
+        }
+        .agree-list{
+            width: 100%;
+            margin: 2rem 0;
+            .with-desc{
+                @include flex-layout(column,flex-start,flex-start);
+                width: 100%;
+                .agree-title{
+                    width: 100%;
+                    @include flex-layout($justify:space-between);
+                    margin: 1rem 0;
+                    .left{
+                        @include flex-layout();
+                        gap: 1rem;
+                        cursor: pointer;
+                        p{
+                            @include body-m-style();
+                        }
+                        .agree-check{
+                            color: var(--gray-300);
+                            svg{
+                                width: 24px;
+                                height: 24px;
+                            }
+                            &.isClicked{
+                                svg{
+                                    color: var(--primary-500);
+                                }
+                            }
+                        }
+                    }
+                    .right{
+                        svg{
+                            width: 16px;
+                            height: 16px;
+                            color: var(--gray-500);
+                        }
+                    }
+                }
+                .desc{
+                    padding: 1rem 0;
+                    ul{
+                        li{
+                            list-style: disc;
+                            @include caption-style();
+                            color: var(--gray-400);
+                            margin-left: 5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .next{
+        @include btn-basic();
+        width: 88%;
+        position: absolute;
+        bottom: 75px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

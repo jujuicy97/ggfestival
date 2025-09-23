@@ -1,31 +1,17 @@
 import { useEffect, useState } from 'react';
-import { fetchFavorites, Allfestival } from '../../utils/FestivalAPI';
+import { fetchFavorites } from '../../utils/FestivalAPI';
 import { getUserInfo } from '../../utils/LocalStorage';
 import { useNavigate } from 'react-router-dom';
 import LoadFind from './LoadFind';
 
-const Comming = () => {
+const Comming = ({baseLocate}) => {
   const navigate = useNavigate();
   const [festival, setFestival] = useState(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0 });
-  const [baseLocate, setBaseLocate] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
       // ✅ 현재 위치 가져오기
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setBaseLocate({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          (error) => {
-            console.error("위치 정보를 가져올 수 없습니다:", error);
-          }
-        );
-      }
 
       // ✅ 축제 불러오기
       const user = getUserInfo();

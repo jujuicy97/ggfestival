@@ -28,7 +28,7 @@ const Login = () => {
       setPopUp(true)
     } else if (data){
       saveUserInfo(data)
-      navigate('/list')
+      navigate('/')
     }
   }
   return (
@@ -55,11 +55,13 @@ const Login = () => {
         <button type='submit'>로그인</button>
       </form>
       <div className='Login-btn1'>
-      <button>회원가입 ＞</button>
+      <button onClick={()=>{navigate('/signup')}}>회원가입 ＞</button>
       <ul>
-      <li><button>아이디찾기</button></li>
+      <li><button
+      onClick={()=>{navigate('/find')}}>아이디찾기</button></li>
       <li>|</li>
-      <li><button>비밀번호 재설정</button></li>
+      <li><button
+      onClick={()=>{navigate('/find')}}>비밀번호 재설정</button></li>
       </ul>
       </div>
       <p className='sns-info'>SNS계정으로 간편 로그인하세요</p>

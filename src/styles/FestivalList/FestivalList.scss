@@ -1,7 +1,7 @@
 #festivalList {
   max-width: 768px;
   height: 100%;
-  padding: 0 16px;
+  padding: 16px 16px 70px 16px;
   gap: 12px;
 
   .region-filter {
@@ -198,8 +198,6 @@
           gap: 12px;
           scrollbar-width: none;
 
-          /* Firefox /
-        -ms-overflow-style: none; / IE, Edge */
           .festivalitem {
             @include flex-layout(column);
             width: 200px;
@@ -271,11 +269,11 @@
           position: absolute;
           top: 20px;
           left: 10px;
-          z-index: 10;
+          // z-index: 10;
           width: 49px;
           height: 28px;
           color: var(--gray-white);
-          background-color: var(--secondary-500);
+          background: $gradient-primary;
           box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
           @include caption-style;
           text-align: center;
@@ -287,11 +285,11 @@
           position: absolute;
           top: 20px;
           left: 10px;
-          z-index: 10;
+          // z-index: 10;
           width: 49px;
           height: 28px;
-          color: var(--gray-white);
-          background-color: var(--secondary-500);
+          color: var(--primary-700);
+          background-color: var(--gray-white);
           box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
           @include caption-style;
           text-align: center;
@@ -303,11 +301,11 @@
           position: absolute;
           top: 20px;
           left: 10px;
-          z-index: 10;
+          // z-index: 10;
           width: 49px;
           height: 28px;
-          color: var(--gray-400);
-          background-color: var(--gray-300);
+          color: var(--gray-100);
+          background-color: var(--gray-500);
           box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
           @include caption-style;
           text-align: center;

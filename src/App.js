@@ -19,6 +19,7 @@ import FestivalList from "./components/FestivalList/FestivalList";
 import Login from "./components/LoginPage/Login";
 import { useEffect, useState } from "react";
 import Search from './components/SearchPage/Search';
+import SignUp from './components/SignUp/SignUp';
 
 const App = () => {
 const [searchWord,setSearchWord] = useState('');
@@ -52,7 +53,7 @@ const [errorMsg, setErrorMsg] = useState("");
       <TopMenubar />
       <div className="app-container">
         <Routes>
-          <Route path="/" element={<Mainpage />} />
+          <Route path="/" element={<Mainpage baseLocate={baseLocate}/>} />
           <Route path="/search" element={<Search setSearchWord={setSearchWord} setContentID={setContentID}/>}/>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/pwcheck" element={<PasswordCheck />} />
@@ -64,11 +65,12 @@ const [errorMsg, setErrorMsg] = useState("");
           <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
           <Route path="/festivals/:contentid" element={<FestivalDetail baseLocate={baseLocate}/>} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/list" element={<FestivalList/>}/>
+          <Route path="/list/:regionId" element={<FestivalList setSearchWord={setSearchWord} searchWord={searchWord}/>}/>
           <Route path="/festivalCalendar" element={<FestivalCalendar /> } />
           <Route path="/find/*" element={<FindPage />} />
           <Route path="/mainMap" element={<MainMap baseLocate={baseLocate}/>}/>
           <Route path="/festivals/:contentid" element={<FestivalDetail baseLocate={baseLocate}/>} />
+          <Route path="/signup/*" element={<SignUp/>}/>
         </Routes>
       </div>
       <BottomMenuBar />
