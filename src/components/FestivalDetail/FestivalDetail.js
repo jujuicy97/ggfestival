@@ -39,6 +39,7 @@ const {contentid} = useParams();
           console.error("축제 데이터 로드 실패");
         } else {
           setFestivalList(data);
+          console.log("선택한 축제:", data);
         
         //contentid와 일치하는 축제 선택
         const select = data.find(f => f.contentid === contentid);

@@ -10,7 +10,7 @@ const SignUpComplete = () => {
                 <p>회원가입이 완료되었습니다!</p>
             </div>
             <div className="bottom">
-                <p>지금 로그인하고 경기도의 축제를 즐겨보세요</p>
+                <p>지금 로그인하고 경기도의 축제를 즐겨보세요!</p>
                 <button className="login-btn" onClick={()=>{navigate('/login')}}>로그인하러 가기</button>
                 <button className="home-btn" onClick={()=>{navigate('/')}}>홈으로 가기</button>
             </div>
