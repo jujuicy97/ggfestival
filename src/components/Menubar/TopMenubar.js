@@ -58,6 +58,8 @@ const TopMenubar = () => {
       case !!matchPath({ path: '/festivals/:contentid', end: true }, location.pathname):
         const match = matchPath({ path: '/festivals/:contentid', end: true }, location.pathname);
         return <DetailPageMenu contentid={match?.params?.contentid} />;
+      case location.pathname === '/mainMap':
+        return <DefaultMenu pagename="지도에서 찾기"/>  
 
       default:
         return <DefaultMenu />;

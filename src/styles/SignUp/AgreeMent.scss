@@ -28,6 +28,7 @@
             }
             &.isChecked{
                 border: 1px solid var(--primary-500);
+                color: var(--primary-500);
                 svg{
                     color: var(--primary-500); 
                 }

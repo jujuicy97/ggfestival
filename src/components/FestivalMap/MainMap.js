@@ -98,18 +98,19 @@ const noteClick = ()=>{
         popup
         mainText="내 주변에서 찾기 사용시 유의사항" 
         subText={
-          <div className="text">
+          <p className="text">
             1. 위치 정보를 기반으로 주변 축제를 보여드립니다.<br />
             2. 정확한 결과를 위해 기기의 위치 서비스(GPS)를 켜주세요.<br />
             3. 네트워크 환경이나 위치 정확도에 따라 결과가 달라질 수 있습니다.
-          </div>
+          </p>
         }
+        onClose={()=>{setShowPopup(false)}}
       />
     )}
 
       <Map
         center={baseLocate}
-        style={{ width: "100%", height: "750px" }}
+        style={{ width: "100%", height: "800px" }}
         level={6}
       >
         {!loading && (

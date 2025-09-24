@@ -19,7 +19,7 @@
   opacity: 0.9; //넣을지 말지 선택
 //목록보기
   &.top {
-    bottom: 130px; 
+    bottom: 140px; 
   }
 //지도보기
   &.bottom {
@@ -37,6 +37,7 @@
 //스와이프 영역
 .swipeContent-wrap {
     padding: 16px;
+    padding-top: 70px;
     .bar{
         margin: 0 auto;
         margin-bottom: 3rem;
