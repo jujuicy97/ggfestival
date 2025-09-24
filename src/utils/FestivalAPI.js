@@ -424,3 +424,12 @@ export const fetchContentID = async (contentID) =>{
         .eq('contentid',contentID)
     return { data, error };
 }
+
+
+export const fetchMapxy = async (contentid)=>{
+  const { data, error } = await supabase
+    .from('festivals')
+    .select('mapx, mapy')
+    .eq('contentid',contentid)
+  return { data, error };
+}

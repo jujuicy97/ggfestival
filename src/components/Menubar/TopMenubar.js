@@ -3,6 +3,7 @@ import DefaultMenu from './DefaultMenu';
 import MainMenu from './MainMenu';
 import DetailPageMenu from './DetailPageMenu';
 import SearchMenuBar from './SearchMenuBar';
+import MypageMenuBar from './MypageMenuBar';
 
 const TopMenubar = () => {
   const location = useLocation();
@@ -16,10 +17,10 @@ const TopMenubar = () => {
       case location.pathname === '/pwcheck':
         return <DefaultMenu pagename="설정" />;
       case location.pathname === '/editinfo':
-        return <DefaultMenu pagename="회원 정보" />;
+        return <MypageMenuBar/>;
       case location.pathname === '/delete-account':
         return <DefaultMenu pagename="회원 탈퇴" />;
-              case location.pathname === '/delete-complete':
+      case location.pathname === '/delete-complete':
         return <SearchMenuBar pagename="회원 탈퇴" />;
       case location.pathname === '/comment-list':
         return <DefaultMenu pagename="내 댓글 관리" />;
@@ -47,13 +48,13 @@ const TopMenubar = () => {
         return null;
       case location.pathname === '/search':
         return null;
-      case location.pathname.includes('/signup') :
-        return <DefaultMenu pagename="회원가입"/>;
+      case location.pathname.includes('/signup'):
+        return <DefaultMenu pagename="회원가입" />;
       case location.pathname === '/login':
-        return <DefaultMenu pagename="로그인"/>
+        return <DefaultMenu pagename="로그인" />
       case location.pathname === '/find':
         return <DefaultMenu pagename="아이디/비밀번호 찾기"/>
-          
+
       // 수정: match 객체에서 params.contentid를 가져와 props로 전달
       case !!matchPath({ path: '/festivals/:contentid', end: true }, location.pathname):
         const match = matchPath({ path: '/festivals/:contentid', end: true }, location.pathname);
@@ -67,12 +68,13 @@ const TopMenubar = () => {
   };
 
   return (
-    <div>
-      <nav className="top-menubar">
-        {renderNavContent()}
-      </nav>
-
-    </div>
+    <>
+      {renderNavContent() && (
+        <nav className="top-menubar">
+          {renderNavContent()}
+        </nav>
+      )}
+    </>
   );
 };
 
