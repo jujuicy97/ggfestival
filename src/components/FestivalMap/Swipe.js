@@ -1,4 +1,4 @@
-//사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
+  //사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
 
 import { addFavorites, Allfestival } from "../../utils/FestivalAPI";
 import { createClient } from "@supabase/supabase-js";
