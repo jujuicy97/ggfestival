@@ -425,7 +425,7 @@ export const fetchContentID = async (contentID) =>{
     return { data, error };
 }
 
-
+// 찜하기페이지에서 넘겨줄 위경도 불러오기
 export const fetchMapxy = async (contentid)=>{
   const { data, error } = await supabase
     .from('festivals')
@@ -433,3 +433,4 @@ export const fetchMapxy = async (contentid)=>{
     .eq('contentid',contentid)
   return { data, error };
 }
+
