@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { FaRegCircle } from "react-icons/fa";
+import { FaCheck, FaRegCircle, FaRegDotCircle } from "react-icons/fa";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
+import Popup from "../Popup";
+import { IoCheckmark } from "react-icons/io5";
 
 const AgreeMent = () => {
     const agreeArray = [
@@ -27,7 +31,7 @@ const AgreeMent = () => {
             </ul>
         )}
     ]
-
+    const navigate = useNavigate();
     //체크된 항목들
     const [checked,setChecked] = useState([false,false,false,false]); //초기값 전부 선택안됨
     //설명이 열려있는 항목
@@ -40,9 +44,9 @@ const AgreeMent = () => {
 
     //모든 약관에 동의하기
     const handleAllCheck = (e)=>{
-        const isChecked = e.target.checked;
+        const isChecked = checked.every(item => item === true);
         setChecked(checked.map(()=>{
-            return isChecked;
+            return !isChecked;
         }))
     }
 
@@ -63,7 +67,7 @@ const AgreeMent = () => {
     //다음버튼 처리
     const handleNextBtn = ()=>{
         if(allRequiredCheck){
-            Navigate("/signupinfo")
+            navigate("/signup/info")
         }
         if(!allRequiredCheck){
             setAgreeNeed(true); 
@@ -73,11 +77,46 @@ const AgreeMent = () => {
         <div id="agree-ment">
             <div className="agree-wrap">
                 <h3>이용 약관에 동의해주세요.</h3>
-                <div className="all-check">
-                    <FaRegCircle />
+                <div className={`all-check ${allRequiredCheck ? "isChecked" : ""}`}
+                    onClick={handleAllCheck}
+                >
+                    {allRequiredCheck ? <FaRegDotCircle /> : <FaRegCircle />}
+                    <p>모든 약관에 동의합니다.</p>
+                </div>
+                <div className="agree-list">
+                    {
+                        agreeArray.map((item,idx)=>{
+                            return (
+                                <div key={item.id} className="with-desc">
+                                    <div 
+                                        className="agree-title"
+                                    >
+                                        <div className="left"
+                                        onClick={()=>{handleCheck(idx)}}>
+                                            <div className={`agree-check ${checked[idx] ? "isClicked" : ""}`}><IoCheckmark /></div>
+                                            <p>{item.title}</p>
+                                        </div>
+                                        <div onClick={()=>{handleOpenClose(item.id)}} className="right">{opened === item.id ? <TiArrowSortedUp />:<TiArrowSortedDown />}</div>
+                                    </div>
+                                    {
+                                        (opened === item.id) &&
+                                        <div className="desc">{item.desc}</div>
+                                    }
+                                </div> 
+                            )
+                        })
+                    }
                 </div>
             </div>
-            
+            <button className="next" onClick={handleNextBtn}>다음</button>
+            {
+                agreeNeed &&
+                <Popup
+                    mainText="필수 약관에 동의해 주세요."
+                    subText="동의하지 않으면 가입할 수 없어요."
+                    onClose={()=>{setAgreeNeed(false)}}
+                />
+            }
         </div>
     );
 };

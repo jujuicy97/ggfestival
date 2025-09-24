@@ -27,7 +27,11 @@
 
 //SearchPage
 @import "./styles/SearchPage/Search.scss";
+
 //SignUp
+@import "./styles/SignUp/AgreeMent.scss";
+@import "./styles/SignUp/SignInfo.scss";
+@import "./styles/SignUp/SignUpComplete.scss";
 
 //LoginPage
 @import "./styles/LoginPage/Login.scss";
@@ -47,3 +51,6 @@
 //Menubar
 @import "./styles/Menubar/bottommenubar.scss";
 @import "./styles/Menubar/topmenubar.scss";
+
+//Popup
+@import "./styles/Popup.scss";
