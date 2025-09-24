@@ -40,7 +40,7 @@ const FindId = () => {
     <div className="find-ment">
       <div className="find-top-wrap">
         <h4>
-          <span>이름, 전화번호</span>를 입력하신 후<br/>
+          <span>이름, 이메일</span>를 입력하신 후<br/>
           아이디 찾기를 진행해 주세요.
         </h4>
         <form>
