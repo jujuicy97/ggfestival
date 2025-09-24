@@ -244,7 +244,7 @@ export const fetchFavorites = async (id) => {
     festivals:festivalid(
         contentid,
         title,
-        firstimage2,
+        firstimage,
         startdate,
         enddate,
         addr1
@@ -404,9 +404,7 @@ export const festivalDB = async (festivals) => {
         firstimage: festivals.firstImage,
         firstimage2: festivals.firstImage2
       }
-    ],
-  { onConflict: ['contentid'] }
-  )
+    ])
   return { data, error };
 }  
 
