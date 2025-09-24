@@ -51,7 +51,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   //스와이프 바텀 시트
   //바텀시트의 수직 위치 0일때 300px 위치, 음수면 화면 위로 올라가게
   //api: 상태를 변경할 수 있는 함수로, 드래그나 상태 변화 시 위치를 업데이트 해줌
-  const [{ height }, api] = useSpring(() => ({ height: 100 }));
+  const [{ height }, api] = useSpring(() => ({ height: 120 }));
   const bind = useDrag(
     //down: 현재 드래그 중인지, movement: 드래그 총 이동거리, velocity: 드래그 속도, direction: 드래그 방향
     ({ down, movement: [, my], velocity: [, vy], direction: [, dy], distance, tap}) => {

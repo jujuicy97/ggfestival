@@ -141,8 +141,8 @@ if(loading) return <p>지도 로딩중...</p>;
 if(error) return <p>지도 로딩 실패</p>
 
     return (
-// 뒤로가기, 찜, 공유 아이콘        
         <div className="detail-wrap">
+
 {/* 메뉴와 날씨 정보 */}
             <div className="detail-top">
                 {festival.firstimage && <img src={festival.firstimage} alt={festival.title} />}
