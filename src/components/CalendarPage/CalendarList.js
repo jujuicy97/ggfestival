@@ -1,15 +1,72 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 import Scrapicon01 from "../../icons/ScrapIcon-off.svg";
 import Scrapicon02 from "../../icons/ScrapIcon-on.svg";
 import { FaTrash } from "react-icons/fa6";
-
+import { getUserInfo } from "../../utils/LocalStorage";
+import { addFavorites, fetchFavorites } from "../../utils/FestivalAPI";
+import Popup from "../Popup";
 
 const CalendarList = ({ selectDate, festivals }) => {
   const navigate = useNavigate();
-  const [scraps, setScraps] = useState({});
+  const [isLike, setIsLike] = useState({});
+  const [popup, setPopup] = useState(false);
+
+  // 화면 진입 시 이미 찜한 축제 상태 불러오기
+  useEffect(() => {
+    const userFavorites = async () => {
+      const userInfo = getUserInfo();
+      if(userInfo && userInfo.id){
+        try {
+          const {data, error} = await fetchFavorites(userInfo.id);
+          if(data && !error){
+            const likeState = {};
+            data.forEach(item => {
+              if(item.festivals && item.festivals.contentid){
+                likeState[item.festivals.contentid] = true;
+              }
+            });
+            setIsLike(likeState);
+          }
+        } catch (err) {
+          console.error('찜 목록 불러오기 중 오류 발생', err);
+        }
+      }
+    };
+    
+    userFavorites();
+  }, []);
+
+  // 찜 토글 버튼
+  const toggleLike = async (contentid) => {
+    const userInfo = getUserInfo();
+    if (!userInfo || !userInfo.id) {
+      setPopup(true);
+      return;
+    }
+    const isCurrentlyLiked = isLike[contentid] || false;
+
+    setIsLike(prev => ({
+      ...prev, [contentid]: !isCurrentlyLiked
+    }));
+
+    try {
+      await addFavorites(userInfo.id, contentid);
+      if (!isCurrentlyLiked) { // 찜 추가한 경우
+
+      } else { // 찜 취소한 경우
+
+      }
+    } catch (err) {
+      console.error('api 호출 중 오류 발생', err);
+      setIsLike(prev => ({
+        ...prev, [contentid]: isCurrentlyLiked
+      }));
+    }
+  };
+
 
   // 날짜에 맞는 축제 필터링
 const filteredFestivals = festivals.filter((festival) => {
@@ -36,12 +93,8 @@ const getFestivalStatus = (festival) => {
   }
 };
 
-  // 스크랩 토글 버튼
-  const toggleScrap = (id) => {
-    setScraps((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
   return (
+    <>
     <div className="calendar-list">
       <div className="list-title">
         <div className="list-left">
@@ -68,22 +121,20 @@ const getFestivalStatus = (festival) => {
                   <p className="status-end">행사 종료</p>
                 );
               })()}
-              <img
-                src={scraps[item.id] ? Scrapicon02 : Scrapicon01}
-                alt="scrap-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleScrap(item.id);
-                }}
-              />
             </div>
-
             <div className="card-content">
-              <h2>{item.title}</h2>
-              <p>
-                {`${moment(item.startdate).format("YYYY.MM.DD")} ~ ${moment(item.enddate).format("MM.DD")}`}
-              </p>
-              <p>{item.addr1.split(" ").slice(0, 3).join(" ")}</p>
+              <div className="content-left">
+                <h2>{item.title}</h2>
+                <p>
+                  {`${moment(item.startdate).format("YYYY.MM.DD")} ~ ${moment(item.enddate).format("MM.DD")}`}
+                </p>
+                <p>{item.addr1.split(" ").slice(0, 3).join(" ")}</p>
+              </div>
+              <img
+                src={isLike[item.contentid] ? Scrapicon02 : Scrapicon01}
+                alt="scrap-icon"
+                onClick={(e) => { e.stopPropagation(); toggleLike(item.contentid); }}
+              />
             </div>
           </div>
         ))}
@@ -97,6 +148,16 @@ const getFestivalStatus = (festival) => {
         )}
       </div>
     </div>
+
+      {popup && (
+        <Popup
+          mainText="로그인이 필요합니다" 
+          subText="스크랩 기능을 이용하려면 로그인 해주세요" 
+          onClose={() => setPopup(false)}
+        />
+      )}
+
+    </>
   );
 };
 

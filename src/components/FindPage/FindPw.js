@@ -69,6 +69,12 @@ const FindPw = ( {setUserId} ) => {
               e.preventDefault();
               setEmail(e.target.value)
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleFind();
+              }
+            }}
           />
         </form>
       </div>
