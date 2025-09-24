@@ -14,6 +14,7 @@ const FestivalUpdate = () => {
     };
     //한번에 가져오기
     const fetchAndSave = async ()=>{
+        console.log('시작');
         try{
             const searchRes = await axios.get(`${URL_BASE}/searchFestival2`,{
                 params:{
@@ -92,7 +93,7 @@ const FestivalUpdate = () => {
 
     //경기도 축제중에서 
     return (
-        <div>
+        <div id="fest-update">
         <button onClick={fetchAndSave}>저장하기</button>
         </div>
     );
