@@ -278,7 +278,7 @@
         -ms-overflow-style: none; /* IE, Edge */
         .festivalitem {
           @include flex-layout(column);
-          width: 200px;
+          width: 140px;
           height: auto;
           flex-shrink: 0;
           gap: 8px;
