@@ -196,7 +196,7 @@ export const fetchComment = async (userID) => {
     const { data, error } = await supabase
       .from('comments')
       .select('*,users(userName)')
-      .eq('userID', userID)
+      .eq('userid', userID)
       .order('created_at', { ascending: false });
     return { data, error };
   } catch (err) {

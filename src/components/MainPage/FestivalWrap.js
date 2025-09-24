@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Allfestival } from '../../utils/FestivalAPI';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const FestivalWrap = () => {
   const navigate = useNavigate();
@@ -99,7 +100,9 @@ const FestivalWrap = () => {
             </div>
             <div className='bottom'>
               <p>{festival.title}</p>
-              <span>{festival.startdate} - {festival.enddate}</span>
+              <span>
+                {moment(festival.startdate).format('MM.DD')} - {moment(festival.enddate).format('MM.DD')}
+                </span>
             </div>
           </div>
         ))
