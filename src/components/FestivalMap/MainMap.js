@@ -109,7 +109,7 @@ const noteClick = ()=>{
 
       <Map
         center={baseLocate}
-        style={{ width: "100%", height: "750px" }}
+        style={{ width: "100%", height: "800px" }}
         level={6}
       >
         {!loading && (
