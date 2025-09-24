@@ -1,4 +1,4 @@
-//사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
+  //사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
 
 import { addFavorites, Allfestival } from "../../utils/FestivalAPI";
 import { createClient } from "@supabase/supabase-js";
@@ -103,7 +103,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   const [currentAddress, setCurrentAddress] = useState("");
   useEffect(()=>{
     const address = async ()=>{
-      if(!baseLocate.lat || !baseLocate.lng);
+      if(!baseLocate.lat || !baseLocate.lng)
       try{
         const res = await fetch(
           `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${baseLocate.lng}&y=${baseLocate.lat}`,

@@ -25,7 +25,6 @@ import Popup from '../Popup';
 const BottomMenuBar = () => {
   const navigate = useNavigate();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-
   const handleMarkClick = (e) => {
     const userInfo = getUserInfo(); // 로그인 정보 가져오기
     if (!userInfo) {
@@ -33,22 +32,23 @@ const BottomMenuBar = () => {
       setShowLoginPopup(true);
     } else {
       navigate('/my-marks');
+      window.scrollTo(0,0);
     }
   };
 
   return (
     <>
       <nav className="bottom-navbar">
-        <Link to="/" className="nav-link">
+        <Link to="/" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
           <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive} />
         </Link>
-        <Link to="/list/:regionId" className="nav-link">
+        <Link to="/list/:regionId" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
           <NavItem name=" 지역별" DefaultIcon={AreaDefault} ActiveIcon={AreaActive} />
         </Link>
-        <Link to="/mainMap" className="nav-link">
+        <Link to="/mainMap" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
           <NavItem name="지도" DefaultIcon={MapDefault} ActiveIcon={MapActive} />
         </Link>
-        <Link to="/festivalCalendar" className="nav-link">
+        <Link to="/festivalCalendar" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
           <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} />
         </Link>
         <div className="nav-link" onClick={handleMarkClick}>
