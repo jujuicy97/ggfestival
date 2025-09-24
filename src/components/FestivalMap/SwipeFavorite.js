@@ -1,4 +1,4 @@
-  //찜하기 컴포넌트
+//찜하기 컴포넌트
 //지도에서 찾기 -> 스와이프 -> 찜하기 컴포넌트
 
 import { fetchFavorites, addFavorites } from "../../utils/FestivalAPI";

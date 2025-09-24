@@ -3,7 +3,7 @@
   height: auto;
   background-color: var(--bg-light);
   padding: 55px 16px 70px 16px;
-  background-position: center top;
+  background-position: center 20%;
   background-size: 130% auto;
   background-repeat: no-repeat;
   .mainpage-section {
@@ -38,6 +38,7 @@
       h1 {
         @include h3-style();
         color: var(--font-dark);
+        padding-left: 10px
       }
     }
     .map-wrap {
@@ -278,7 +279,7 @@
         -ms-overflow-style: none; /* IE, Edge */
         .festivalitem {
           @include flex-layout(column);
-          width: 200px;
+          width: 140px;
           height: auto;
           flex-shrink: 0;
           gap: 8px;

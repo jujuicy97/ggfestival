@@ -25,7 +25,6 @@ import Popup from '../Popup';
 const BottomMenuBar = () => {
   const navigate = useNavigate();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-
   const handleMarkClick = (e) => {
     const userInfo = getUserInfo(); // 로그인 정보 가져오기
     if (!userInfo) {
