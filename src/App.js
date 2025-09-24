@@ -50,7 +50,6 @@ const [errorMsg, setErrorMsg] = useState("");
 
   return (
     <BrowserRouter>
-
       <TopMenubar />
       <div className="app-container">
         <Routes>
