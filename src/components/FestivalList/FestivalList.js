@@ -70,17 +70,14 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
       if (userInfo && userInfo.id) {
         try {
           const { data, error } = await fetchFavorites(userInfo.id);
-          console.log("찜 목록 데이터:", data); // 데이터 구조 확인
 
           if (data && !error) {
             const likeState = {};
             data.forEach(item => {
-              console.log("축제 아이템:", item); // 각 아이템 확인
               if (item.festivals && item.festivals.contentid) {
                 likeState[item.festivals.contentid] = true;
               }
             });
-            console.log("최종 likeState:", likeState); // 최종 상태 확인
             setIsLike(likeState);
           }
         } catch (err) {
@@ -236,7 +233,7 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
   // 하위 지역 버튼 클릭 핸들러
   const handleSubRegionClick = (regionName) => {
     setActiveSubRegion(regionName);
-    console.log(`선택된 권역: ${selectedRegion}, 하위 지역: ${regionName}`);
+
     // 여기에서 ${selectedRegion}과 ${regionName}을 사용하여 API 호출 
   };
 
@@ -359,19 +356,25 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
     <div id='festivalList'>
       <nav className="region-filter">
         <div className='filter'>
+
           <select
             id="regionSelect"
             className="region-dropdown"
             value={selectedRegion}
             onChange={handleRegionChange}
           >
+                      <div className='select-wrapper'>
+            <span>▼</span>
+            </div>
             <option value="all">경기도 전체</option>
             <option value="east">경기 동부권</option>
             <option value="west">경기 서부권</option>
             <option value="south">경기 남부권</option>
             <option value="north">경기 북부권</option>
           </select>
-          <form className="search-container">
+          
+          <form className="search-container"
+          onSubmit={(e)=>{e.preventDefault()}}>
             <input
               type='text'
               placeholder='검색'
@@ -399,7 +402,9 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
       </nav>
       {fillteredFestivals.length > 0 && (
         <div className='festival-info-container'>
-          <p><span>{fillteredFestivals.length}개의</span> 축제가 있어요!</p>
+          <p>
+            {search.trim() !== '' && ('검색 결과 ')}
+          <span>{fillteredFestivals.length}개</span>의 축제가 있어요!</p>
           <div className='controls-wrapper'>
             <label htmlFor="check">
               <input
@@ -429,7 +434,10 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
           <div className='no-results'>
             <p className='no-search'> "{search}"
               <br />검색 결과가 없어요</p>
-            <div className='festivalWrap'><FestivalWrap /></div>
+              
+            <div className='festivalWrap'>
+              <h1 className='festivalWrap-name'>이런 축제는 어때요?</h1>
+              <FestivalWrap /></div>
           </div>
         )}
         {!loading && !error && fillteredFestivals.length > 0 && (
