@@ -1,0 +1,24 @@
+.delete-complete{
+  @include flex-layout(column, space-between);
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  padding: 55px 16px 70px 16px;
+  .top{
+    width: 100%;
+    height: calc(100vh - 55px - 70px - 50px);
+    @include flex-layout(column);
+    gap: 16px;
+    svg{
+      color: var(--primary-500);
+      font-size: 8rem;
+    }
+    p{
+      @include body-l-style();
+      color: var(--gray-500);
+    }
+  }
+  button{
+    @include btn-basic();
+  }
+}

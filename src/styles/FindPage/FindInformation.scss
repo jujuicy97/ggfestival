@@ -1,0 +1,108 @@
+#find-idpw {
+  height: calc(100vh - 125px);
+  margin: 0 auto;
+  padding: 70px 16px;
+  padding-bottom: 10px;
+  ul {
+    @include flex-layout();
+    width: 100%;
+    li {
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      @include body-l-style();
+      border-bottom: 2px solid var(--gray-300);
+      color: var(--gray-300);
+      cursor: pointer;
+      &.active {
+        color: var(--primary-500);
+        border-color: var(--primary-500);
+      }
+    }
+  }
+}
+
+// --- 아이디 찾기 & 비밀번호 재설정 공통 스타일 ---
+
+.find-ment {
+  height: 100%;
+  padding-top: 38px;
+  @include flex-layout(column, space-between, flex-start);
+  .find-top-wrap {
+    width: 100%;
+    @include flex-layout(column, center, flex-start);
+    gap: 2rem;
+    h4 {
+      @include h4-style();
+      color: var(--gray-500);
+      span {
+        color: var(--gray-900);
+      }
+    }
+    form {
+      width: 100%;
+      @include flex-layout(column, center, flex-start);
+      gap: 1.2rem;
+      input {
+        @include input-style();
+      }
+      .check-ment {
+        @include caption-style();
+        padding: 0 10px;
+        &.success {
+          color: var(--primary-500);
+        }
+        &.error {
+          color: #ed7f7f;
+        }
+      }
+    }
+  }
+  button {
+    @include btn-basic();
+  }
+  &.pw-edit {
+    height: 100vh;
+    min-height: calc(100vh - 140px);
+    margin: 0 auto;
+    padding: 90px 16px;
+  }
+}
+
+// --- 아이디 찾기 & 비밀번호 재설정 완료 공통 스타일 ---
+
+.find-complete {
+  height: calc(100vh - 90px);
+  margin: 0 auto;
+  padding: 0 16px;
+  @include flex-layout(column, space-between, center);
+  .complete-content {
+    height: 100%;
+    @include flex-layout(column, center, center);
+    gap: 1rem;
+    svg {
+      font-size: 9.4rem;
+      color: var(--primary-500);
+    }
+    p {
+      @include body-l-style();
+      color: var(--gray-500);
+    }
+    h3 {
+      @include h3-style();
+      color: var(--gray-900);
+    }
+  }
+  .btn-wrap {
+    width: 100%;
+    @include flex-layout(column, center, center);
+    gap: 2rem;
+    p {
+      @include body-m-style();
+      color: var(--gray-400);
+    }
+    button {
+      @include btn-basic();
+    }
+  }
+}

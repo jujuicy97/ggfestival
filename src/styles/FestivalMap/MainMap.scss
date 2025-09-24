@@ -1,0 +1,56 @@
+.main-map-wrap {
+    position: relative;
+    // padding: 55px 16px 70px 16px;
+  .map-notice {
+    @include body-m-style();
+    position: absolute;
+    top: 13%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray-white);
+    width: 260px;
+    height: 40px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+    span{
+        color: var(--primary-500);
+        padding: 0 3px;
+    }
+    .question{
+        font-size: 18px;
+        color: var(--gray-300);
+        margin-left: 5px;
+    }
+  }
+
+
+  .surround-customoverlay{
+    .overlay-box {
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      width: 150px;
+      height: 50px;
+      background: url("../../../public/surroundFestival.png") no-repeat center/cover;
+      text-decoration: none;
+      position: relative;
+  
+      .title {
+        position: absolute;
+        left: 25px;
+        top: 10px;
+        @include body-s-style();
+        color: var(--gray-white);
+        text-align: center;
+        white-space: nowrap;       
+        overflow: hidden;          // 넘치는 부분 숨김
+        text-overflow: ellipsis;   // ... 표시
+        width: 100px;              
+      }
+    }
+  }
+}

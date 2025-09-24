@@ -1,0 +1,123 @@
+// 공통 설정
+.top-menubar {
+  width: 100%;
+  height: 55px;
+  position: fixed;
+  top: 0;
+  z-index: 100000;
+}
+
+// 메인 홈 메뉴바
+.main-menu {
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--gray-100);
+  width: 100%;
+  height: 100%;
+  @include flex-layout(row, space-between);
+  padding: 16px;
+  .main-logo{
+    cursor: pointer;
+  }
+  .after-login {
+    @include flex-layout();
+    gap: 1rem;
+    svg {
+      font-size: 2.3rem;
+      color: var(--gray-500);
+      cursor: pointer;
+    }
+  }
+  .before-login {
+    @include flex-layout();
+    color: var(--gray-500);
+    cursor: pointer;
+    p {
+      @include body-l-style();
+      margin-right: 8px;
+    }
+    svg {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+// 기본 메뉴바
+.default-menu {
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--gray-100);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  @include flex-layout();
+  svg {
+    position: absolute;
+    fill: var(--gray-400);
+    font-size: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1rem;
+    cursor: pointer;
+  }
+  p {
+    @include body-l-style();
+    color: var(--gray-400);
+  }
+}
+
+// 기본 + 검색 메뉴바
+.search-menu {
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--gray-100);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  @include flex-layout();
+  .back-icon {
+    position: absolute;
+    fill: var(--gray-400);
+    font-size: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1rem;
+    cursor: pointer;
+  }
+  p {
+    @include body-l-style();
+    color: var(--gray-400);
+  }
+  .search-icon {
+    position: absolute;
+    fill: var(--gray-400);
+    font-size: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    cursor: pointer;
+  }
+}
+
+// 축제 상세 페이지
+.detail-page-menu{
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--gray-100);
+   width: 100%;
+  height: 100%;
+  @include flex-layout(row, space-between);
+  padding: 0 1rem;
+  .back-icon {
+    fill: var(--gray-400);
+    font-size: 2.5rem;
+    cursor: pointer;
+  }
+  .icon-wrap{
+    @include flex-layout();
+    gap: 1.5rem;
+    svg{
+      cursor: pointer;
+    }
+    .share-icon{
+      font-size: 2.5rem;
+      color: var(--gray-300);
+    }
+  }
+}

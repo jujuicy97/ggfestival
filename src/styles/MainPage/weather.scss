@@ -1,0 +1,23 @@
+.weather-today{
+  @include flex-layout();
+  .weather-icon{
+    width: 50px;
+    height: 50px
+  }
+  p{
+    @include body-m-style();
+    padding: 8px;
+    &:nth-of-type(1){
+      color: #539FDE;
+    }
+    &:nth-of-type(2){
+      color: #E74D4D;
+    }
+  }
+  .line{
+    display: block;
+    width: 2px;
+    height: 13px;
+    background-color: var(--gray-300);
+  }
+}

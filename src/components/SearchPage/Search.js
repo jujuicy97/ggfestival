@@ -8,13 +8,18 @@ const Search = ({setSearchWord, setContentID}) => {
     const [ word, setWord ] = useState('');
     const [ arrayFive, setArrayFive ] = useState([]);
     const navigate = useNavigate();
-    const handleSumbit = ()=>{
+    const handleSumbit = (e)=>{
+        e.preventDefault();
         setSearchWord(word);
-        navigate('/festivallist') //만약에 페이지이름이 틀릴시에 수정부탁드려용
+        navigate('/list') //만약에 페이지이름이 틀릴시에 수정부탁드려용
     }
     const handleClick = (value)=>{
         setSearchWord(value);
-        navigate('/festivallist');
+        navigate('/list');
+    }
+    const handleMove = (id)=>{
+        setContentID(id);
+        navigate('/festival');
     }
     const randomFest = async ()=>{
         const { data, error } = await fetchFiveRandom();
@@ -71,7 +76,7 @@ const Search = ({setSearchWord, setContentID}) => {
                             return (
                                 <div 
                                     key={idx}
-                                    onClick={()=>{setContentID(item.contentid)}}
+                                    onClick={()=>{handleMove(item.contentid)}}
                                 >
                                     <p className="num">{idx+1}</p>
                                     <div>

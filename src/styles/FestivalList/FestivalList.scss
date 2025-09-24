@@ -1,0 +1,356 @@
+#festivalList {
+  max-width: 768px;
+  height: 100%;
+  padding: 16px 16px 70px 16px;
+  gap: 12px;
+
+  .region-filter {
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-100);
+
+    .filter {
+      width: 100%;
+      @include flex-layout(row, center, center);
+      gap: 1rem;
+
+      select {
+        flex: 1;
+        height: 48px;
+        @include body-l-style;
+        color: var(--gray-500);
+        border: 1px solid var(--gray-100);
+        padding: 1rem;
+      }
+
+      .search-container {
+        flex: 1;
+        width: 173px;
+        height: 48px;
+        @include flex-layout(row, space-around, center);
+        background-color: var(--gray-50);
+        color: var(--gray-300);
+        border-radius: 10rem;
+        position: relative;
+        outline: none;
+        @include body-m-style;
+
+        &:focus-within {
+          input {
+            border: 2px solid var(--primary-500);
+          }
+
+          button {
+            svg {
+              color: var(--primary-500);
+            }
+          }
+        }
+
+        input {
+          border-radius: 10rem;
+          width: 100%;
+          height: 46px;
+          padding: 1rem;
+          background-color: var(--gray-50);
+          color: var(--gray-900);
+          border: 2px solid transparent;
+          outline: none;
+        }
+
+        input::placeholder {
+          color: var(--gray-300);
+        }
+
+        button {
+          position: absolute;
+          top: 0.4rem;
+          right: 1rem;
+          background-color: transparent;
+          font-size: 2rem;
+          padding: 1rem;
+        }
+      }
+    }
+
+    ul {
+      padding-top: 1rem;
+      // gap: 1rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      row-gap: 1rem;
+
+      li {
+        @include body-m-style();
+
+        .region-button {
+          width: 7rem;
+          height: 3.8rem;
+          border-radius: 4rem;
+          @include body-m-style;
+          transition: all 0.2s ease;
+          background-color: transparent;
+          color: var(--gray-500);
+          border: 1px solid var(--gray-100);
+        }
+
+        /*'전체' 버튼 선택*/
+        .all-region.active {
+          background-color: var(--primary-500);
+          color: var(--gray-white);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 다른 지역 버튼 선택 */
+
+        .sub-region.active {
+          background-color: var(--primary-50);
+          color: var(--primary-500);
+          border: 1.5px solid var(--primary-500);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .region-button:hover:not(.active) {
+          transform: translateY(-1px);
+          color: var(--primary-500);
+          background-color: var(--primary-50);
+          border: 1.5px solid var(--primary-500);
+        }
+      }
+    }
+  }
+
+  .festival-info-container {
+    padding-top: 1rem;
+    @include flex-layout(row, space-between, center);
+
+    p {
+      @include body-m-style;
+      color: var(--gray-500);
+
+      span {
+        color: var(--gray-900);
+      }
+    }
+
+    .controls-wrapper {
+      @include flex-layout();
+      gap: 1rem;
+
+      label {
+        @include flex-layout();
+        gap: 1rem;
+        color: var(--gray-500);
+        @include body-s-style;
+
+        input {
+          border-radius: 50%;
+        }
+
+        span {
+          color: var(--gray-100);
+        }
+      }
+    }
+
+    .sort-select {
+      border: none;
+      color: var(--gray-500);
+    }
+  }
+
+  .fillter-list-display {
+    padding-top: 1rem;
+    width: 100%;
+
+    .no-results {
+      .no-search {
+        width: 100%;
+        height: 30rem;
+        @include flex-layout();
+        @include body-l-style();
+        color: var(--gray-500);
+        text-align: center;
+      }
+
+      .festivalWrap {
+        word-break: break-all;
+
+        .title {
+          @include flex-layout(row, left, flex-end);
+          gap: 10px;
+          margin-bottom: 1rem;
+
+          h3 {
+            @include h3-style();
+            color: var(--font-dark);
+          }
+
+          p {
+            @include body-s-style();
+            color: var(--gray-500);
+          }
+        }
+
+        .festivalitem-wrap {
+          @include flex-layout(row, flex-start, flex-start);
+          overflow-x: auto;
+          gap: 12px;
+          scrollbar-width: none;
+
+          .festivalitem {
+            @include flex-layout(column);
+            width: 200px;
+            height: auto;
+            flex-shrink: 0;
+            gap: 8px;
+
+            .top {
+              position: relative;
+              width: 100%;
+              background-color: var(--gray-300);
+              border-radius: 8px;
+              overflow: hidden;
+              aspect-ratio: 1/1.5;
+
+              span {
+                @include caption-style();
+                position: absolute;
+                background-color: var(--primary-500);
+                color: var(--gray-white);
+                padding: 5px 10px;
+                border-radius: 50px;
+                top: 1rem;
+                left: 1rem;
+              }
+
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+
+            .bottom {
+              text-align: center;
+
+              p {
+                @include body-m-style();
+                color: var(--font-dark);
+              }
+
+              span {
+                @include caption-style();
+                color: var(--gray-500);
+              }
+            }
+          }
+
+        }
+      }
+
+    }
+
+    .festival-grid {
+      @include flex-layout();
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      .festival-card {
+        padding-top: 1rem;
+        width: 100%;
+        @include flex-layout(column, flex-start, center);
+        position: relative;
+        overflow: hidden;
+
+        .status-badgestatus-ongoing,
+        .status-badgestatus-today {
+          position: absolute;
+          top: 20px;
+          left: 10px;
+          // z-index: 10;
+          width: 49px;
+          height: 28px;
+          color: var(--gray-white);
+          background: $gradient-primary;
+          box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+          @include caption-style;
+          text-align: center;
+          padding-top: 7px;
+          border-radius: 40px;
+        }
+
+        .status-badgestatus-dday {
+          position: absolute;
+          top: 20px;
+          left: 10px;
+          // z-index: 10;
+          width: 49px;
+          height: 28px;
+          color: var(--primary-700);
+          background-color: var(--gray-white);
+          box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+          @include caption-style;
+          text-align: center;
+          padding-top: 7px;
+          border-radius: 40px;
+        }
+
+        .status-badgestatus-endded {
+          position: absolute;
+          top: 20px;
+          left: 10px;
+          // z-index: 10;
+          width: 49px;
+          height: 28px;
+          color: var(--gray-100);
+          background-color: var(--gray-500);
+          box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+          @include caption-style;
+          text-align: center;
+          padding-top: 7px;
+          border-radius: 40px;
+        }
+
+        .favorite-btn {
+          position: absolute;
+          top: 20px;
+          right: 10px;
+          background-color: transparent;
+          font-size: 2.5rem;
+
+          svg {
+            width: 2.5rem;
+            height: 2.5rem;
+
+          }
+        }
+
+        img {
+          width: 100%;
+          aspect-ratio: 1/1;
+          object-fit: cover;
+          border-radius: 5px;
+        }
+
+        .festival-info {
+          width: 100%;
+          height: 7rem;
+        }
+
+        .festival-title {
+          word-break: keep-all;
+          padding-top: 0.5rem;
+          @include body-l-style;
+          color: var(--gray-900);
+        }
+
+        p {
+          color: var(--gray-400);
+          @include caption-style;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+.detail-wrap {
+  color: var(--gray-900);
+  @include body-m-style();
+  padding: 55px 16px 70px 16px;
+ 
+ //축제 정보 영역 
+  .header-bar {
+  }
+  .detail-top {
+    img {
+      width: 100%;
+    }
+    h1 {
+      margin: 1.5rem 0;
+      @include h3-style();
+    }
+    .date-weather {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .date-weather-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        .state {
+          display: inline-block;
+          @include body-s-style();
+          background-color: var(--primary-100);
+          color: var(--primary-500);
+          padding: 0.5rem 1rem;
+          border-radius: 40px;
+        }
+        .date {
+          @include body-l-style();
+          color: var(--gray-500);
+        }
+      }
+      .date-weather-right {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .detail-text-wrap {
+    .menu {
+      @include h4-style();
+      color: var(--gray-400);
+      display: flex;
+      justify-content: space-between;
+      gap: 3rem;
+      padding-top: 3rem;
+    }
+    .text1 {
+      .overview {
+        background-color: var(--gray-50);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+      }
+    }
+    .text2 {
+      p{
+        margin: 1rem 0;
+        span {
+          color: var(--gray-500);
+          margin-right: 2rem;
+        }
+      }
+    }
+    .bar2{
+        margin: 3rem 0;
+    }
+  }
+
+//map 영역  
+    .map-wrapper{
+        margin: 2rem 0;
+        .map-text-wrap{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.6rem;
+            .map-title{
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                @include body-l-style();
+            }
+            .load-find{
+                // display: flex;
+                // justify-content: center;
+                // align-items: center;
+                // background-color: var(--primary-500);
+                // color: var(--secondary-50);
+                // padding: 0.5rem 1rem;
+                // gap: 0.5rem;
+                // border-radius: 20px;
+            }
+        }
+        .map{
+            background-color: #eee;
+            width: 360px;
+            height: 250px;
+        }
+    }
+
+//댓글 영역
+    .comment-wrap{
+      .comment-num{
+        @include h4-style();
+        display: flex;
+        gap: 0.5rem;
+        span{
+          @include body-l-style();
+          color: var(--primary-500);
+        }
+      }
+    }    
+}

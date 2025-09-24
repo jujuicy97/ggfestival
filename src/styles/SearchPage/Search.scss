@@ -84,6 +84,11 @@
                 gap: 2rem;
                 padding: 1rem 0;
                 border-bottom: 1px solid var(--gray-100);
+                cursor: pointer;
+                &:hover{
+                    scale: 1.003;
+                    text-shadow: 0 0 10px rgba(0,0,0,0.03)
+                }
                 .num{
                     @include body-l-style();
                 }

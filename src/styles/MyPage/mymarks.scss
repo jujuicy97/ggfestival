@@ -1,0 +1,99 @@
+.my-marks-wrap {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-color: var(--bg-white);
+  padding: 0 16px;
+  padding-top: 55px;
+  padding-bottom: 72px;
+  .title {
+    @include flex-layout(row, space-between);
+    padding: 8px;
+    border-bottom: 1px solid var(--gray-100);
+    .title-text {
+      @include flex-layout();
+      gap: 8px;
+      p {
+        @include body-l-style();
+        color: var(--font-dark);
+      }
+      span {
+        @include caption-style();
+        color: var(--gray-400);
+      }
+    }
+    svg {
+      font-size: 2.5rem;
+      color: var(--gray-300);
+    }
+    .nexticon {
+      cursor: pointer;
+    }
+  }
+  .mark-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px 0;
+    
+    .mark-item {
+      @include flex-layout(column,flex-start);
+      gap: 12px;
+      cursor: pointer;
+      .top {
+        width: 100%;
+        background-color: #969696;
+        border-radius: 5px;
+        overflow: hidden;
+        aspect-ratio: 1.2/1;
+        position: relative;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        svg{
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          cursor: pointer;
+          z-index: 5;
+        }
+      }
+      .bottom {
+        width: 100%;
+        @include flex-layout(column, flex-start, left);
+        text-align: left;
+        h4 {
+          @include body-l-style();
+        }
+        p {
+          @include body-s-style();
+          color: var(--gray-400);
+        }
+      }
+    }
+  }
+
+  .no-mark {
+    @include flex-layout(column);
+    gap: 16px;
+    height: calc(100vh - 55px - 72px);
+    svg {
+      font-size: 5rem;
+      color: var(--gray-400);
+    }
+    .text {
+      text-align: center;
+      p {
+        @include body-l-style();
+        color: var(--font-dark);
+      }
+      span {
+        @include caption-style();
+        color: var(--gray-400);
+      }
+    }
+  }
+}
