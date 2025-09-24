@@ -21,7 +21,7 @@ import { ReactComponent as MarkActive } from '../../icons/mark-2.svg';
 const BottomMenuBar = () => {
   return (
     <nav className="bottom-navbar">
-       <Link to="/" className="nav-link">
+      <Link to="/" className="nav-link">
         <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive} to="/" />
       </Link>
       <Link to="/list" className="nav-link">
