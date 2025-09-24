@@ -1,8 +1,8 @@
 import { IoNavigate } from "react-icons/io5";
 
-const LoadFind = ({baseLocate, festival}) => {
+const LoadFind = ({ baseLocate, festival }) => {
   const findNavigate = () => {
-    if(!baseLocate || !festival ) return;
+    if (!baseLocate || !festival) return;
     const startName = "현재 위치";
     const startLat = Number(baseLocate.lat);
     const startLng = Number(baseLocate.lng);
@@ -19,11 +19,11 @@ const LoadFind = ({baseLocate, festival}) => {
 
     window.open(url, "_blank");
   };
-// console.log(Number(baseLocate.lat), Number(baseLocate.lng));
+  // console.log(Number(baseLocate.lat), Number(baseLocate.lng));
   return (
     <div className="load-find" onClick={findNavigate} >
-        <p>길찾기</p>
-        <IoNavigate />
+      <p>길찾기</p>
+      <IoNavigate />
     </div>
   );
 };

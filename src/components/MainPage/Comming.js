@@ -3,6 +3,9 @@ import { fetchFavorites } from '../../utils/FestivalAPI';
 import { getUserInfo } from '../../utils/LocalStorage';
 import { useNavigate } from 'react-router-dom';
 import LoadFind from './LoadFind';
+import moment from 'moment';
+import 'moment/locale/ko';
+
 
 const Comming = ({baseLocate}) => {
   const navigate = useNavigate();
@@ -87,7 +90,9 @@ const Comming = ({baseLocate}) => {
             <div className='wrap'>
               <p>{festival.title}</p>
               <span>
-                {festival.startdate} ~ {festival.enddate}
+                 {festival.startdate === festival.enddate
+    ? moment(festival.startdate).format('MM.DD(ddd)')
+    : `${moment(festival.startdate).format('MM.DD(ddd)')} - ${moment(festival.enddate).format('MM.DD(ddd)')}`}
               </span>
             </div>
             <LoadFind baseLocate={baseLocate} festival={festival} />
