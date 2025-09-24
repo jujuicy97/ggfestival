@@ -10,7 +10,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Popup from '../Popup';
 import { fetchFavorites } from '../../utils/FestivalAPI';
 import FestivalWrap from '../MainPage/FestivalWrap';
-import { useParams } from 'react-router-dom';
 
 const FestivalList = ({ setSearchWord, searchWord }) => {
   const [search, setSearch] = useState(searchWord || '');
