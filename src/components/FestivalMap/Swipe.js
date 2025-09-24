@@ -11,15 +11,13 @@ import ControlBar from "./ControlBar";
 import { FiMapPin } from "react-icons/fi";
 import { IoMenu } from "react-icons/io5";
 import { useActionData, useNavigate } from "react-router-dom";
+import SwipeFavorite from "./SwipeFavorite";
 
 
 //축제 api
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 const kakaoLestKey = process.env.REACT_APP_KAKAO_REST_KEY;
 
-const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorite }) => {
+const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
 
 //상세페이지로 넘어가기
   const navigate = useNavigate();
@@ -103,7 +101,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   const [currentAddress, setCurrentAddress] = useState("");
   useEffect(()=>{
     const address = async ()=>{
-      if(!baseLocate.lat || !baseLocate.lng)
+      if(baseLocate.lat && baseLocate.lng)
       try{
         const res = await fetch(
           `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${baseLocate.lng}&y=${baseLocate.lat}`,
@@ -114,6 +112,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
           }
         );
         const data = await res.json();
+        console.log(data);
         const address = data.documents[0]?.address?.address_name || "주소 정보 없음";
         setCurrentAddress(address);
       } catch (err) {
@@ -207,11 +206,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
                     style={{cursor: "pointer" }}
                   >{f.title}</p>
     {/* 찜 상태 반영, 클릭 이벤트*/}
-                  <CiBookmark 
-                    className="bookmark" 
-                    color={favorites.includes(f.contentid) ? "#F59E0B" : "#D1D5DB"} 
-                    onClick={(e)=>{e.stopPropagation(); handleFavorite(f.contentid);}}
-                  />
+                  <SwipeFavorite festival={f} />
                 </div>
                 <div className="text">
                   <div className="date">
@@ -236,44 +231,9 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   );
 };
 
-const Swipe = ({festivalList, baseLocate, userID}) => {
+const Swipe = ({baseLocate}) => {
   const navigate = useNavigate();
   const [isExtend, setIsExtend] = useState(false); //스와이프 확장 상태 관리(처음엔 확장하지 않음)
-  const [favorites, setFavorites] = useState([]);  //내 찜 목록 관리
-
-  //최초 로딩 시 내 찜 목록 불러오기(기존 찜 표시용)
-  useEffect(()=>{
-    if(!userID) return;
-    const fetchFavorites = async () =>{
-      const {data, error} = await supabase
-      .from("favorites")
-      .select("festivalid")
-      .eq("userid", userID);
-
-      if(!error && data){
-        setFavorites(data.map((f) => f.festivalid));
-      }
-    };
-    fetchFavorites();
-  },[userID]);
-
-  //찜 토글 함수
-  const handleFavorite = async (contentid) =>{
-    if(!userID){
-      alert("로그인이 필요합니다");
-      return;
-    }
-  
-  //addFavorites API 호출 → 결과에 따라 state 업데이트
-  const result = await addFavorites(userID, contentid);
-  if (result.success) {
-    if (result.action === "added") {
-      setFavorites((prev) => [...prev, contentid]);
-    } else if (result.action === "removed") {
-      setFavorites((prev) => prev.filter((id) => id !== contentid));
-    }
-  }
-};
 
   return (
     <div>
@@ -281,8 +241,6 @@ const Swipe = ({festivalList, baseLocate, userID}) => {
         isExtend={isExtend} 
         setIsExtend={setIsExtend} 
         baseLocate={baseLocate} 
-        favorites={favorites}
-        handleFavorite={handleFavorite}
       />
     </div>
   );

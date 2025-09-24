@@ -5,6 +5,7 @@
   background-color: var(--bg-white);
   padding: 0 16px;
   padding-top: 55px;
+  padding-bottom: 72px;
 
   .user-info {
     @include flex-layout(row, space-between, center);
