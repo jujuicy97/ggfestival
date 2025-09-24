@@ -1,0 +1,6 @@
+#fest-update{
+    padding: 80px 16px;
+    button{
+        @include btn-basic();
+    }
+}

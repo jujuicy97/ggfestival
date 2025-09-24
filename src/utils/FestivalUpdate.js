@@ -82,7 +82,7 @@ const FestivalUpdate = () => {
 
     //경기도 축제중에서 
     return (
-        <div>
+        <div id="fest-update">
         <button onClick={fetchAndSave}>저장하기</button>
         </div>
     );
