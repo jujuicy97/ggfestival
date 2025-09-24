@@ -405,7 +405,7 @@ export const festivalDB = async (festivals) => {
         firstimage2: festivals.firstImage2
       }
     ],
-  { onConflict: ['contentid'], ignoreDuplicates: true }
+  { onConflict: ['contentid'] }
   )
   return { data, error };
 }  
