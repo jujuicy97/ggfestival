@@ -1,5 +1,6 @@
 .main-map-wrap {
     position: relative;
+    // padding: 55px 16px 70px 16px;
   .map-notice {
     @include body-m-style();
     position: absolute;
@@ -25,6 +26,8 @@
         margin-left: 5px;
     }
   }
+
+
   .surround-customoverlay{
     .overlay-box {
       // display: flex;

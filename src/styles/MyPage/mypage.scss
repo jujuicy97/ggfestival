@@ -111,7 +111,7 @@
     }
     .mark-item {
       @include flex-layout(row, space-between, center);
-      height: 100px;
+      height: 150px;
       padding: 8px;
       gap: 12px;
       cursor: pointer;
@@ -121,6 +121,13 @@
         height: 100%;
         background-color: #969696;
         border-radius: 5px;
+        overflow: hidden;
+        aspect-ratio: 1 / 1.5;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
       .right {
         flex: 1;

@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { ReactComponent as Mark } from '../../icons/mark-nonestroke.svg';
 import { IoIosArrowForward } from "react-icons/io";
 import { MdOutlineFestival } from "react-icons/md";
-import { fetchFavorites } from "../../utils/FestivalAPI"; 
+import { fetchFavorites } from "../../utils/FestivalAPI";
 import { useNavigate } from 'react-router-dom';
 
 const MarkWrap = ({ Id }) => {
   const [favorites, setFavorites] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -15,7 +16,10 @@ const MarkWrap = ({ Id }) => {
       setLoading(true);
       const { data, error } = await fetchFavorites(Id);
       if (!error && data) {
-        // created_at 기준 내림차순 정렬 후 상위 2개만
+        // 전체 개수 저장
+        setTotalCount(data.length);
+
+        // 최신순 정렬 → 2개만 저장
         const sorted = data
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
           .slice(0, 2);
@@ -27,6 +31,7 @@ const MarkWrap = ({ Id }) => {
     if (Id) getFavorites();
   }, [Id]);
 
+
   const isMark = favorites.length > 0;
 
   if (loading) return <p>로딩 중...</p>;
@@ -35,24 +40,27 @@ const MarkWrap = ({ Id }) => {
     <div className="mark-wrap">
       <div className="title">
         <div className="title-text">
-          <Mark className="markicon"/>
+          <Mark className="markicon" />
           <p>스크랩 목록</p>
-          {isMark && <span>{favorites.length}개</span>}
+          {isMark && <span>{totalCount}개</span>}
         </div>
         <IoIosArrowForward
-        className="nexticon"
-        onClick={() => navigate('/my-marks')}
+          className="nexticon"
+          onClick={() => navigate('/my-marks')}
         />
       </div>
 
       {isMark ? (
         <div className="mark-list">
           {favorites.map((fav) => (
-            <div className="mark-item" key={fav.id}>
+            <div className="mark-item"
+            key={fav.id}
+            onClick={() => navigate(`/festivals/${fav.festivals.contentid}`)}
+            >
               <div className="left">
-                <img 
-                  src={fav.festivals.firstimage2} 
-                  alt={fav.festivals.title} 
+                <img
+                  src={fav.festivals.firstimage}
+                  alt={fav.festivals.title}
                 />
               </div>
               <div className="right">
