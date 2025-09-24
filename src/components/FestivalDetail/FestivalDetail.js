@@ -39,6 +39,7 @@ const {contentid} = useParams();
           console.error("축제 데이터 로드 실패");
         } else {
           setFestivalList(data);
+          console.log("선택한 축제:", data);
         
         //contentid와 일치하는 축제 선택
         const select = data.find(f => f.contentid === contentid);
@@ -141,8 +142,8 @@ if(loading) return <p>지도 로딩중...</p>;
 if(error) return <p>지도 로딩 실패</p>
 
     return (
-// 뒤로가기, 찜, 공유 아이콘        
         <div className="detail-wrap">
+
 {/* 메뉴와 날씨 정보 */}
             <div className="detail-top">
                 {festival.firstimage && <img src={festival.firstimage} alt={festival.title} />}

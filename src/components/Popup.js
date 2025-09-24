@@ -20,7 +20,7 @@ const Popup = ( {mainText, subText, btnText = "확인", onClose}) => {
         <div className="popup-text">
           <IoAlertCircle />
           <h4>{mainText}</h4>
-          <p>{subText}</p>
+          <div>{subText}</div> {/* p태그로 설정할 경우 여러줄 처리로 새로운 태그를 넣을수 없기때문에 div처리 */}
         </div>
         <button onClick={onClose}>{btnText}</button>
       </div>
