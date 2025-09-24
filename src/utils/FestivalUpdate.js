@@ -1,10 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { festivalDB } from "./FestivalAPI";
+import response from './SigunguCode.json';
 
 const FestivalUpdate = () => {
     const API_KEY = process.env.REACT_APP_FESTIVAL_KEY;
     const URL_BASE = process.env.REACT_APP_FESTIVAL_BASE;
+    const getSigunguName = (code) => {
+        const matched = response.response.body.items.item.find(
+        (item) => item.code === String(code)
+        );
+        return matched ? matched.name : '';
+    };
     //한번에 가져오기
     const fetchAndSave = async ()=>{
         try{
@@ -23,6 +30,7 @@ const FestivalUpdate = () => {
 
             for (const item of items){
                 const contentid = item.contentid;
+                const sigungucode = item.sigungucode;
                 //공통정보 꺼내오기
                 const commonRes = await axios.get(`${URL_BASE}/detailCommon2`,{
                     params:{
@@ -52,13 +60,15 @@ const FestivalUpdate = () => {
                 const common = extraFilter(commonRes);
                 const intro = extraFilter(introRes);
 
+                const sigunguName = getSigunguName(sigungucode);
+
                 //배열화시키기
                 const festivals = {
                     contentId: contentid,
                     title: item.title,
                     startDate: item.eventstartdate,
                     endDate: item.eventenddate,
-                    sigunguCode: item.sigungucode,
+                    sigunguCode: sigunguName,
                     addr: item.addr1,
                     sponsorName: common.telname || null,
                     sponsorTel: common.tel || null,
@@ -82,7 +92,7 @@ const FestivalUpdate = () => {
 
     //경기도 축제중에서 
     return (
-        <div id="fest-update">
+        <div>
         <button onClick={fetchAndSave}>저장하기</button>
         </div>
     );
