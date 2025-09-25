@@ -32,38 +32,43 @@ const BottomMenuBar = () => {
       setShowLoginPopup(true);
     } else {
       navigate('/my-marks');
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     }
   };
 
   return (
     <>
       <nav className="bottom-navbar">
-        <Link to="/" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
-          <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive} />
+        <Link to="/" onClick={() => { window.scrollTo(0, 0) }} className="nav-link">
+          <NavItem name="홈" DefaultIcon={HomeDefault} ActiveIcon={HomeActive}  to="/"/>
         </Link>
-        <Link to="/list/:regionId" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
-          <NavItem name=" 지역별" DefaultIcon={AreaDefault} ActiveIcon={AreaActive} />
+        <Link to="/list/:regionId" onClick={() => { window.scrollTo(0, 0) }} className="nav-link">
+          <NavItem
+            name="지역별"
+            DefaultIcon={AreaDefault}
+            ActiveIcon={AreaActive}
+            to={["/list/:regionId","/list/north", "/list/east", "/list/south", "/list/west"]}
+          />
         </Link>
-        <Link to="/mainMap" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
-          <NavItem name="지도" DefaultIcon={MapDefault} ActiveIcon={MapActive} />
+        <Link to="/mainMap" onClick={() => { window.scrollTo(0, 0) }} className="nav-link">
+          <NavItem name="지도" DefaultIcon={MapDefault} ActiveIcon={MapActive} to="/mainMap"/>
         </Link>
-        <Link to="/festivalCalendar" onClick={()=>{window.scrollTo(0,0)}} className="nav-link">
-          <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} />
+        <Link to="/festivalCalendar" onClick={() => { window.scrollTo(0, 0) }} className="nav-link">
+          <NavItem name="달력" DefaultIcon={CalendarDefault} ActiveIcon={CalendarActive} to="/festivalCalendar"/>
         </Link>
         <div className="nav-link" onClick={handleMarkClick}>
-          <NavItem name="스크랩" DefaultIcon={MarkDefault} ActiveIcon={MarkActive} />
+          <NavItem name="스크랩" DefaultIcon={MarkDefault} ActiveIcon={MarkActive} to="/my-marks"/>
         </div>
       </nav>
 
       {showLoginPopup && (
-  <Popup
-    mainText="로그인이 필요합니다."
-    subText="스크랩을 이용하려면 먼저 로그인해주세요."
-    btnText="확인"
-    onClose={() => setShowLoginPopup(false)}
-  />
-)}
+        <Popup
+          mainText="로그인이 필요합니다."
+          subText="스크랩을 이용하려면 먼저 로그인해주세요."
+          btnText="확인"
+          onClose={() => setShowLoginPopup(false)}
+        />
+      )}
     </>
   );
 };
