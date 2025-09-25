@@ -50,11 +50,12 @@ const SwipeFavorite = ({festival}) => {
         <div 
         className="surround-customoverlay"
         style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}
+        onClick={() => navigate(`/festivals/${festival.contentid}`)}
       >
         {isFavorited ? (
-          <MarkActive style={{ width: "2.5rem", height: "2.5rem" }} onClick={handleToggleFavorite} />
+          <MarkActive style={{ width: "1.5rem", height: "1.5rem" }} onClick={handleToggleFavorite} />
         ) : (
-          <Mark style={{ width: "2.5rem", height: "2.5rem" }} onClick={handleToggleFavorite} />
+          <Mark style={{ width: "1.5rem", height: "1.5rem" }} onClick={handleToggleFavorite} />
         )}
         {showPopup && (
           <Popup

@@ -180,7 +180,7 @@ const noteClick = ()=>{
                       //주변 축제 오버레이 클릭 시 상세 페이지로 이동 
                       onClick={()=>navigate(`/festivals/${festival.contentid}`)}
                     >
-                      <a href="#" target="_blank" rel="noreferrer" className="overlay-box">
+                      <a href="#" className="overlay-box">
                         <span className="title">{festival.title}</span>
                       </a>
                     </div>

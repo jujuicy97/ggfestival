@@ -1,6 +1,6 @@
   //사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
 
-import { addFavorites, Allfestival } from "../../utils/FestivalAPI";
+import { addFavorites, Allfestival, fetchFavorites } from "../../utils/FestivalAPI";
 import { createClient } from "@supabase/supabase-js";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
@@ -101,7 +101,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
   const [currentAddress, setCurrentAddress] = useState("");
   useEffect(()=>{
     const address = async ()=>{
-      if(baseLocate.lat && baseLocate.lng)
+      if(!baseLocate.lat || !baseLocate.lng) return;
       try{
         const res = await fetch(
           `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${baseLocate.lng}&y=${baseLocate.lat}`,
@@ -206,7 +206,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
                     style={{cursor: "pointer" }}
                   >{f.title}</p>
     {/* 찜 상태 반영, 클릭 이벤트*/}
-                  <SwipeFavorite festival={f} />
+                <SwipeFavorite festival={f} className="swipe-fevorite"/>
                 </div>
                 <div className="text">
                   <div className="date">
@@ -234,6 +234,37 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
 const Swipe = ({baseLocate}) => {
   const navigate = useNavigate();
   const [isExtend, setIsExtend] = useState(false); //스와이프 확장 상태 관리(처음엔 확장하지 않음)
+  const [favorites, setFavorites] = useState([]);  //내 찜 목록 관리
+
+  //최초 로딩 시 내 찜 목록 불러오기(기존 찜 표시용)
+  useEffect(()=>{
+    if(!userID) return;
+    const loadFavorites = async () =>{
+      const { data } = await fetchFavorites(userID);
+      if(data){
+        setFavorites(data.map((f) => f.favorites?.contentid));
+      }
+    };
+    loadFavorites();
+  },[userID]);
+
+  //찜 토글 함수
+  const handleFavorite = async (contentid) =>{
+    if(!userID){
+      alert("로그인이 필요합니다");
+      return;
+    }
+  //addFavorites API 호출 → 결과에 따라 state 업데이트
+  const result = await addFavorites(userID, contentid);
+  if (result.success) {
+    const { data } = await fetchFavorites(userID);
+    if (data){
+      setFavorites(data.map((f)=> f.festivals.contentid));
+    }
+    } else{
+      console.error(result.message);
+    }
+  };
 
   return (
     <div>
