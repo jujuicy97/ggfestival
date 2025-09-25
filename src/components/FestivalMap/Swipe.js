@@ -1,6 +1,6 @@
 //사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
 
-import { addFavorites, Allfestival } from "../../utils/FestivalAPI";
+import { addFavorites, Allfestival, fetchFavorites } from "../../utils/FestivalAPI";
 import { createClient } from "@supabase/supabase-js";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
@@ -11,6 +11,7 @@ import ControlBar from "./ControlBar";
 import { FiMapPin } from "react-icons/fi";
 import { IoMenu } from "react-icons/io5";
 import { useActionData, useNavigate } from "react-router-dom";
+import SwipeFavorite from "./SwipeFavorite";
 
 
 //축제 api
@@ -103,7 +104,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   const [currentAddress, setCurrentAddress] = useState("");
   useEffect(()=>{
     const address = async ()=>{
-      if(!baseLocate.lat || !baseLocate.lng);
+      if(!baseLocate.lat || !baseLocate.lng) return;
       try{
         const res = await fetch(
           `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${baseLocate.lng}&y=${baseLocate.lat}`,
@@ -207,11 +208,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
                     style={{cursor: "pointer" }}
                   >{f.title}</p>
     {/* 찜 상태 반영, 클릭 이벤트*/}
-                  <CiBookmark 
-                    className="bookmark" 
-                    color={favorites.includes(f.contentid) ? "#F59E0B" : "#D1D5DB"} 
-                    onClick={(e)=>{e.stopPropagation(); handleFavorite(f.contentid);}}
-                  />
+                <SwipeFavorite festival={f} className="swipe-fevorite"/>
                 </div>
                 <div className="text">
                   <div className="date">
@@ -244,17 +241,13 @@ const Swipe = ({festivalList, baseLocate, userID}) => {
   //최초 로딩 시 내 찜 목록 불러오기(기존 찜 표시용)
   useEffect(()=>{
     if(!userID) return;
-    const fetchFavorites = async () =>{
-      const {data, error} = await supabase
-      .from("favorites")
-      .select("festivalid")
-      .eq("userid", userID);
-
-      if(!error && data){
-        setFavorites(data.map((f) => f.festivalid));
+    const loadFavorites = async () =>{
+      const { data } = await fetchFavorites(userID);
+      if(data){
+        setFavorites(data.map((f) => f.favorites?.contentid));
       }
     };
-    fetchFavorites();
+    loadFavorites();
   },[userID]);
 
   //찜 토글 함수
@@ -267,13 +260,14 @@ const Swipe = ({festivalList, baseLocate, userID}) => {
   //addFavorites API 호출 → 결과에 따라 state 업데이트
   const result = await addFavorites(userID, contentid);
   if (result.success) {
-    if (result.action === "added") {
-      setFavorites((prev) => [...prev, contentid]);
-    } else if (result.action === "removed") {
-      setFavorites((prev) => prev.filter((id) => id !== contentid));
+    const { data } = await fetchFavorites(userID);
+    if (data){
+      setFavorites(data.map((f)=> f.festivals.contentid));
     }
-  }
-};
+    } else{
+      console.error(result.message);
+    }
+  };
 
   return (
     <div>

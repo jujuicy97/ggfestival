@@ -13,6 +13,7 @@ import CommentCreat from "./CommentCreat";
 import CommentList from "./CommentList";
 import { getUserInfo } from "../../utils/LocalStorage";
 import Weather from "./Weather";
+import OverViewPlus from "./OverViewPlus";
 
 
 const FestivalDetail = ({baseLocate}) => {
@@ -140,6 +141,8 @@ if(!festival) return <p>Loading...</p>;
 if(loading) return <p>지도 로딩중...</p>;
 if(error) return <p>지도 로딩 실패</p>
 
+
+
     return (
         <div className="detail-wrap">
 
@@ -150,7 +153,27 @@ if(error) return <p>지도 로딩 실패</p>
                 <div className="date-weather">
                     <div className="date-weather-left">
                         <Dday festival={festival}/>
-                        <p className="date">{festival.startdate} ~ {festival.enddate}</p>
+
+                        {/* <p className="info4">
+                      {
+                        c.created_at
+                          .slice(0, 10)
+                          .split("-") //배열로 분리
+                          .map((v) => String(Number(v))) // 0 제거
+                          .join(". ") //점 뒤에 공백
+                      }{" "}
+                      <span>{c.created_at.slice(11, 16)}</span>
+                    </p> */}
+
+                        <p className="date">
+                        {festival.startdate
+                            .split("-")             
+                            .map((v) => String(Number(v))) 
+                            .join(".")} ~ {festival.enddate
+                            .split("-")
+                            .map((v) => String(Number(v)))
+                            .join(".")}
+                        </p>
                     </div>
                     <div className="date-weather-right">
                         <Weather lat={festival.mapy} lon={festival.mapx} />
@@ -163,16 +186,56 @@ if(error) return <p>지도 로딩 실패</p>
                     <Menu commentCount={comments.length}/>
                 </div>
                 <div className="text1">
-                    <div className="overview">{festival.overview}</div>
+                    <OverViewPlus overview={festival.overview}/>
+                    {/* <div className="overview">{festival.overview}</div> */}
                 </div>
                 <div className="text2">
-                    <p><span>일자</span> {festival.startdate} ~ {festival.enddate}</p>
-                    <p><span>시간</span> {festival.playtime}</p>
-                    <p><span>요금</span> {festival.usetimefestival.replace(/<br\s*\/?>/gi, " ")}</p>
-                    {/* 연령제한이 없는 경우는 없음으로 표시하기 구현 */}
-                    <p><span>연령</span> {festival.agelimit}</p> 
-                    <p><span>주최</span> {festival.telname}</p>
-                    <p><span>문의</span> {festival.tel}</p>
+                    <p>
+                        <span>일자</span> 
+                        <span>
+                            {festival.startdate
+                                .split("-")
+                                .map((v) => String(Number(v)))
+                                .join(".")} ~ {festival.enddate
+                                .split("-")
+                                .map((v) => String(Number(v)))
+                                .join(".")
+                            }</span>
+                    </p>
+                    <p>
+                        <span>시간</span> 
+                        <span>{festival.playtime}</span>    
+                    </p>
+                    <p>
+                        <span>요금</span> 
+                        <span className="content">{festival.usetimefestival.replace(/<br\s*\/?>/gi, " ")}</span>
+                        
+                        </p>
+
+                {/* 방법1 : 연령이 공백일 경우 "-" 하이픈으로 대체 */}
+                    <p>
+                        <span>연령</span> 
+                            <span className="content">
+                                {festival.agelimit && festival.agelimit.trim() !== "" ? festival.agelimit : "-"}
+                        </span>
+
+                {/* 방법2 : 연령이 공백일 경우 아예 연령 항목 삭제(살짝 위아래 여백 생김) */}
+                        {/* <span className="content">
+                            {festival.agelimit && festival.agelimit.trim() !=="" &&(
+                                <p>
+                                    <span>연령</span> 
+                                </p>
+                            )}
+                        </span> */}
+                    </p>
+                    <p>
+                        <span>주최</span> 
+                        <span className="content">{festival.telname}</span>
+                    </p>
+                    <p>
+                        <span>문의</span> 
+                        <span className="content">{festival.tel}</span>
+                    </p>
                     {/* <p>{festival.addr1}</p> */}
                 </div>
                 <hr className="bar2"/>
@@ -195,9 +258,10 @@ if(error) return <p>지도 로딩 실패</p>
                         lat: Number(festival.mapy),
                         lng: Number(festival.mapx)
                     }}
-                    style={{ width: "100%", height: "200px" }}
+                    style={{ width: "100%", height: "200px", borderRadius: "0.8rem" }}
                     level={6}
                 >
+                <hr className="bar3"/>
             {/* 각 축제 마커 노출 */}
                 <MapMarker 
                     position={{

@@ -71,12 +71,15 @@
       .top-text{
         display: flex;
         justify-content: space-between;
+        align-items: center;
       .title {
         @include body-l-style();
         color: var(--gray-900);
+        margin: 0;
       }
-      .bookmark{
+      .bookmark, .swipe-favorite{
         font-size: 25px;
+        flex-shrink: 0
       }
     }
       .text {

@@ -244,7 +244,7 @@ export const fetchFavorites = async (id) => {
     festivals:festivalid(
         contentid,
         title,
-        firstimage2,
+        firstimage,
         startdate,
         enddate,
         addr1

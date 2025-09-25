@@ -1,6 +1,8 @@
-.comment-list {
+.comment-wrap {
   @include body-m-style();
   color: var(--gray-900);
+  height: 300px;
+  margin: 2rem 0;
   .comment-item {
     .profile-info {
       display: flex;
@@ -10,55 +12,88 @@
       margin: 2rem 0;
       .info {
         flex: 1;
+        position: relative; //댓글 복사 클릭 시 안내문구 덜컹 거림 현상 때문에 사용
+        .copy-msg{
+          position: absolute;
+          top: -1.2rem;   // 닉네임 위에 뜨도록
+          left: 0;
+          font-size: 12px;
+          color: #37B7C4;
+          white-space: nowrap;
+        }
         .info1 {
-            display: flex;
-            justify-content: space-between;
-            
+          display: flex;
+          justify-content: space-between;
+
           .info2 {
             display: flex;
             align-items: center;
-            .info3{
-                margin-right: 1rem
+            .info3 {
+              margin-right: 1rem;
             }
             .info4 {
               @include body-s-style();
               color: var(--gray-400);
+              span {
+                margin-left: 5px;
+              }
             }
           }
         }
-        .comment-option{
+
+        .info-bottom {
           display: flex;
-          justify-content: end;
-          .edit, .delete, .copy{
-            @include body-s-style();
-            padding: 0.5rem;
-            border: 1px solid var(--gray-white);
-            background-color: var(--primary-500);
-            color: var(--gray-white);
-            transition: all 0.2s ease;
-            &:hover{
-              background-color: var(--primary-500);
-              filter: brightness(85%); 
-              opacity: 0.9;             
-            }
-          }
-        }
-        .edit-input{
-          display: flex;
-          .btn-wrap{
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 0.5rem;
+          position: relative;  //옵션 아이콘을 클릭했을 때 덜컹거리는 현상 때문에 사용
+          .edit-input {
             display: flex;
-          .save, .cancle{
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            .input{
+              flex: 1;
+            }
+            .btn-wrap {
+              display: flex;
+              gap: 0.3rem;
+              .save,
+              .cancle {
+                @include body-s-style();
+                padding: 0.6rem;
+                border: none;
+                background-color: var(--primary-500);
+                color: var(--gray-white);
+                border-radius: 7px;
+                cursor: pointer;
+              }
+            }
+          }
+          .comment-option {
             display: flex;
             justify-content: end;
-            @include body-s-style();
-            padding: 0.5rem;
-            border: 1px solid var(--gray-white);
-            background-color: var(--primary-500);
-            color: var(--gray-white);
+            position: absolute;  //옵션 아이콘을 클릭했을 때 덜컹거리는 현상 때문에 사용
+            right: 0;
+            .edit,
+            .delete,
+            .copy {
+              @include body-s-style();
+              padding: 0.6rem;
+              border: 1px solid var(--gray-white);
+              border-radius: 7px;
+              background-color: var(--primary-500);
+              color: var(--gray-white);
+              transition: all 0.2s ease;
+              &:hover {
+                background-color: var(--primary-500);
+                filter: brightness(85%);
+                opacity: 0.9;
+              }
+            }
           }
         }
-        }
-      }
-    }
+  }
+}
   }
 }
