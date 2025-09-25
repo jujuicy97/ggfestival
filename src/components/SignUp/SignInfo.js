@@ -158,14 +158,14 @@ const SignInfo = () => {
                     <div>
                         <input 
                             type="text" 
-                            placeholder="이메일 입력"
+                            placeholder="이메일을 입력해 주세요"
                             value={email}
                             onChange={(e)=>{setEmail(e.target.value)}}
                         />
                         <button 
                             onClick={handleCheckEmail}
                             className={`${email ? "colored" : ""}`}
-                        >중복확인</button>
+                        >중복 확인</button>
                     </div>
                     {dupEmail && <p className="not-same">이메일 중복확인이 필요합니다.</p>}
                     {emailCheckBtn && !dupEmail && (
@@ -179,32 +179,32 @@ const SignInfo = () => {
                     <div>
                         <input
                             type="text"
-                            placeholder="아이디 입력"
+                            placeholder="아이디를 입력해 주세요"
                             value={id}
                             onChange={(e)=>{setId(e.target.value)}}
                         />
                         <button 
                             onClick={handleCheckID}
                             className={`${id ? "colored" : ""}`}
-                        >중복확인</button>
+                        >중복 확인</button>
                     </div>
-                    {dupId && <p className="not-same">아이디 중복확인이 필요합니다.</p>}
+                    {dupId && <p className="not-same">아이디 중복 확인이 필요합니다.</p>}
                     {idCheckBtn && !dupId && (
                         availId === null ? null : availId ? <p className="same">사용 가능한 아이디입니다.</p> : <p className="not-same">이미 존재하는 아이디입니다.</p>
                     )}
-                    {noId && <p className="not-same">아이디는 6자이상 입력해주세요.</p>}
+                    {noId && <p className="not-same">아이디는 6자 이상 입력해주세요.</p>}
                 </div>
                 <div className="password">
                     <p>비밀번호</p>
                     <input
                         type="password"
-                        placeholder="비밀번호 입력"
+                        placeholder="비밀번호를 입력해 주세요 (8자 이상)"
                         value={pw}
                         onChange={(e)=>{setPw(e.target.value)}}
                     />
                     <input
                         type="password"
-                        placeholder="비밀번호 재입력"
+                        placeholder="비밀번호를 재입력 해주세요"
                         value={rePass}
                         onChange={(e)=>{setRePass(e.target.value)}}
                     />
@@ -216,7 +216,7 @@ const SignInfo = () => {
                     <p>이름</p>
                     <input
                         type="text"
-                        placeholder="이름 입력"
+                        placeholder="이름을 입력해 주세요"
                         value={name}
                         onChange={(e)=>{setName(e.target.value)}}
                     />
@@ -226,7 +226,7 @@ const SignInfo = () => {
                     <p>전화번호</p>
                     <input
                         type="text"
-                        placeholder="전화번호 입력"
+                        placeholder="전화번호를 입력해 주세요"
                         value={phone}
                         onChange={(e)=>{setPhone(e.target.value)}}
                     />

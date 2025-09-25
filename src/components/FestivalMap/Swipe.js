@@ -1,4 +1,4 @@
-//사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
+  //사용자 SwipeMove동작, 스와이프 랜더링 컴포넌트
 
 import { addFavorites, Allfestival, fetchFavorites } from "../../utils/FestivalAPI";
 import { createClient } from "@supabase/supabase-js";
@@ -15,12 +15,9 @@ import SwipeFavorite from "./SwipeFavorite";
 
 
 //축제 api
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 const kakaoLestKey = process.env.REACT_APP_KAKAO_REST_KEY;
 
-const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorite }) => {
+const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
 
 //상세페이지로 넘어가기
   const navigate = useNavigate();
@@ -115,6 +112,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
           }
         );
         const data = await res.json();
+        console.log(data);
         const address = data.documents[0]?.address?.address_name || "주소 정보 없음";
         setCurrentAddress(address);
       } catch (err) {
@@ -233,7 +231,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate, favorites, handleFavorit
   );
 };
 
-const Swipe = ({festivalList, baseLocate, userID}) => {
+const Swipe = ({baseLocate}) => {
   const navigate = useNavigate();
   const [isExtend, setIsExtend] = useState(false); //스와이프 확장 상태 관리(처음엔 확장하지 않음)
   const [favorites, setFavorites] = useState([]);  //내 찜 목록 관리
@@ -256,7 +254,6 @@ const Swipe = ({festivalList, baseLocate, userID}) => {
       alert("로그인이 필요합니다");
       return;
     }
-  
   //addFavorites API 호출 → 결과에 따라 state 업데이트
   const result = await addFavorites(userID, contentid);
   if (result.success) {
@@ -275,8 +272,6 @@ const Swipe = ({festivalList, baseLocate, userID}) => {
         isExtend={isExtend} 
         setIsExtend={setIsExtend} 
         baseLocate={baseLocate} 
-        favorites={favorites}
-        handleFavorite={handleFavorite}
       />
     </div>
   );

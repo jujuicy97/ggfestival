@@ -66,6 +66,12 @@ const FindPwEdit = () => {
                 e.preventDefault();
                 setNewPwCheck(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleEdit();
+                }
+              }}
             />
             {newPw &&
               newPwCheck &&

@@ -195,8 +195,8 @@ export const fetchComment = async (userID) => {
   try {
     const { data, error } = await supabase
       .from('comments')
-      .select('*,users(name)')
-      .eq('userID', userID)
+      .select('*,users(userName)')
+      .eq('userid', userID)
       .order('created_at', { ascending: false });
     return { data, error };
   } catch (err) {
@@ -424,3 +424,13 @@ export const fetchContentID = async (contentID) =>{
         .eq('contentid',contentID)
     return { data, error };
 }
+
+// 찜하기페이지에서 넘겨줄 위경도 불러오기
+export const fetchMapxy = async (contentid)=>{
+  const { data, error } = await supabase
+    .from('festivals')
+    .select('mapx, mapy')
+    .eq('contentid',contentid)
+  return { data, error };
+}
+

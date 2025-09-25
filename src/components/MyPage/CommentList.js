@@ -29,6 +29,8 @@ const CommentList = () => {
       return;
     }
 
+
+
     const fetchData = async () => {
       // 1. 댓글 가져오기
       const { data: commentData, error: commentError } = await fetchComment(userID);
@@ -47,7 +49,7 @@ const CommentList = () => {
 
       // 3. 댓글 + 축제 매칭
       const commentsWithFestival = commentData.map(c => {
-        const festival = festivalData.find(f => f.id === c.festivalid);
+        const festival = festivalData.find(f => String(f.contentid) === String(c.contentid));
         return { ...c, festival };
       });
 
@@ -73,7 +75,7 @@ const CommentList = () => {
 
   const handleDelete = async () => {
     if (!activeComment) return;
-    const { error } = await deleteComment(activeComment.id);
+    const { error } = await deleteComment(activeComment.id, userID);
     if (!error) {
       setComments(prev => prev.filter(c => c.id !== activeComment.id));
       setShowDeletePopup(false);
@@ -84,7 +86,7 @@ const CommentList = () => {
   // 수정
   const handleEdit = async () => {
     if (!activeComment) return;
-    const { error } = await changeComment(activeComment.id, editContent);
+    const { error } = await changeComment(activeComment.id, userID, editContent);
     if (!error) {
       setComments(prev => prev.map(c => c.id === activeComment.id ? { ...c, content: editContent } : c));
       setShowEditPopup(false);
@@ -150,10 +152,12 @@ const CommentList = () => {
               </div>
               <div className='bottom'>
                 <p>{c.content}</p>
-                {c.festival && (
+                {c.festival ? (
                   <p onClick={() => navigate(`/festivals/${c.festival.contentid}`)}>
                     {c.festival.title}
                   </p>
+                ) : (
+                  <p>축제 정보 없음</p>
                 )}
               </div>
             </li>

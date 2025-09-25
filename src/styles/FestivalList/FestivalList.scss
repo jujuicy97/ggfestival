@@ -13,14 +13,20 @@
       width: 100%;
       @include flex-layout(row, center, center);
       gap: 1rem;
-
+      
       select {
         flex: 1;
         height: 48px;
         @include body-l-style;
         color: var(--gray-500);
         border: 1px solid var(--gray-100);
-        padding: 1rem;
+        padding: 7px 10px;
+        border-radius: 8px;
+        appearance: none ;
+        background-image:url('/icons/Arrow.svg');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 8px;
       }
 
       .search-container {
@@ -73,15 +79,17 @@
       }
     }
 
+
     ul {
       padding-top: 1rem;
-      // gap: 1rem;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      row-gap: 1rem;
+      gap: 1rem 5px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
 
       li {
-        @include body-m-style();
+        @include body-m-style();  
 
         .region-button {
           width: 7rem;
@@ -93,7 +101,10 @@
           color: var(--gray-500);
           border: 1px solid var(--gray-100);
         }
-
+        .all-region{
+          @include flex-layout(row-reverse, center, center);
+          gap: 0.5rem;
+        }
         /*'전체' 버튼 선택*/
         .all-region.active {
           background-color: var(--primary-500);
@@ -166,15 +177,21 @@
     .no-results {
       .no-search {
         width: 100%;
-        height: 30rem;
+        height: 20rem;
         @include flex-layout();
         @include body-l-style();
         color: var(--gray-500);
         text-align: center;
+        border-bottom:1px solid var(--gray-100);
       }
 
       .festivalWrap {
         word-break: break-all;
+        .festivalWrap-name{
+          @include h4-style;
+          color: var(--gray-900);
+          padding: 1rem; 
+        }
 
         .title {
           @include flex-layout(row, left, flex-end);
@@ -263,6 +280,9 @@
         @include flex-layout(column, flex-start, center);
         position: relative;
         overflow: hidden;
+        &:hover{
+          cursor: pointer;
+        }
 
         .status-badgestatus-ongoing,
         .status-badgestatus-today {
