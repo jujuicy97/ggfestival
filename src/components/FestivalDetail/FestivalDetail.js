@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { data, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { addComment, AllComments, Allfestival, changeComment, deleteComment, fetchComment, getRandomProfile } from "../../utils/FestivalAPI";
-import { IoIosArrowBack } from "react-icons/io";
-import { CiBookmark } from "react-icons/ci";
-import { CiShare2 } from "react-icons/ci";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk";
 import Dday from "./Dday";
@@ -40,7 +37,7 @@ const {contentid} = useParams();
           console.error("축제 데이터 로드 실패");
         } else {
           setFestivalList(data);
-          console.log("선택한 축제:", data);
+        //   console.log("선택한 축제:", data);
         
         //contentid와 일치하는 축제 선택
         const select = data.find(f => f.contentid === contentid);
@@ -79,17 +76,7 @@ const addComments = async (userID, content) => {
     const user = getUserInfo();
     if (!contentid || !userID || !user) return;
 
-    // console.log("=== 댓글 등록 디버깅 ===");
-    // console.log("userID:", userID);      // 유저 아이디 값
-    // console.log("contentid:", contentid); // 축제 contentid
-    // console.log("content:", content);    // 작성한 댓글 내용
-    // console.log("user object:", user);  // 로그인 유저 정보
-
-
     const { data, error } = await addComment(userID, contentid, content);
-
-    // console.log("Supabase data:", data);  // 등록 후 반환 데이터
-    // console.log("Supabase error:", error); // 에러 발생 시 확인
 
     if (!error && data) {
         const newComment = {
@@ -103,7 +90,6 @@ const addComments = async (userID, content) => {
         setComments(prev => [newComment, ...prev]);
     }
 };
-    // console.log(data);
 
 //댓글 수정
     const changeComments = async (id, newContent) =>{
@@ -154,18 +140,6 @@ if(error) return <p>지도 로딩 실패</p>
                 <div className="date-weather">
                     <div className="date-weather-left">
                         <Dday festival={festival}/>
-
-                        {/* <p className="info4">
-                      {
-                        c.created_at
-                          .slice(0, 10)
-                          .split("-") //배열로 분리
-                          .map((v) => String(Number(v))) // 0 제거
-                          .join(". ") //점 뒤에 공백
-                      }{" "}
-                      <span>{c.created_at.slice(11, 16)}</span>
-                    </p> */}
-
                         <p className="date">
                         {festival.startdate
                             .split("-")             
