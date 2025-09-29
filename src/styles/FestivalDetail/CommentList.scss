@@ -77,7 +77,10 @@
             right: 0;
             .edit,
             .delete,
-            .copy {
+            .copy,
+            .report, 
+            .copy2,
+            .block {
               @include body-s-style();
               padding: 0.6rem;
               border: 1px solid var(--gray-white);
