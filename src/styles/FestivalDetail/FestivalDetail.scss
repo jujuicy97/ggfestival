@@ -4,8 +4,6 @@
   padding: 55px 16px 70px 16px;
  
  //축제 정보 영역 
-  .header-bar {
-  }
   .detail-top {
     img {
       display: block;
@@ -92,24 +90,28 @@
         margin: 2rem 0;
         .map-text-wrap{
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.6rem;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 1rem;
             .map-title{
                 display: flex;
-                align-items: center;
                 gap: 0.5rem;
                 @include body-l-style();
+                .addr{
+                  margin-bottom: 0.5rem;
+                }
             }
             .load-find{
               @include flex-layout();
+              align-self: flex-end;
               @include body-m-style;
-                background-color: var(--primary-500);
-                color: var(--secondary-50);
-                padding: 6px 10px;
-                gap: 3px;
-                border-radius: 50px;
-                cursor: pointer;
+              background-color: var(--primary-500);
+              color: var(--secondary-50);
+              padding: 5px 7px;
+              gap: 3px;
+              border-radius: 50px;
+              cursor: pointer;
+              
             }
         }
         .map{
