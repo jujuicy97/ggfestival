@@ -44,6 +44,7 @@ const Weather = ({ lat, lon }) => {
       <img
         src={`https://openweathermap.org/img/wn/${todayWeather.icon}@2x.png`}
         alt="날씨 아이콘"
+        style={{ width: "40px", height: "40px", objectFit: "contain", paddingRight: "5px" }}
         className="weather-icon"
       />
       <p>{todayWeather.temp_min}°</p>

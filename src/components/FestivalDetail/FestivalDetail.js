@@ -220,7 +220,7 @@ if(error) return <p>지도 로딩 실패</p>
                 <div className="map-text-wrap">
                     <div className="map-title">
                         <FaMapMarkerAlt />
-                        <p>{festival.addr1}</p>
+                        <p className="addr">{festival.addr1}</p>
                     </div>
             {/* 길찾기 */}
                     <div className="load-find">
