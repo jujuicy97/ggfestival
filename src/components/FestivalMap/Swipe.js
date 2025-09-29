@@ -61,7 +61,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
       if (down) {
         // 드래그 중일 때는 움직임을 바로 따라가도록 즉시 적용
         api.start({
-          height: Math.min(Math.max(300 - my, 300), window.innerHeight),
+          height: Math.max(300 - my, 300),
           immediate: true,
         });
         return;
@@ -205,7 +205,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate}) => {
                     style={{cursor: "pointer" }}
                   >{f.title}</p>
     {/* 찜 상태 반영, 클릭 이벤트*/}
-                <SwipeFavorite festival={f} className="swipe-fevorite"/>
+                <SwipeFavorite festival={f} className="swipe-favorite"/>
                 </div>
                 <div className="text">
                   <div className="date">
