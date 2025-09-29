@@ -75,9 +75,7 @@
             justify-content: end;
             position: absolute;  //옵션 아이콘을 클릭했을 때 덜컹거리는 현상 때문에 사용
             right: 0;
-            .edit,
-            .delete,
-            .copy {
+            .edit, .delete, .copy, .report, .copy2,.block {
               @include body-s-style();
               padding: 0.6rem;
               border: 1px solid var(--gray-white);

@@ -124,14 +124,14 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
                         </>
                       ) : (
                         <>
-                          <button>신고</button>
+                          <button className='report'>신고</button>
                           <button
-                            className="copy2"
+                            className='copy2'
                             onClick={() => handleCopy(c)}
                           >
                             댓글 복사
                           </button>
-                          <button>작성자 차단</button>
+                          <button className='block'>작성자 차단</button>
                         </>
                       )}
                     </div>
