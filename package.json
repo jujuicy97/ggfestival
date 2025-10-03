@@ -50,5 +50,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://apis.data.go.kr"
+  "proxy": "http://apis.data.go.kr",
+  "homepage": "https://hyeswe10.github.io/ggfestival/"
 }
