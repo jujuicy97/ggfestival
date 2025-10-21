@@ -1,5 +1,5 @@
 import './App.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 import Mainpage from "./components/MainPage/Mainpage";
 import BottomMenuBar from './components/Menubar/BottomMenuBar';
 import TopMenubar from './components/Menubar/TopMenubar';
@@ -49,7 +49,7 @@ const [errorMsg, setErrorMsg] = useState("");
   }, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <TopMenubar />
       <div className="app-container">
         <Routes>
@@ -75,7 +75,7 @@ const [errorMsg, setErrorMsg] = useState("");
         </Routes>
       </div>
       <BottomMenuBar />
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
