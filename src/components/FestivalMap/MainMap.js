@@ -180,9 +180,9 @@ const noteClick = ()=>{
                       //주변 축제 오버레이 클릭 시 상세 페이지로 이동 
                       onClick={()=>navigate(`/festivals/${festival.contentid}`)}
                     >
-                      <a href="#" className="overlay-box">
+                      <div className="overlay-box">
                         <span className="title">{festival.title}</span>
-                      </a>
+                      </div>
                     </div>
                   </CustomOverlayMap>
                 </div>
