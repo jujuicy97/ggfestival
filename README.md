@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# 프로젝트 개요
+## 프로젝트 이름 : 경기도 축제 "경축"
+## 프로젝트 기간 : 8/28 ~ 9/26일
+## 참여인원 : 총 5명
+## 협업 및 작업 방식 : 만나서 실시간으로 프로젝트 진행 상황을 공유하고 소통하였으며, GitHub를 활용하여 코드 버전 관리를 진행하였습니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 설명
+### 1. 레이아웃
+'경축'은 경기도 내 다양한 축제 정보를 한눈에 확인할 수 있도록 설계된 플랫폼으로, 지역별 필터링 시스템을 중심에 두고 있습니다.
+메인 페이지에서는 지도 기반 인터페이스를 통해 사용자가 각 지역을 선택하면 해당 지역의 축제 리스트로 즉시 이동할 수 있으며, 현재 위치 정보를 활용한 근처 축제 탐색 기능도 제공합니다.
+또한, 인기 축제 추천 및 검색 기능을 추가하여 사용자가 원하는 축제를 보다 쉽고 빠르게 찾을 수 있도록 구성하였습니다.
 
-## Available Scripts
+### 2. 색상 사용
+'경축'은 경기도 내 다양한 축제 정보를 한눈에 볼 수 있는 플랫폼으로, 밝고 생동감 있는 축제의 분위기와 경기도의 자연 친화적 이미지를 시각적으로 표현하기 위해 **메인컬러로는 (#37B7C4)** 를 사용하여 청명한 하늘빛을 연상시키는 시원하고 활기찬 축제의 생동감과 지역의 개방적인 이미지를 전달하려 하였고, **서브컬러로 (#A7D28B)**를 사용하여 자연과 조화를 이루는 부드러운 연녹색으로 경기도의 풍부한 자연환경과 편안한 감성을 표현하였습니다.
 
-In the project directory, you can run:
+### 3. UI 디자인 방식
+본 사이트는 사용자 중심의 직관적인 인터페이스를 기반으로, 다양한 필터 기능을 통해 원하는 축제 정보를 빠르고 효율적으로 탐색할 수 있도록 최적화하였습니다. 또한, **메인 컬러(#37B7C4)**와 **서브 컬러(#A7D28B)**를 중심으로 한 통일된 색상 체계를 적용하고, 두 색상을 조합한 그라디언트 디자인을 버튼, 아이콘, 주요 컴포넌트 전반에 활용하여 가독성과 일관성을 높였습니다. 이를 통해 전체적으로 깔끔하고 세련된 비주얼 아이덴티티를 구현하였습니다.
 
-### `npm start`
+### 4. 제작에 사용된 스킬 및 툴
+- 프론트엔드 개발 : HTML5, CSS3(SCSS 포함), JavaScript, React.js
+- 데이터베이스 : Supabase(실시간 데이터 연동 및 관리), 외부 API(카카오맵, 날씨, 축제정보)
+- 버전 관리 : Git, GitHub
+- 협업 툴 : Figma(UI/UX 디자인 기획안)
+- 기타 : VS Code
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 문제점 및 개선 계획
+### 1. 제작 사이트 문제점
+- 앱 사이즈로만 제작이 되어서 데스크탑 반응형이 구현되지 않습니다.
+- 소셜미디어 로그인을 연결하고자 했으나 결국엔 실패하여 아쉬웠습니다.
+- 검색어를 입력하고 리스트페이지 이동후에 다른 페이지 이동, 그리고 다시 리스트페이지로 돌아오면 검색어가 초기화되지 않고 남아있는 현상이 있었습니다.
+- 축제 지도에서 줌 아웃시 축제가 겹치는 현상이 발생하는데 그리하여 원하는 축제를 클릭하지 못하는 것이 아쉬웠습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 2. 향후 개선 계획
+- 앱 뿐만 아니라 태블릿과 데스크탑 사이즈로 반응형을 구현하여 디자인을 추가하고 레이아웃을 다양하게 개선할 예정입니다.
+- 소셜미디어 로그인을 위해서 Supabase에서 OAuth를 사용하여 데이터베이스에 저장이 되도록 변경할 것 입니다.
+- 검색어를 넘겨주는 props와 페이지의 상태수정으로 돌아오면 검색어가 초기화되게 수정하겠습니다.
+- 축제 지도에서 줌 아웃시 축제가 겹치는 현상을 방지하기위해서 일정거리이상이 되면 축제+5라고 표시가 될 수 있게 개선해보겠습니다.
