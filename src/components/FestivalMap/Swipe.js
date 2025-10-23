@@ -97,7 +97,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate }) => {
     { from: () => [0, y.get()], filterTaps: true }
   );
 
-  
+
   // 현재 위치 좌표값 -> 도로명/지번 주소 변환 (classname : locater-title에서 사용)
   const [currentAddress, setCurrentAddress] = useState("");
   useEffect(() => {
@@ -113,7 +113,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate }) => {
           }
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         const address =
           data.documents[0]?.address?.address_name || "주소 정보 없음";
         setCurrentAddress(address);
