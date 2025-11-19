@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 // };
 
 
-const MainMap = () => {
+const MainMap = ({baseLocate}) => {
   const navigate = useNavigate(); //주변 축제 클릭 시 해당 축제 상세 페이지로 이동
 
   //지도 중심 좌표(내 위치) 및 에러 상태 관리
@@ -35,10 +35,7 @@ const MainMap = () => {
     libraries: ["services"], // 필요한 라이브러리 등록
   });
   //   console.log(process.env.REACT_APP_KAKAO_MAP_API_KEY);
-  const [baseLocate, setBaseLocate] = useState({
-    lat: 37.54699,
-    lng: 127.09598,
-  }); //기본 설정 위치
+
   const [errorMsg, setErrorMsg] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
@@ -61,25 +58,6 @@ const MainMap = () => {
       fetchData();
     }, []);
     // console.log(festivalData);
-
-  //현재 위치를 가져오는 geolocation 외부 API
-  //avigator.geolocation 객체로 접근하여 getCurrentPosition 메서드를 호출하면 현재 위치를 비동기식으로 가져올 수 있음
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setBaseLocate({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-          });
-        },
-        () => setErrorMsg("위치 정보를 불러올 수 없어 기본 위치로 설정합니다.")
-      );
-    } else {
-      setErrorMsg("브라우저가 위치 정보를 지원하지 않습니다.");
-    }
-  }, []);
-
 
 //팝업 노출 함수
 const noteClick = ()=>{
@@ -109,7 +87,7 @@ const noteClick = ()=>{
     )}
 
       <Map
-        center={baseLocate}
+        center={baseLocate} //사용자 현재 위치를 kakaoMap 중심으로 맞춤
         style={{ width: "100%", height: "800px" }}
         level={6}
       >

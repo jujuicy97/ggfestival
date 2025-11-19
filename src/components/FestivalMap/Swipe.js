@@ -118,7 +118,7 @@ const SwipeMove = ({ isExtend, setIsExtend, baseLocate }) => {
           data.documents[0]?.address?.address_name || "주소 정보 없음";
         setCurrentAddress(address);
       } catch (err) {
-        console.error("주소 변환 오류:", err);
+        // console.error("주소 변환 오류:", err);
         setCurrentAddress("주소 변환 실패");
       }
     };

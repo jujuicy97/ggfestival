@@ -280,6 +280,8 @@ export const addComment = async (userID, contentid, content) => {
       contentid: contentid,
     }])
     .select(); // returning: 'representation' 역할 // ***효진 추가
+    console.log("🆕 addComment data:", data);
+    console.log("⚠️ addComment error:", error);
   return { data, error };
 }
 
