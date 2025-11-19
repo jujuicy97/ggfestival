@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/ggfestival/static/css/main.a8b0475d.css",
+    "main.js": "/ggfestival/static/js/main.b2c171cf.js",
+    "static/media/main-logo.svg": "/ggfestival/static/media/main-logo.be2f4f264e5b01efcdf8b75a94c443b8.svg",
+    "static/media/gray-logo.svg": "/ggfestival/static/media/gray-logo.53929b0da3062f7e015bf5a62120ad96.svg",
+    "static/media/main-calendar.svg": "/ggfestival/static/media/main-calendar.e8b0bdc85718ae6a931a1f0f199edf0a.svg",
+    "static/media/main-map.svg": "/ggfestival/static/media/main-map.c24ba391074d52b2797f8b19ed912de7.svg",
+    "static/media/area.svg": "/ggfestival/static/media/area.43eb638a0e141d260899ff0e08599d20.svg",
+    "static/media/area-2.svg": "/ggfestival/static/media/area-2.056f5914d8120de25a45e1b86e31ecaf.svg",
+    "static/media/map.svg": "/ggfestival/static/media/map.620dfd4fda544e5b00aef4213d64b200.svg",
+    "static/media/calendar.svg": "/ggfestival/static/media/calendar.7b65c330b075ed6a0dc2e0f2fd381638.svg",
+    "static/media/home.svg": "/ggfestival/static/media/home.244ef0ad85a43a38ac4c1fa8984ab64b.svg",
+    "static/media/map-2.svg": "/ggfestival/static/media/map-2.4b9080355dcc393febed7a885b2df216.svg",
+    "static/media/mark.svg": "/ggfestival/static/media/mark.6b2183c841e3475a91ee623fd6510e48.svg",
+    "static/media/calendar-2.svg": "/ggfestival/static/media/calendar-2.397accf7ab688fba29d74e3de7ed4686.svg",
+    "static/media/ScrapIcon-on.svg": "/ggfestival/static/media/ScrapIcon-on.77c16026831d827a2bbb6e2a12978965.svg",
+    "index.html": "/ggfestival/index.html",
+    "static/media/mark-2.svg": "/ggfestival/static/media/mark-2.5de5d25ec5aeebd5fc1d26803b00ac9a.svg",
+    "static/media/ScrapIcon-off.svg": "/ggfestival/static/media/ScrapIcon-off.3d8acd29ce1cccd7bfcc0b6c7364137e.svg",
+    "static/media/home-2.svg": "/ggfestival/static/media/home-2.a76e86117ec6bbda9ac580e28684e7f8.svg",
+    "static/media/mark-nonestroke.svg": "/ggfestival/static/media/mark-nonestroke.9285b5c08368993a074a15d61c9f0faf.svg",
+    "static/media/Arrow.svg": "/ggfestival/static/media/Arrow.cada7f4e56f4c9fef6cd.svg",
+    "main.a8b0475d.css.map": "/ggfestival/static/css/main.a8b0475d.css.map",
+    "main.b2c171cf.js.map": "/ggfestival/static/js/main.b2c171cf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a8b0475d.css",
+    "static/js/main.b2c171cf.js"
+  ]
+}
