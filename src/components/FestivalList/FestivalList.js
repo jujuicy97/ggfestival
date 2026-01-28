@@ -90,22 +90,49 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
 
   // 데이터 불러오기 (처음 렌더링때 한 번만 실행)
   useEffect(() => {
+    // const fetcheAllData = async () => {
+    //   setLoading(true); // 로딩 시작
+    //   try {
+    //     const { data, error: fetchError } = await Allfestival();
+    //     if (fetchError) {
+    //       setError(fetchError);
+    //       console.log('축제 데이터 불러오기 실패', fetchError);
+    //     } else {
+    //       setAllFestivals(data); //모든 축제 원본 데이터 저장
+    //       setFillteredFestivals(data); //화면에 보여줄 최종 데이터 저장
+    //     }
+    //   } catch (err) {
+    //     setError(err);
+    //     console.log('데이터를 불러오는 중 예상치 못 한 에러 발생', err)
+    //   } finally {
+    //     setLoading(false);//로딩 종료
+    //   }
+    // };
     const fetcheAllData = async () => {
-      setLoading(true); // 로딩 시작
+      setLoading(true);
       try {
+        console.log('Allfestival API 호출 중...');
         const { data, error: fetchError } = await Allfestival();
+        
+        console.log('Allfestival 결과:', {
+          dataLength: data?.length || 0,
+          firstItem: data?.[0]?.title,
+          error: fetchError?.message
+        });
+        
         if (fetchError) {
+          console.error('축제 데이터 불러오기 실패:', fetchError);
           setError(fetchError);
-          console.log('축제 데이터 불러오기 실패', fetchError);
         } else {
-          setAllFestivals(data); //모든 축제 원본 데이터 저장
-          setFillteredFestivals(data); //화면에 보여줄 최종 데이터 저장
+          console.log('데이터 로드 성공:', data?.length, '개');
+          setAllFestivals(data || []);
+          setFillteredFestivals(data || []);
         }
       } catch (err) {
+        console.error('예상치 못한 에러:', err);
         setError(err);
-        console.log('데이터를 불러오는 중 예상치 못 한 에러 발생', err)
       } finally {
-        setLoading(false);//로딩 종료
+        setLoading(false);
       }
     };
     fetcheAllData();
@@ -356,23 +383,21 @@ const FestivalList = ({ setSearchWord, searchWord }) => {
     <div id='festivalList'>
       <nav className="region-filter">
         <div className='filter'>
-
+        <div className='select-wrapper'>
+        <span>▼</span>
           <select
             id="regionSelect"
             className="region-dropdown"
             value={selectedRegion}
             onChange={handleRegionChange}
           >
-                      <div className='select-wrapper'>
-            <span>▼</span>
-            </div>
             <option value="all">경기도 전체</option>
             <option value="east">경기 동부권</option>
             <option value="west">경기 서부권</option>
             <option value="south">경기 남부권</option>
             <option value="north">경기 북부권</option>
           </select>
-          
+          </div>
           <form className="search-container"
           onSubmit={(e)=>{e.preventDefault()}}>
             <input

@@ -15,11 +15,19 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export const fetchLogin = async (userID, password) => {
   const { data, error } = await supabase
     .from('users')
-    .select('*')
+    .select('id, userid, userName, email, phone, profile_image_url, password')
     .eq('userid', userID)
-    .eq('password', password)
-    .single();
-  return { data, error };
+    // .eq('password', password)
+    .maybeSingle();
+    if (error) {
+      return { data: null, error };
+    }
+  
+    if (data && data.password === password) {
+      return { data, error: null };
+    }
+  
+    return { data: null, error: { message: '로그인 실패' } };
 }
 
 //2. 아이디 찾기에 사용하는 api (확인완료)
@@ -131,6 +139,7 @@ export const fetchSignUp = async ({ userID, password, userName, email, phone }) 
     console.log('회원가입 오류:', err);
     return { success: false, error: err };
   }
+  
 };
 
 // 4. 랜덤 프로필 이미지 url을 가져오는 api (확인완료)
@@ -226,11 +235,14 @@ export const changeInfo = async ({
 export const checkPass = async (userID, password) => {
   const { data, error } = await supabase
     .from('users')
-    .select("*")
+    .select('id, userid, userName')
     .eq('userid', userID)
-    .eq('password', password)
-    .single();
-  return { data, error }
+    // .eq('password', password)
+    .maybeSingle();
+    if (data && data.password === password) {
+      return { data, error: null };
+    }
+    return { data: null, error: { message: '비밀번호 불일치' } };
 }
 
 //4. 마이페이지에서 내가 찜한 축제정보 불러오기에 사용하는 api
@@ -310,11 +322,7 @@ export const deleteComment = async (id, userID) => {
 export const AllComments = async (contentid) => {
   const { data, error } = await supabase
     .from('comments')
-    .select(`*,
-        users:userid(
-        userName,
-        profile_image_url)`
-    )
+    .select(`*`)
     .eq('contentid', contentid)
     .order('created_at', { ascending: false }); //최신순으로 정렬
   return { data, error };

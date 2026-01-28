@@ -23,9 +23,8 @@ const CommentList = ({ comments, user, onChangeComment, onDeleteComment }) => {
     <div className="comment-wrap">
       {comments.length === 0 && <p>댓글이 없습니다</p>}
       {comments.map((c) => {
-        const myComment = user?.id === c.userid; //내가 작성한 댓글인지 아닌지
+        const myComment = Number(user?.id) === Number(c.userid); //내가 작성한 댓글인지 아닌지
         const myEdit = editID === c.id; //내가 수정할 댓글인지 아닌지
-
         return (
           <div key={c.id} className="comment-item">
             <div className="profile-info">
