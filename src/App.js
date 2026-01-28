@@ -1,5 +1,5 @@
 import './App.scss';
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import Mainpage from "./components/MainPage/Mainpage";
 import BottomMenuBar from './components/Menubar/BottomMenuBar';
 import TopMenubar from './components/Menubar/TopMenubar';
@@ -11,7 +11,6 @@ import DeleteComplete from './components/MyPage/DeleteComplete';
 import CommentList from './components/MyPage/CommentList';
 import MyMarks from './components/MyPage/MyMarks';
 import MainMap from './components/FestivalMap/MainMap'
-import MainPageTest from './components/MainPageTest';
 import FestivalDetail from "./components/FestivalDetail/FestivalDetail";
 import FestivalCalendar from "./components/CalendarPage/FestivalCalendar";
 import FindPage from "./components/FindPage/FindPage";
@@ -24,13 +23,13 @@ import FestivalUpdate from './utils/FestivalUpdate';
 
 const App = () => {
 const [searchWord,setSearchWord] = useState('');
-const [contentID,setContentID] = useState('');
+const [_contentID,setContentID] = useState('');
 //현재 위치 설정
 const [baseLocate, setBaseLocate] = useState({
   lat: 37.54699,
   lng: 127.09598,
 }); //기본 설정 위치
-const [errorMsg, setErrorMsg] = useState("");
+const [_errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     if (navigator.geolocation) {
